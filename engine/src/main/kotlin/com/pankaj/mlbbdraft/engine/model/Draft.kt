@@ -38,8 +38,8 @@ data class DraftState(
     val mode: DraftMode = DraftMode.RANKED,
     /** Which side bans and picks first. */
     val firstPick: Side = Side.ALLY,
-    val allyBans: List<String?> = List(DraftFormats.banCount(DraftMode.RANKED)) { null },
-    val enemyBans: List<String?> = List(DraftFormats.banCount(DraftMode.RANKED)) { null },
+    val allyBans: List<String?> = List(DraftFormats.defaultBanCount(DraftMode.RANKED)) { null },
+    val enemyBans: List<String?> = List(DraftFormats.defaultBanCount(DraftMode.RANKED)) { null },
     val allyPicks: List<Pick?> = List(TEAM_SIZE) { null },
     val enemyPicks: List<Pick?> = List(TEAM_SIZE) { null },
     /** The lane the user is drafting for. Null = advise all lanes. */
@@ -69,7 +69,10 @@ data class DraftState(
             addAll(enemyPicks.filterNotNull().map { it.heroId })
         }
 
-    val steps: List<DraftStep> get() = DraftFormats.steps(mode, firstPick)
+    /** Bans each side gets. In ranked this is 3, 4 or 5 depending on rank. */
+    val bansPerSide: Int get() = allyBans.size
+
+    val steps: List<DraftStep> get() = DraftFormats.steps(mode, firstPick, bansPerSide)
 
     /** The next unfilled action in draft order, or null when the draft is complete. */
     val currentStep: DraftStep?
@@ -110,14 +113,26 @@ data class DraftState(
         return if (side == Side.ALLY) copy(allyPicks = updated) else copy(enemyPicks = updated)
     }
 
-    /** Clears every ban and pick but keeps mode, side, lane and profile. */
-    fun cleared(): DraftState = forMode(mode, firstPick).copy(myLane = myLane, profile = profile)
+    /** Clears every ban and pick but keeps mode, side, lane, ban count and profile. */
+    fun cleared(): DraftState =
+        forMode(mode, firstPick, bansPerSide).copy(myLane = myLane, profile = profile)
+
+    /** Changes how many bans each side gets, preserving the bans that still fit. */
+    fun withBansPerSide(count: Int): DraftState {
+        val n = count.coerceIn(0, DraftFormats.MAX_BANS)
+        fun resize(list: List<String?>) = List(n) { list.getOrNull(it) }
+        return copy(allyBans = resize(allyBans), enemyBans = resize(enemyBans))
+    }
 
     companion object {
         const val TEAM_SIZE = 5
 
-        fun forMode(mode: DraftMode, firstPick: Side = Side.ALLY): DraftState {
-            val bans = DraftFormats.banCount(mode)
+        fun forMode(
+            mode: DraftMode,
+            firstPick: Side = Side.ALLY,
+            bansPerSide: Int = DraftFormats.defaultBanCount(mode),
+        ): DraftState {
+            val bans = bansPerSide.coerceIn(0, DraftFormats.MAX_BANS)
             return DraftState(
                 mode = mode,
                 firstPick = firstPick,
@@ -129,24 +144,39 @@ data class DraftState(
 }
 
 object DraftFormats {
-    fun banCount(mode: DraftMode): Int = when (mode) {
-        DraftMode.RANKED -> 3
+    const val MAX_BANS = 5
+
+    /**
+     * Ranked bans scale with rank — 3, 4 or 5 per side. Defaulting to 5 because that is
+     * the bracket where anyone bothers with a draft tool; it is selectable in the UI.
+     */
+    fun defaultBanCount(mode: DraftMode): Int = when (mode) {
+        DraftMode.RANKED -> 5
         DraftMode.TOURNAMENT -> 5
         DraftMode.CLASSIC -> 0
     }
 
-    fun steps(mode: DraftMode, firstPick: Side): List<DraftStep> {
+    fun steps(
+        mode: DraftMode,
+        firstPick: Side,
+        bansPerSide: Int = defaultBanCount(mode),
+    ): List<DraftStep> {
         val builder = StepBuilder(firstPick)
+        val bans = bansPerSide.coerceIn(0, MAX_BANS)
         when (mode) {
             DraftMode.RANKED -> {
-                builder.bans(1, 1, 1, 1, 1, 1)
+                // Both sides ban one at a time until their bans are used up.
+                builder.bans(*IntArray(bans * 2) { 1 })
                 builder.picks(1, 2, 2, 2, 2, 1)
             }
 
             DraftMode.TOURNAMENT -> {
-                builder.bans(1, 1, 1, 1, 1, 1)
+                // Two ban phases: three each up front, the remainder mid-draft.
+                val first = minOf(3, bans)
+                val second = bans - first
+                builder.bans(*IntArray(first * 2) { 1 })
                 builder.picks(1, 2, 2)
-                builder.bans(1, 1, 1, 1)
+                if (second > 0) builder.bans(*IntArray(second * 2) { 1 })
                 builder.picks(1, 2, 2)
             }
 

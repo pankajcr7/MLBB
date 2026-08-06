@@ -353,6 +353,23 @@
         "curve": { "early": 6, "mid": 8, "late": 8 }
       },
       "notes": "Her dash cancels incoming damage, so slow skillshots never land on her — and every dash feeds Phoveus."
+    },
+    {
+      "id": "suyou",
+      "name": "Suyou",
+      "roles": ["ASSASSIN", "FIGHTER"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["BLINK", "DASH_HEAVY", "HIGH_MOBILITY", "BURST", "EXECUTE", "BACKLINE_ACCESS"],
+      "difficulty": 5,
+      "tier": { "JUNGLE": 7.5 },
+      "attrs": {
+        "durability": 6, "burst": 9, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 9, "waveclear": 7, "engage": 7, "peel": 2, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 6, "range": 2,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Blinks to his thrown blade, and Soul Sever hits harder the more HP you have already lost — he finishes anyone he starts on. Every blink feeds Phoveus."
     }
   ]
 }

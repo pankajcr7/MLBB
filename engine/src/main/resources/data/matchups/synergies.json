@@ -131,6 +131,29 @@
     { "a": "diggie", "b": "gord", "weight": 0.55 },
     { "a": "diggie", "b": "aurora", "weight": 0.55 },
     { "a": "khufra", "b": "aurora", "weight": 0.6 },
-    { "a": "khufra", "b": "layla", "weight": 0.55 }
+    { "a": "khufra", "b": "layla", "weight": 0.55 },
+
+    { "a": "marcel", "b": "odette", "weight": 0.8, "note": "Golden Hour holds them still for the entire Swan Song channel." },
+    { "a": "marcel", "b": "vale", "weight": 0.75 },
+    { "a": "marcel", "b": "aurora", "weight": 0.7 },
+    { "a": "marcel", "b": "zhuxin", "weight": 0.7, "note": "Frozen targets cannot walk out of her lantern field." },
+    { "a": "marcel", "b": "ixia", "weight": 0.65 },
+    { "a": "marcel", "b": "obsidia", "weight": 0.65 },
+    { "a": "kalea", "b": "odette", "weight": 0.7 },
+    { "a": "kalea", "b": "vale", "weight": 0.65 },
+    { "a": "kalea", "b": "obsidia", "weight": 0.6, "note": "She peels for the squishiest carry in the game." },
+    { "a": "kalea", "b": "zhuxin", "weight": 0.6 },
+    { "a": "atlas", "b": "zhuxin", "weight": 0.75 },
+    { "a": "atlas", "b": "zetian", "weight": 0.65 },
+    { "a": "tigreal", "b": "zhuxin", "weight": 0.7 },
+    { "a": "khufra", "b": "zhuxin", "weight": 0.6 },
+    { "a": "estes", "b": "obsidia", "weight": 0.65 },
+    { "a": "lolita", "b": "obsidia", "weight": 0.6 },
+    { "a": "diggie", "b": "obsidia", "weight": 0.6 },
+    { "a": "mathilda", "b": "suyou", "weight": 0.6 },
+    { "a": "angela", "b": "suyou", "weight": 0.55 },
+    { "a": "franco", "b": "zhuxin", "weight": 0.6 },
+    { "a": "carmilla", "b": "zhuxin", "weight": 0.7 },
+    { "a": "johnson", "b": "zhuxin", "weight": 0.65 }
   ]
 }

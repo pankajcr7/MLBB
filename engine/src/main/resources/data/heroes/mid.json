@@ -406,6 +406,40 @@
         "curve": { "early": 6, "mid": 8, "late": 7 }
       },
       "notes": "Untargetable while riding her wave, so she can dive straight through a fight into the backline."
+    },
+    {
+      "id": "zhuxin",
+      "name": "Zhuxin",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BLINK", "ZONE_CONTROL", "POKE", "SHIELD_HEAVY", "AREA_STUN"],
+      "difficulty": 4,
+      "tier": { "MID": 8.0 },
+      "attrs": {
+        "durability": 4, "burst": 8, "sustainedDamage": 9, "crowdControl": 8,
+        "mobility": 6, "waveclear": 8, "engage": 3, "peel": 5, "sustain": 2,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 8,
+        "curve": { "early": 5, "mid": 8, "late": 9 }
+      },
+      "notes": "Soul Snare roots anyone who stays in her lantern field, and she blinks in with a shield — far harder to punish than a normal channelling mage."
+    },
+    {
+      "id": "zetian",
+      "name": "Zetian",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "ZONE_CONTROL", "GLOBAL_PRESENCE", "SUMMONER"],
+      "difficulty": 2,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 5, "waveclear": 8, "engage": 3, "peel": 5, "sustain": 3,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 8,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Her ultimate damages every enemy hero on the map and speeds up her whole team — it decides fights she is not even in."
     }
   ]
 }

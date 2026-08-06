@@ -15,6 +15,9 @@ sealed interface SyncOutcome {
     data class Updated(val report: MetaApplyReport) : SyncOutcome
     data object AlreadyCurrent : SyncOutcome
     data object NotStale : SyncOutcome
+
+    /** No feed at the URL yet. Expected until the publishing job has run once. */
+    data object NotPublished : SyncOutcome
     data class Failed(val reason: String) : SyncOutcome
 }
 
@@ -72,6 +75,8 @@ class MetaRepository(context: Context) {
                 prefs.edit().putLong(KEY_FETCHED_AT, nowMillis).apply()
                 SyncOutcome.AlreadyCurrent
             }
+
+            is MetaFetcher.Result.NotPublished -> SyncOutcome.NotPublished
 
             is MetaFetcher.Result.Failure -> SyncOutcome.Failed(result.reason)
 

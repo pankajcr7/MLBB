@@ -1,0 +1,852 @@
+{
+  "patch": "bootstrap-no-live-source",
+  "updatedAt": "2026-08-06T11:59:45Z",
+  "source": "tools/bootstrap_meta.py (bundled tiers, not live statistics)",
+  "heroes": [
+    {
+      "name": "Yu Zhong",
+      "lane": "EXP",
+      "tier": 8.0
+    },
+    {
+      "name": "Paquito",
+      "lane": "EXP",
+      "tier": 8.0
+    },
+    {
+      "name": "Paquito",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Arlott",
+      "lane": "EXP",
+      "tier": 8.0
+    },
+    {
+      "name": "Arlott",
+      "lane": "JUNGLE",
+      "tier": 7.0
+    },
+    {
+      "name": "Dyrroth",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Terizla",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Guinevere",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Silvanna",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Esmeralda",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Uranus",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Phoveus",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Masha",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "X.Borg",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Thamuz",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Chou",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Chou",
+      "lane": "ROAM",
+      "tier": 8.0
+    },
+    {
+      "name": "Cici",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Aldous",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Alpha",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Argus",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Badang",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Balmond",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Freya",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Hilda",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Jawhead",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Jawhead",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Khaleed",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Lapu-Lapu",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Leomord",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Leomord",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Minsitthar",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Minsitthar",
+      "lane": "ROAM",
+      "tier": 6.0
+    },
+    {
+      "name": "Roger",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Roger",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Ruby",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Ruby",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Sun",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Sun",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Zilong",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Zilong",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Bane",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Alice",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Alice",
+      "lane": "MID",
+      "tier": 5.5
+    },
+    {
+      "name": "Lukas",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Lukas",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Sora",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Beatrix",
+      "lane": "GOLD",
+      "tier": 8.0
+    },
+    {
+      "name": "Melissa",
+      "lane": "GOLD",
+      "tier": 8.5
+    },
+    {
+      "name": "Ixia",
+      "lane": "GOLD",
+      "tier": 8.0
+    },
+    {
+      "name": "Claude",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Claude",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Granger",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Granger",
+      "lane": "JUNGLE",
+      "tier": 7.0
+    },
+    {
+      "name": "Lesley",
+      "lane": "GOLD",
+      "tier": 7.0
+    },
+    {
+      "name": "Wanwan",
+      "lane": "GOLD",
+      "tier": 7.0
+    },
+    {
+      "name": "Karrie",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Brody",
+      "lane": "GOLD",
+      "tier": 7.0
+    },
+    {
+      "name": "Bruno",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Moskov",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Miya",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Layla",
+      "lane": "GOLD",
+      "tier": 5.0
+    },
+    {
+      "name": "Clint",
+      "lane": "GOLD",
+      "tier": 6.0
+    },
+    {
+      "name": "Hanabi",
+      "lane": "GOLD",
+      "tier": 6.0
+    },
+    {
+      "name": "Irithel",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Kimmy",
+      "lane": "GOLD",
+      "tier": 6.0
+    },
+    {
+      "name": "Kimmy",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Natan",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Obsidia",
+      "lane": "GOLD",
+      "tier": 7.0
+    },
+    {
+      "name": "Ling",
+      "lane": "JUNGLE",
+      "tier": 8.0
+    },
+    {
+      "name": "Fanny",
+      "lane": "JUNGLE",
+      "tier": 7.0
+    },
+    {
+      "name": "Lancelot",
+      "lane": "JUNGLE",
+      "tier": 8.0
+    },
+    {
+      "name": "Gusion",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Gusion",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Hayabusa",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Julian",
+      "lane": "JUNGLE",
+      "tier": 8.0
+    },
+    {
+      "name": "Julian",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Yin",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Yin",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Joy",
+      "lane": "JUNGLE",
+      "tier": 8.0
+    },
+    {
+      "name": "Aamon",
+      "lane": "JUNGLE",
+      "tier": 7.0
+    },
+    {
+      "name": "Nolan",
+      "lane": "JUNGLE",
+      "tier": 8.0
+    },
+    {
+      "name": "Karina",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Fredrinn",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Fredrinn",
+      "lane": "EXP",
+      "tier": 7.0
+    },
+    {
+      "name": "Martis",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Martis",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Yi Sun-shin",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Saber",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Natalia",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Helcurt",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Hanzo",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Alucard",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Alucard",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Aulus",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Aulus",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Benedetta",
+      "lane": "JUNGLE",
+      "tier": 7.0
+    },
+    {
+      "name": "Benedetta",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Suyou",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Kagura",
+      "lane": "MID",
+      "tier": 8.5
+    },
+    {
+      "name": "Valentina",
+      "lane": "MID",
+      "tier": 8.0
+    },
+    {
+      "name": "Lunox",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Pharsa",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Yve",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Cecilion",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Xavier",
+      "lane": "MID",
+      "tier": 8.0
+    },
+    {
+      "name": "Vale",
+      "lane": "MID",
+      "tier": 7.0
+    },
+    {
+      "name": "Eudora",
+      "lane": "MID",
+      "tier": 6.0
+    },
+    {
+      "name": "Odette",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Lylia",
+      "lane": "MID",
+      "tier": 7.0
+    },
+    {
+      "name": "Novaria",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Luo Yi",
+      "lane": "MID",
+      "tier": 7.0
+    },
+    {
+      "name": "Luo Yi",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Harith",
+      "lane": "MID",
+      "tier": 7.0
+    },
+    {
+      "name": "Harith",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Zhask",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Gord",
+      "lane": "MID",
+      "tier": 6.0
+    },
+    {
+      "name": "Valir",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Vexana",
+      "lane": "MID",
+      "tier": 5.5
+    },
+    {
+      "name": "Nana",
+      "lane": "MID",
+      "tier": 6.0
+    },
+    {
+      "name": "Nana",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Aurora",
+      "lane": "MID",
+      "tier": 6.0
+    },
+    {
+      "name": "Chang'e",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Cyclops",
+      "lane": "MID",
+      "tier": 6.0
+    },
+    {
+      "name": "Harley",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Harley",
+      "lane": "JUNGLE",
+      "tier": 6.0
+    },
+    {
+      "name": "Kadita",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Zhuxin",
+      "lane": "MID",
+      "tier": 8.0
+    },
+    {
+      "name": "Zetian",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Tigreal",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Franco",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Khufra",
+      "lane": "ROAM",
+      "tier": 8.0
+    },
+    {
+      "name": "Atlas",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Grock",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Grock",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Hylos",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Hylos",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Minotaur",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Lolita",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Akai",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Baxia",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Baxia",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Edith",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Edith",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Chip",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Estes",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Angela",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Rafaela",
+      "lane": "ROAM",
+      "tier": 6.0
+    },
+    {
+      "name": "Diggie",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Mathilda",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Kaja",
+      "lane": "ROAM",
+      "tier": 7.0
+    },
+    {
+      "name": "Selena",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Selena",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Floryn",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Belerick",
+      "lane": "ROAM",
+      "tier": 6.0
+    },
+    {
+      "name": "Belerick",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Carmilla",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Faramis",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gatotkaca",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gatotkaca",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Johnson",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Popol and Kupa",
+      "lane": "ROAM",
+      "tier": 6.0
+    },
+    {
+      "name": "Popol and Kupa",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Barats",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Barats",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Gloo",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gloo",
+      "lane": "EXP",
+      "tier": 6.0
+    },
+    {
+      "name": "Marcel",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Kalea",
+      "lane": "ROAM",
+      "tier": 7.0
+    }
+  ]
+}

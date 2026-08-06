@@ -25,6 +25,12 @@ class MetaFetcher(
         /** Server says our cache is still current. */
         data object NotModified : Result
 
+        /**
+         * Nothing published at that URL yet. Kept separate from [Failure] because it is
+         * the normal state before you set up the publishing job, not something broken.
+         */
+        data object NotPublished : Result
+
         data class Failure(val reason: String) : Result
     }
 
@@ -58,6 +64,8 @@ class MetaFetcher(
                         Result.Body(body, connection.getHeaderField("ETag"))
                     }
                 }
+
+                HttpURLConnection.HTTP_NOT_FOUND -> Result.NotPublished
 
                 else -> Result.Failure("HTTP $code from the meta feed.")
             }

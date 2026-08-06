@@ -138,7 +138,7 @@ object ItemAdvisor {
                 priority = 5,
             )
             advice += ItemAdvice(
-                item = "Winter Truncheon",
+                item = "Winter Crown",
                 reason = "Freezes you out of a suppression or burst chain from $names.",
                 forWhom = "Squishy carries",
                 priority = 4,
@@ -154,8 +154,8 @@ object ItemAdvisor {
         val bursters = enemies.filter { it.attrs.burst >= 9 }
         if (bursters.isNotEmpty()) {
             advice += ItemAdvice(
-                item = "Twilight Armor",
-                reason = "Caps single hits — good specifically against ${bursters.joinToString(", ") { it.name }}.",
+                item = "Athena's Shield",
+                reason = "Blunts repeated burst from ${bursters.joinToString(", ") { it.name }}.",
                 forWhom = "Anyone being targeted",
                 priority = 3,
             )

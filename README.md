@@ -4,8 +4,9 @@ An AI draft assistant for Mobile Legends: Bang Bang. It tells you which hero to 
 each lane against the enemy's picks, what to ban, where your composition is broken, and
 what to build against the draft you ended up facing.
 
-**Status: Phase 0 complete.** Manual input, native Android, fully offline.
-The screen-reading overlay is Phase 1 — see [`docs/PHASE1_OVERLAY.md`](docs/PHASE1_OVERLAY.md).
+**Status: Phase 0 complete, plus a floating overlay.** Native Android, offline-first.
+Automatic screen *reading* is still Phase 1 — see
+[`docs/PHASE1_OVERLAY.md`](docs/PHASE1_OVERLAY.md).
 
 ---
 
@@ -21,7 +22,8 @@ ships a usable, testable brain and Phase 1 bolts detection onto the exact same e
 |---|---|
 | **Pick suggestions** | Per lane or across all open lanes, ranked, with plain-English reasons that name the enemy hero being countered |
 | **Ban suggestions** | Targets meta heroes that specifically beat the heroes *you* play |
-| **Draft-order awareness** | Ranked (3 bans, 1-2-2-2-2-1 snake), Tournament (MPL two-phase), Classic. First pick gets penalised for counter-pick exposure; last pick doesn't |
+| **Bad-pick warnings** | When your team locks a hero that loses to the enemy draft, it says so, names the counter, and tells you what you can still do about it |
+| **Draft-order awareness** | Ranked (3/4/5 bans by rank, 1-2-2-2-2-1 snake), Tournament (MPL two-phase), Classic. First pick gets penalised for counter-pick exposure; last pick doesn't |
 | **Comp health** | Damage split, frontline count, CC / engage / peel / waveclear / sustain meters, early-mid-late power curve, concrete warnings |
 | **Per-hero counter-builds** | Pick Odette on your side and the Build tab becomes *Odette's* build against *their* draft: boots, core, and the situational items their picks force, in purchase order, with real item icons |
 | **Win probability** | An explainable draft-advantage estimate with the factors behind it, updating live as picks come in |
@@ -35,7 +37,7 @@ ships a usable, testable brain and Phase 1 bolts detection onto the exact same e
 Requires JDK 17 and Android SDK 36. `local.properties` is machine-specific and not committed.
 
 ```bash
-./gradlew :engine:test          # 58 tests, pure JVM, no emulator needed
+./gradlew :engine:test          # 69 tests, pure JVM, no emulator needed
 ./gradlew :app:assembleDebug    # app/build/outputs/apk/debug/app-debug.apk    (~17 MB)
 ./gradlew :app:assembleRelease  # app/build/outputs/apk/release/app-release.apk (~11 MB)
 ```
@@ -110,6 +112,32 @@ Counter values come from two sources, blended:
 Only one direction needs authoring. The engine reads `hero → vs` *and* `vs → hero` and
 takes the difference, so "Khufra counters Fanny +0.85" automatically makes Fanny a bad
 pick into Khufra.
+
+## The floating overlay
+
+Tap the picture-in-picture icon in the title bar. The app drops to the background and a
+draggable bubble floats over whatever you are doing, showing the current draft advantage.
+
+Tap it and it **expands to full screen**: bad-pick warnings, both teams' picks with one-tap
+undo, a side toggle for whether you are entering enemy or your own picks, a hero search that
+adds a pick per tap, lane filter, and the top five suggestions — tap one to lock it in. `—`
+minimises back to the bubble at wherever you last dragged it, `APP` opens the full app, `✕`
+stops it. Full screen because entering ten heroes through a 300dp window under a draft timer
+does not work, and minimising hands the game back completely.
+
+This needs **only** the draw-over-apps permission — no screen capture, no reading MLBB's
+memory or pixels. You type the picks; the overlay just means you never have to leave the
+game to do it, which matters when a draft timer is ~25 seconds.
+
+Two implementation details that are easy to get wrong:
+
+- **Focusability is toggled per state.** A permanently focusable overlay swallows the
+  game's touches and makes MLBB unplayable; a permanently non-focusable one can never
+  accept keyboard input for the search box. So the collapsed bubble is
+  `FLAG_NOT_FOCUSABLE` and the expanded panel is focusable, swapped on every toggle.
+- **The overlay and the app share one `DraftSession`**, held by the `Application` rather
+  than a ViewModel. The overlay lives in a Service, so a ViewModel-scoped draft would mean
+  entering picks in the overlay and seeing an empty board when you opened the app.
 
 ## Builds and win probability
 
@@ -207,7 +235,20 @@ To wire up a source, edit `tools/meta_sources.json` — the mapping is data, not
 }
 ```
 
-Then test it offline before letting CI near it:
+**Seeing `no live feed published yet`?** That is the expected state until `data/meta.json`
+exists at the feed URL — the app falls back to bundled data and keeps working. To make the
+URL resolve immediately, publish the bootstrap feed:
+
+```bash
+python tools/bootstrap_meta.py     # writes data/meta.json from the bundled tiers
+git add data/meta.json && git commit -m "chore(meta): bootstrap feed" && git push
+```
+
+That proves the network path end to end. It carries no new information (the patch label
+says `bootstrap-no-live-source`), so tiers will not change until a real source is wired
+below.
+
+Then test a real source offline before letting CI near it:
 
 ```bash
 curl -s '<url>' > raw.json
@@ -228,14 +269,23 @@ specific source's response shape is verified. Candidates, best first:
 
 ## The dataset
 
-`engine/src/main/resources/data/` — **124 of 132 heroes, 315 counter edges, 121 synergy
-edges, 58 items.**
+`engine/src/main/resources/data/` — **all 132 heroes, 362 counter edges, 143 synergy
+edges, 54 items.**
 
-The eight absent heroes (Kalea, Lukas, Marcel, Obsidia, Sora, Suyou, Zetian, Zhuxin) are
-missing on purpose: I could not describe their kits accurately enough to author
-attributes, and invented attributes are worse than a missing hero — the engine would
-recommend them confidently for the wrong reasons. `DatasetIntegrityTest` tracks that list
-and fails if it goes stale.
+Roster and item catalog were both verified against the community wiki's live API rather
+than from memory. Two things that check caught:
+
+- **Four items we recommended no longer exist** (Bloodlust Axe, Scarlet Phantom, Calamity
+  Reaper, Twilight Armor) and one was renamed (Winter Truncheon → **Winter Crown**).
+- The wiki's `Item data` template has an unmaintained `removed` field that disagrees with
+  the article. **The article is authoritative** — items carrying a `{{Removed}}` template
+  are gone, whatever the template field says. Trusting the field would have "fixed" four
+  working items and kept four dead ones.
+
+The eight newest heroes (Kalea, Lukas, Marcel, Obsidia, Sora, Suyou, Zetian, Zhuxin) were
+authored from the wiki's rendered hero pages: official role, lane, damage type and the
+game's own 1–10 Durability / Offense / Control / Difficulty ratings, plus their actual
+skill descriptions for traits. Not guessed.
 
 These are expert-authored estimates, not scraped statistics. That is a deliberate
 starting point, not a finished dataset: there is no official MLBB API, so the choice is

@@ -100,11 +100,11 @@ class BuildAdvisor(private val db: HeroDatabase) {
             )
 
             Role.MARKSMAN in roles && !magic -> listOf(
-                "berserkers-fury", "scarlet-phantom", "windtalker", "endless-battle", "blade-of-despair",
+                "berserkers-fury", "windtalker", "endless-battle", "blade-of-despair", "rose-gold-meteor",
             )
 
             Role.ASSASSIN in roles && magic -> listOf(
-                "calamity-reaper", "genius-wand", "holy-crystal", "concentrated-energy", "divine-glaive",
+                "starlium-scythe", "genius-wand", "holy-crystal", "concentrated-energy", "divine-glaive",
             )
 
             Role.ASSASSIN in roles -> listOf(
@@ -112,11 +112,11 @@ class BuildAdvisor(private val db: HeroDatabase) {
             )
 
             Role.FIGHTER in roles && magic -> listOf(
-                "calamity-reaper", "glowing-wand", "concentrated-energy", "holy-crystal", "divine-glaive",
+                "starlium-scythe", "glowing-wand", "concentrated-energy", "holy-crystal", "divine-glaive",
             )
 
             Role.FIGHTER in roles -> listOf(
-                "bloodlust-axe", "war-axe", "endless-battle", "blade-of-despair", "queens-wings",
+                "haas-claws", "war-axe", "endless-battle", "blade-of-despair", "queens-wings",
             )
 
             // Bruiser mages (Esmeralda-shaped): they want to survive in the fight, not burst from range.
@@ -236,7 +236,11 @@ class BuildAdvisor(private val db: HeroDatabase) {
         val bursters = enemies.filter { it.attrs.burst >= 9 }
         if (bursters.isNotEmpty()) {
             val names = bursters.joinToString(", ") { it.name }
-            val id = if (squishy) "winter-truncheon" else "twilight-armor"
+            val id = when {
+                squishy -> "winter-crown"
+                !magic -> "queens-wings"
+                else -> "athenas-shield"
+            }
             candidates += Triple(id, "$names can delete you in one rotation.", 3)
         }
 

@@ -1,31 +1,30 @@
 package com.pankaj.mlbbdraft
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.pankaj.mlbbdraft.data.MetaRepository
-import com.pankaj.mlbbdraft.data.ProfileStore
-import com.pankaj.mlbbdraft.engine.data.DatasetLoader
+import com.pankaj.mlbbdraft.overlay.OverlayService
 import com.pankaj.mlbbdraft.ui.DraftScreen
 import com.pankaj.mlbbdraft.ui.theme.MlbbDraftTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val notificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { /* optional */ }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        // The bundled dataset is the base layer and is loaded once here; live meta data
-        // is applied over it by the ViewModel. The same instances will be shared with
-        // the Phase 1 overlay service.
-        val baseDb = DatasetLoader.fromResources()
-        val profileStore = ProfileStore(applicationContext)
-        val metaRepository = MetaRepository(applicationContext)
 
         setContent {
             MlbbDraftTheme {
@@ -33,12 +32,36 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    val viewModel: DraftViewModel = viewModel {
-                        DraftViewModel(baseDb, profileStore, metaRepository)
-                    }
-                    DraftScreen(viewModel)
+                    DraftScreen(
+                        session = draftSession,
+                        onStartOverlay = ::startOverlay,
+                        onStopOverlay = { OverlayService.stop(this) },
+                    )
                 }
             }
         }
+    }
+
+    /**
+     * "Draw over other apps" cannot be granted by a dialog — only from Settings. So this
+     * sends the user there and starts the overlay on the next attempt, rather than
+     * failing silently.
+     */
+    private fun startOverlay() {
+        if (!Settings.canDrawOverlays(this)) {
+            startActivity(
+                Intent(
+                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName"),
+                ),
+            )
+            return
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            notificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
+        OverlayService.start(this)
+        // Get out of the way so the bubble is over the game, not over us.
+        moveTaskToBack(true)
     }
 }

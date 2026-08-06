@@ -27,7 +27,7 @@ class BuildAdvisorTest {
 
     @Test
     fun `item catalog loads with icons and summaries`() {
-        assertTrue("Expected a full item catalog, got ${db.items.size}", db.items.size >= 55)
+        assertTrue("Expected a full item catalog, got ${db.items.size}", db.items.size >= 54)
         assertEquals(emptyList<String>(), db.validate())
         assertNotNull(db.item("blade-of-despair"))
         assertNotNull(db.item("necklace-of-durance"))

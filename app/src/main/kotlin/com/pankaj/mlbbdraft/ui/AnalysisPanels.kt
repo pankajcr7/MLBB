@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.report.CompReport
 import com.pankaj.mlbbdraft.engine.report.ItemAdvice
+import com.pankaj.mlbbdraft.engine.report.PickAssessment
+import com.pankaj.mlbbdraft.engine.report.PickVerdict
 import com.pankaj.mlbbdraft.engine.report.ThreatReport
 import com.pankaj.mlbbdraft.ui.theme.AllyBlue
 import com.pankaj.mlbbdraft.ui.theme.Bad
@@ -251,6 +253,58 @@ private fun PriorityDot(priority: Int) {
             .padding(horizontal = 5.dp, vertical = 1.dp),
     ) {
         Text(text = "P$priority", fontSize = 10.sp, color = color)
+    }
+}
+
+/**
+ * Warnings about picks your team has already locked in.
+ *
+ * Kept visually loud and placed above the suggestion list, because it is the one thing
+ * here that is time-critical: you can still ban the counter, cover with a later pick, or
+ * change your items — but only if you notice.
+ */
+@Composable
+fun PickWarningsPanel(warnings: List<PickAssessment>) {
+    PanelCard(title = "PROBLEMS WITH YOUR PICKS", accent = Bad) {
+        warnings.forEach { warning ->
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(
+                                if (warning.verdict == PickVerdict.BAD) {
+                                    Bad.copy(alpha = 0.25f)
+                                } else {
+                                    Warn.copy(alpha = 0.25f)
+                                },
+                            )
+                            .padding(horizontal = 6.dp, vertical = 2.dp),
+                    ) {
+                        Text(
+                            text = warning.verdict.label,
+                            fontSize = 10.sp,
+                            color = if (warning.verdict == PickVerdict.BAD) Bad else Warn,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                    Text(
+                        text = "  ${warning.hero.name}" +
+                            (warning.lane?.let { " · ${it.shortLabel}" } ?: ""),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+                warning.problems.forEach { Bullet(it, Warn) }
+                warning.advice?.let {
+                    Text(
+                        text = "→ $it",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Good,
+                    )
+                }
+            }
+        }
     }
 }
 

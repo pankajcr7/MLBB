@@ -85,7 +85,7 @@ class DraftEngineTest {
         )
 
         var asLastPick = DraftState.forMode(DraftMode.RANKED, firstPick = Side.ALLY)
-        repeat(3) { i ->
+        repeat(asLastPick.bansPerSide) { i ->
             asLastPick = asLastPick.withBan(Side.ALLY, i, "a$i").withBan(Side.ENEMY, i, "b$i")
         }
         repeat(4) { i -> asLastPick = asLastPick.withPick(Side.ALLY, i, Pick("ally$i")) }

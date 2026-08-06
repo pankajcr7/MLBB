@@ -205,6 +205,30 @@ class MetaOverlayTest {
     }
 
     /**
+     * The feed actually published at `data/meta.json` must be consumable. This catches a
+     * broken publish before the app has to discover it over the network.
+     */
+    @Test
+    fun `the published feed applies cleanly`() {
+        val published = java.io.File("../data/meta.json")
+        if (!published.isFile) return // Not published yet — nothing to check.
+
+        val overlay = MetaApplier.parse(published.readText())
+        val (updated, report) = MetaApplier.apply(base, overlay)
+        assertTrue(
+            "Published feed matched only ${report.heroesMatched} heroes: ${report.unknownNames}",
+            report.isUsable,
+        )
+        assertEquals(
+            "Published feed names every hero it knows: ${report.unknownNames}",
+            emptyList<String>(),
+            report.unknownNames,
+        )
+        assertEquals("No hero may be lost", base.size, updated.size)
+        assertTrue("Feed needs a patch label", overlay.patch.isNotBlank())
+    }
+
+    /**
      * End-to-end guard on the real pipeline: this fixture is verbatim output from
      * `tools/build_meta.py`. If the script's shape and the engine's schema ever drift
      * apart, this fails instead of the app silently ignoring every published feed.

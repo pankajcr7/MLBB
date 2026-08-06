@@ -474,6 +474,40 @@
         "curve": { "early": 6, "mid": 7, "late": 8 }
       },
       "notes": "Sticks to a hero and rides them through walls — an inescapable tail on your carry, and he splits into blobs when killed."
+    },
+    {
+      "id": "marcel",
+      "name": "Marcel",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "ZONE_CONTROL", "LONG_RANGE_CC"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.5 },
+      "attrs": {
+        "durability": 7, "burst": 5, "sustainedDamage": 4, "crowdControl": 10,
+        "mobility": 7, "waveclear": 4, "engage": 8, "peel": 8, "sustain": 3,
+        "objectiveDamage": 3, "pickPotential": 7, "teamfight": 10, "range": 4,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Golden Hour freezes everything in a wide area — the single biggest teamfight lockdown in the current roam pool. Draft area damage behind it."
+    },
+    {
+      "id": "kalea",
+      "name": "Kalea",
+      "roles": ["SUPPORT", "FIGHTER"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["KNOCK_UP", "AREA_STUN", "HEAVY_HEAL", "PERCENT_HP_DAMAGE", "ANTI_BLINK"],
+      "difficulty": 4,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 6, "burst": 5, "sustainedDamage": 5, "crowdControl": 9,
+        "mobility": 6, "waveclear": 5, "engage": 8, "peel": 7, "sustain": 7,
+        "objectiveDamage": 4, "pickPotential": 8, "teamfight": 9, "range": 2,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      },
+      "notes": "Tsunami Slam throws a hero wherever she wants, and slamming one into terrain adds more crowd control — a displacement roamer, not a shield bot."
     }
   ]
 }

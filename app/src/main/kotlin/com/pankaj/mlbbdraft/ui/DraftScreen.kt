@@ -11,7 +11,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CloseFullscreen
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PictureInPictureAlt
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Sync
@@ -31,15 +33,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pankaj.mlbbdraft.AnalysisTab
-import com.pankaj.mlbbdraft.DraftViewModel
+import com.pankaj.mlbbdraft.DraftSession
 import com.pankaj.mlbbdraft.engine.model.DraftMode
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.Side
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DraftScreen(viewModel: DraftViewModel) {
-    val draft = viewModel.draft
+fun DraftScreen(
+    session: DraftSession,
+    onStartOverlay: () -> Unit = {},
+    onStopOverlay: () -> Unit = {},
+) {
+    val draft = session.draft
 
     Scaffold(
         topBar = {
@@ -48,23 +54,39 @@ fun DraftScreen(viewModel: DraftViewModel) {
                     Column {
                         Text("MLBB Draft Helper", style = MaterialTheme.typography.titleMedium)
                         Text(
-                            text = if (viewModel.syncing) "Syncing meta…" else viewModel.metaStatus,
+                            text = if (session.syncing) "Syncing meta…" else session.metaStatus,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 },
                 actions = {
-                    IconButton(onClick = viewModel::syncNow, enabled = !viewModel.syncing) {
+                    IconButton(
+                        onClick = if (session.overlayRunning) onStopOverlay else onStartOverlay,
+                    ) {
+                        Icon(
+                            imageVector = if (session.overlayRunning) {
+                                Icons.Default.CloseFullscreen
+                            } else {
+                                Icons.Default.PictureInPictureAlt
+                            },
+                            contentDescription = if (session.overlayRunning) {
+                                "Stop the floating overlay"
+                            } else {
+                                "Float over your game"
+                            },
+                        )
+                    }
+                    IconButton(onClick = session::syncNow, enabled = !session.syncing) {
                         Icon(Icons.Default.Sync, contentDescription = "Sync live meta data")
                     }
-                    IconButton(onClick = viewModel::swapFirstPick) {
+                    IconButton(onClick = session::swapFirstPick) {
                         Icon(Icons.Default.SwapVert, contentDescription = "Swap first pick")
                     }
-                    IconButton(onClick = viewModel::openProfile) {
+                    IconButton(onClick = session::openProfile) {
                         Icon(Icons.Default.Person, contentDescription = "Your heroes")
                     }
-                    IconButton(onClick = viewModel::reset) {
+                    IconButton(onClick = session::reset) {
                         Icon(Icons.Default.Refresh, contentDescription = "Reset draft")
                     }
                 },
@@ -81,24 +103,29 @@ fun DraftScreen(viewModel: DraftViewModel) {
                 .padding(horizontal = 12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            ModeRow(draft.mode, onMode = viewModel::setMode)
+            ModeRow(
+                mode = draft.mode,
+                bansPerSide = draft.bansPerSide,
+                onMode = session::setMode,
+                onBans = session::setBansPerSide,
+            )
 
             DraftBoard(
                 draft = draft,
-                heroName = { id -> viewModel.hero(id)?.name ?: id },
-                onSlot = viewModel::openPicker,
-                onClear = viewModel::clearSlot,
+                heroName = { id -> session.hero(id)?.name ?: id },
+                onSlot = session::openPicker,
+                onClear = session::clearSlot,
             )
 
-            WinBar(viewModel.winProbability)
+            WinBar(session.winProbability)
 
-            LaneRow(viewModel.laneFilter, onLane = viewModel::selectLane)
+            LaneRow(session.laneFilter, onLane = session::selectLane)
 
-            TabRow(selectedTabIndex = viewModel.tab.ordinal) {
+            TabRow(selectedTabIndex = session.tab.ordinal) {
                 AnalysisTab.entries.forEach { tab ->
                     Tab(
-                        selected = viewModel.tab == tab,
-                        onClick = { viewModel.selectTab(tab) },
+                        selected = session.tab == tab,
+                        onClick = { session.selectTab(tab) },
                         text = { Text(tab.label, fontSize = 12.sp) },
                     )
                 }
@@ -109,10 +136,15 @@ fun DraftScreen(viewModel: DraftViewModel) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 24.dp),
             ) {
-                when (viewModel.tab) {
+                when (session.tab) {
                     AnalysisTab.PICKS -> {
-                        item { LaneHint(viewModel.laneFilter) }
-                        itemsIndexed(viewModel.suggestions) { index, suggestion ->
+                        // Problems with picks already locked in come before advice on the
+                        // next pick — you can still ban, itemise or cover for them.
+                        if (session.pickWarnings.isNotEmpty()) {
+                            item { PickWarningsPanel(session.pickWarnings) }
+                        }
+                        item { LaneHint(session.laneFilter) }
+                        itemsIndexed(session.suggestions) { index, suggestion ->
                             SuggestionCard(rank = index + 1, suggestion = suggestion)
                         }
                     }
@@ -126,7 +158,7 @@ fun DraftScreen(viewModel: DraftViewModel) {
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
-                        itemsIndexed(viewModel.banSuggestions) { index, suggestion ->
+                        itemsIndexed(session.banSuggestions) { index, suggestion ->
                             SuggestionCard(rank = index + 1, suggestion = suggestion)
                         }
                     }
@@ -134,58 +166,63 @@ fun DraftScreen(viewModel: DraftViewModel) {
                     AnalysisTab.BUILD -> {
                         item {
                             BuildPanel(
-                                builds = viewModel.builds,
-                                selected = viewModel.buildHero,
-                                onSelect = viewModel::selectBuildHero,
+                                builds = session.builds,
+                                selected = session.buildHero,
+                                onSelect = session::selectBuildHero,
                             )
                         }
                         // Before you have picked anything, team-wide advice is still useful.
-                        if (viewModel.builds.isEmpty()) {
-                            item { ItemsPanel(viewModel.itemAdvice) }
+                        if (session.builds.isEmpty()) {
+                            item { ItemsPanel(session.itemAdvice) }
                         }
                     }
 
                     AnalysisTab.COMP -> {
-                        item { WinProbabilityCard(viewModel.winProbability) }
-                        item { CompPanel(viewModel.allyReport) }
-                        item { CompPanel(viewModel.enemyReport) }
+                        item { WinProbabilityCard(session.winProbability) }
+                        item { CompPanel(session.allyReport) }
+                        item { CompPanel(session.enemyReport) }
                     }
 
-                    AnalysisTab.THREATS -> item { ThreatsPanel(viewModel.threatReport) }
+                    AnalysisTab.THREATS -> item { ThreatsPanel(session.threatReport) }
                 }
             }
         }
     }
 
-    viewModel.picker?.let { target ->
+    session.picker?.let { target ->
         HeroPickerSheet(
             target = target,
-            heroes = viewModel.allHeroes,
+            heroes = session.allHeroes,
             unavailable = draft.usedHeroIds,
-            onPick = viewModel::assign,
-            onClear = { viewModel.assign(null) },
-            onDismiss = viewModel::closePicker,
+            onPick = session::assign,
+            onClear = { session.assign(null) },
+            onDismiss = session::closePicker,
         )
     }
 
-    if (viewModel.showProfile) {
+    if (session.showProfile) {
         ProfileSheet(
             profile = draft.profile,
-            heroes = viewModel.allHeroes,
-            metaStatus = viewModel.metaStatus,
-            feedUrl = viewModel.feedUrl,
-            syncing = viewModel.syncing,
-            onFeedUrl = viewModel::setFeedUrl,
-            onSyncNow = viewModel::syncNow,
-            onComfort = viewModel::setComfort,
-            onToggleRestrict = viewModel::toggleRestrictToOwned,
-            onDismiss = viewModel::closeProfile,
+            heroes = session.allHeroes,
+            metaStatus = session.metaStatus,
+            feedUrl = session.feedUrl,
+            syncing = session.syncing,
+            onFeedUrl = session::setFeedUrl,
+            onSyncNow = session::syncNow,
+            onComfort = session::setComfort,
+            onToggleRestrict = session::toggleRestrictToOwned,
+            onDismiss = session::closeProfile,
         )
     }
 }
 
 @Composable
-private fun ModeRow(mode: DraftMode, onMode: (DraftMode) -> Unit) {
+private fun ModeRow(
+    mode: DraftMode,
+    bansPerSide: Int,
+    onMode: (DraftMode) -> Unit,
+    onBans: (Int) -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -196,6 +233,16 @@ private fun ModeRow(mode: DraftMode, onMode: (DraftMode) -> Unit) {
                 onClick = { onMode(entry) },
                 label = { Text(entry.label, fontSize = 11.sp) },
             )
+        }
+        // Ranked gives 3, 4 or 5 bans per side depending on rank.
+        if (mode != DraftMode.CLASSIC) {
+            listOf(3, 4, 5).forEach { count ->
+                FilterChip(
+                    selected = bansPerSide == count,
+                    onClick = { onBans(count) },
+                    label = { Text("${count} bans", fontSize = 11.sp) },
+                )
+            }
         }
     }
 }

@@ -13,14 +13,47 @@ import org.junit.Test
 
 class DraftFormatsTest {
     @Test
-    fun `ranked draft is three bans each and a 1-2-2-2-2-1 pick snake`() {
+    fun `ranked bans scale with rank`() {
+        // 3, 4 or 5 per side depending on rank; 5 is the default.
+        assertEquals(5, DraftFormats.defaultBanCount(DraftMode.RANKED))
+        listOf(3, 4, 5).forEach { count ->
+            val bans = DraftFormats.steps(DraftMode.RANKED, Side.ALLY, count)
+                .filter { it.kind == StepKind.BAN }
+            assertEquals("$count bans per side", count * 2, bans.size)
+            assertEquals(count, bans.count { it.side == Side.ALLY })
+            assertEquals(count, bans.count { it.side == Side.ENEMY })
+            // Alternating, so neither side bans twice in a row.
+            assertEquals(
+                "Bans must alternate",
+                List(count * 2) { if (it % 2 == 0) Side.ALLY else Side.ENEMY },
+                bans.map { it.side },
+            )
+        }
+    }
+
+    @Test
+    fun `changing the ban count keeps the bans that still fit`() {
+        var state = DraftState.forMode(DraftMode.RANKED)
+        assertEquals(5, state.bansPerSide)
+        repeat(5) { i -> state = state.withBan(Side.ALLY, i, "ban$i") }
+
+        val narrowed = state.withBansPerSide(3)
+        assertEquals(3, narrowed.bansPerSide)
+        assertEquals(listOf("ban0", "ban1", "ban2"), narrowed.allyBans)
+
+        val widened = narrowed.withBansPerSide(5)
+        assertEquals(listOf("ban0", "ban1", "ban2", null, null), widened.allyBans)
+    }
+
+    @Test
+    fun `ranked draft is a 1-2-2-2-2-1 pick snake`() {
         val steps = DraftFormats.steps(DraftMode.RANKED, Side.ALLY)
         val bans = steps.filter { it.kind == StepKind.BAN }
         val picks = steps.filter { it.kind == StepKind.PICK }
 
-        assertEquals(6, bans.size)
+        assertEquals(10, bans.size)
         assertEquals(10, picks.size)
-        assertEquals(3, bans.count { it.side == Side.ALLY })
+        assertEquals(5, bans.count { it.side == Side.ALLY })
         assertEquals(5, picks.count { it.side == Side.ALLY })
 
         val order = picks.map { it.side }
@@ -41,7 +74,7 @@ class DraftFormatsTest {
         assertEquals(5, steps.count { it.kind == StepKind.BAN && it.side == Side.ENEMY })
         // Ban slots must stay inside the list the state allocates for the mode.
         val maxBanSlot = steps.filter { it.kind == StepKind.BAN }.maxOf { it.slot }
-        assertEquals(DraftFormats.banCount(DraftMode.TOURNAMENT) - 1, maxBanSlot)
+        assertEquals(DraftFormats.defaultBanCount(DraftMode.TOURNAMENT) - 1, maxBanSlot)
     }
 
     @Test
@@ -50,8 +83,8 @@ class DraftFormatsTest {
         assertEquals(StepKind.BAN, state.currentStep?.kind)
         assertEquals(Side.ALLY, state.currentStep?.side)
 
-        repeat(3) { i -> state = state.withBan(Side.ALLY, i, "ling") }
-        repeat(3) { i -> state = state.withBan(Side.ENEMY, i, "fanny") }
+        repeat(state.bansPerSide) { i -> state = state.withBan(Side.ALLY, i, "ally-ban$i") }
+        repeat(state.bansPerSide) { i -> state = state.withBan(Side.ENEMY, i, "enemy-ban$i") }
         assertEquals(StepKind.PICK, state.currentStep?.kind)
         assertEquals(Side.ALLY, state.currentStep?.side)
     }
@@ -59,7 +92,7 @@ class DraftFormatsTest {
     @Test
     fun `draft completes when every slot is filled`() {
         var state = DraftState.forMode(DraftMode.RANKED)
-        repeat(3) { i ->
+        repeat(state.bansPerSide) { i ->
             state = state.withBan(Side.ALLY, i, "a$i").withBan(Side.ENEMY, i, "b$i")
         }
         repeat(5) { i ->
@@ -76,7 +109,7 @@ class DraftFormatsTest {
         assertEquals(5, firstPick.enemyPicksAfterOurs)
 
         var lastPick = DraftState.forMode(DraftMode.RANKED, firstPick = Side.ALLY)
-        repeat(3) { i ->
+        repeat(lastPick.bansPerSide) { i ->
             lastPick = lastPick.withBan(Side.ALLY, i, "a$i").withBan(Side.ENEMY, i, "b$i")
         }
         repeat(4) { i -> lastPick = lastPick.withPick(Side.ALLY, i, Pick("ally$i")) }

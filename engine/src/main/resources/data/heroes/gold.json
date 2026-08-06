@@ -301,6 +301,23 @@
         "curve": { "early": 4, "mid": 7, "late": 9 }
       },
       "notes": "A magic-damage marksman — enemies who stack physical defence against your gold lane waste their gold."
+    },
+    {
+      "id": "obsidia",
+      "name": "Obsidia",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "EXECUTE", "DASH_HEAVY", "POKE"],
+      "difficulty": 4,
+      "tier": { "GOLD": 7.0 },
+      "attrs": {
+        "durability": 2, "burst": 8, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 6, "waveclear": 7, "engage": 2, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 6, "teamfight": 7, "range": 7,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "A finisher marksman: her tether pulls her onto a stunned target to close kills. With the lowest durability in the roster, anything that reaches her wins."
     }
   ]
 }

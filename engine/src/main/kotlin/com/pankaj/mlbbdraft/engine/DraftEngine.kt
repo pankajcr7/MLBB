@@ -15,6 +15,8 @@ import com.pankaj.mlbbdraft.engine.report.CompReportBuilder
 import com.pankaj.mlbbdraft.engine.report.HeroBuild
 import com.pankaj.mlbbdraft.engine.report.ItemAdvice
 import com.pankaj.mlbbdraft.engine.report.ItemAdvisor
+import com.pankaj.mlbbdraft.engine.report.PickAssessment
+import com.pankaj.mlbbdraft.engine.report.PickAssessor
 import com.pankaj.mlbbdraft.engine.report.ThreatAnalyzer
 import com.pankaj.mlbbdraft.engine.report.ThreatReport
 import com.pankaj.mlbbdraft.engine.report.WinProbability
@@ -141,6 +143,44 @@ class DraftEngine(
     fun buildsForMyTeam(state: DraftState): List<HeroBuild> = state.picks(Side.ALLY)
         .mapNotNull { pick -> db.hero(pick.heroId)?.let { it to pick.lane } }
         .map { (hero, lane) -> buildFor(hero, state, lane) }
+
+    /**
+     * Verdicts on picks already locked in on [side], worst first.
+     *
+     * Answers "did my team just pick something bad into this enemy draft?" — which the
+     * suggestion list cannot, because it only ranks heroes still available.
+     */
+    fun assessPicks(state: DraftState, side: Side = Side.ALLY): List<PickAssessment> {
+        val enemies = db.heroes(state.heroIds(side.other))
+        val allies = db.heroes(state.heroIds(side))
+        if (enemies.isEmpty()) return emptyList()
+
+        return state.picks(side).mapNotNull { pick ->
+            val hero = db.hero(pick.heroId) ?: return@mapNotNull null
+            val contributions = enemies.map { scorer.counterPair(hero, it) }
+            val counteredBy = contributions
+                .filter { it.value <= -0.25 }
+                .sortedBy { it.value }
+                .map { contribution ->
+                    contribution.other to contribution.notes
+                        .firstOrNull { it.startsWith("Risk") }
+                        ?.removePrefix("Risk — ")
+                }
+
+            PickAssessor.assess(
+                hero = hero,
+                lane = pick.lane,
+                matchup = scorer.counter(hero, enemies).raw,
+                counteredBy = counteredBy,
+                enemies = enemies,
+                allies = allies,
+            )
+        }.sortedBy { it.verdict.ordinal }.sortedByDescending { it.verdict.needsAttention }
+    }
+
+    /** Just the picks worth warning about. */
+    fun pickWarnings(state: DraftState, side: Side = Side.ALLY): List<PickAssessment> =
+        assessPicks(state, side).filter { it.isProblem }
 
     /**
      * Who the draft favours. Explicitly a draft estimate — see [WinProbability].
