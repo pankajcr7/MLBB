@@ -1,0 +1,14 @@
+{
+  "patch": "seed-2026.08 (expert-authored, not scraped)",
+  "heroFiles": [
+    "heroes/gold.json",
+    "heroes/mid.json",
+    "heroes/jungle.json",
+    "heroes/exp.json",
+    "heroes/roam.json"
+  ],
+  "matchupFiles": [
+    "matchups/counters.json",
+    "matchups/synergies.json"
+  ]
+}

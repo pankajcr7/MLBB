@@ -1,0 +1,239 @@
+{
+  "heroes": [
+    {
+      "id": "ling",
+      "name": "Ling",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "BURST", "BACKLINE_ACCESS", "LATE_MONSTER"],
+      "difficulty": 5,
+      "tier": { "JUNGLE": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 3,
+        "mobility": 10, "waveclear": 6, "engage": 6, "peel": 2, "sustain": 1,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 7, "range": 2,
+        "curve": { "early": 5, "mid": 8, "late": 9 }
+      },
+      "notes": "Lives on walls. Anything that removes his wall access or punishes dashes ruins the pick."
+    },
+    {
+      "id": "fanny",
+      "name": "Fanny",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "BURST", "BACKLINE_ACCESS", "EARLY_BULLY"],
+      "difficulty": 5,
+      "tier": { "JUNGLE": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 2,
+        "mobility": 10, "waveclear": 5, "engage": 7, "peel": 1, "sustain": 2,
+        "objectiveDamage": 5, "pickPotential": 10, "teamfight": 6, "range": 2,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "Highest single-target burst in the game, but one well-timed airborne or dash-block ends her flight."
+    },
+    {
+      "id": "lancelot",
+      "name": "Lancelot",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["DASH_HEAVY", "HIGH_MOBILITY", "BURST", "CC_IMMUNITY"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 3,
+        "mobility": 9, "waveclear": 6, "engage": 6, "peel": 2, "sustain": 1,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Immune to damage during his dash, so slow skillshots never land on him."
+    },
+    {
+      "id": "gusion",
+      "name": "Gusion",
+      "roles": ["ASSASSIN", "MAGE"],
+      "lanes": ["JUNGLE", "MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "DASH_HEAVY", "BLINK", "BACKLINE_ACCESS"],
+      "difficulty": 5,
+      "tier": { "JUNGLE": 7.5, "MID": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 3,
+        "mobility": 9, "waveclear": 7, "engage": 6, "peel": 2, "sustain": 1,
+        "objectiveDamage": 5, "pickPotential": 10, "teamfight": 6, "range": 4,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      }
+    },
+    {
+      "id": "hayabusa",
+      "name": "Hayabusa",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "HIGH_MOBILITY", "SPLIT_PUSH", "BACKLINE_ACCESS", "CC_IMMUNITY"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 7.5 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 7, "crowdControl": 2,
+        "mobility": 8, "waveclear": 7, "engage": 6, "peel": 2, "sustain": 2,
+        "objectiveDamage": 7, "pickPotential": 9, "teamfight": 6, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Untargetable during his ultimate; strong side-lane pressure that forces the enemy to answer him."
+    },
+    {
+      "id": "julian",
+      "name": "Julian",
+      "roles": ["FIGHTER", "MAGE"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "DASH_HEAVY", "AREA_STUN", "BACKLINE_ACCESS"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 8.0, "EXP": 7.0 },
+      "attrs": {
+        "durability": 5, "burst": 9, "sustainedDamage": 7, "crowdControl": 6,
+        "mobility": 7, "waveclear": 7, "engage": 7, "peel": 3, "sustain": 2,
+        "objectiveDamage": 6, "pickPotential": 8, "teamfight": 8, "range": 4,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      }
+    },
+    {
+      "id": "yin",
+      "name": "Yin",
+      "roles": ["FIGHTER", "ASSASSIN"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "DASH_HEAVY", "ZONE_CONTROL", "BACKLINE_ACCESS", "EXECUTE"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 7.5, "EXP": 7.0 },
+      "attrs": {
+        "durability": 5, "burst": 9, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 7, "waveclear": 6, "engage": 6, "peel": 2, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 6, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Ultimate removes one hero from the teamfight entirely — use it on whoever your team cannot handle, their carry or their frontline."
+    },
+    {
+      "id": "joy",
+      "name": "Joy",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "BURST", "CC_IMMUNITY", "BACKLINE_ACCESS"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 8.0 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 10, "waveclear": 7, "engage": 6, "peel": 2, "sustain": 2,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Chains dashes with immunity frames; the dashes are also exactly what Phoveus and Khufra want to see."
+    },
+    {
+      "id": "aamon",
+      "name": "Aamon",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "INVISIBILITY", "BACKLINE_ACCESS", "HIGH_MOBILITY"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 2,
+        "mobility": 7, "waveclear": 7, "engage": 5, "peel": 1, "sustain": 1,
+        "objectiveDamage": 5, "pickPotential": 10, "teamfight": 6, "range": 4,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Goes invisible out of combat, so he chooses every engagement — keep vision up against him."
+    },
+    {
+      "id": "nolan",
+      "name": "Nolan",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "DASH_HEAVY", "HIGH_MOBILITY", "BACKLINE_ACCESS"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 4,
+        "mobility": 9, "waveclear": 7, "engage": 6, "peel": 2, "sustain": 1,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      }
+    },
+    {
+      "id": "karina",
+      "name": "Karina",
+      "roles": ["ASSASSIN", "MAGE"],
+      "lanes": ["JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "TRUE_DAMAGE", "EXECUTE", "BACKLINE_ACCESS", "HIGH_MOBILITY"],
+      "difficulty": 2,
+      "tier": { "JUNGLE": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 7, "crowdControl": 2,
+        "mobility": 8, "waveclear": 6, "engage": 6, "peel": 2, "sustain": 2,
+        "objectiveDamage": 5, "pickPotential": 9, "teamfight": 7, "range": 2,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Resets her ultimate on kills — one squishy pick-off can snowball into the whole backline."
+    },
+    {
+      "id": "fredrinn",
+      "name": "Fredrinn",
+      "roles": ["FIGHTER", "TANK"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "JUNGLE": 7.5, "EXP": 7.0 },
+      "attrs": {
+        "durability": 8, "burst": 7, "sustainedDamage": 8, "crowdControl": 7,
+        "mobility": 5, "waveclear": 8, "engage": 7, "peel": 5, "sustain": 6,
+        "objectiveDamage": 8, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "A jungler you can draft when the team already has enough damage but no frontline."
+    },
+    {
+      "id": "martis",
+      "name": "Martis",
+      "roles": ["FIGHTER"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["EXECUTE", "CC_IMMUNITY", "KNOCK_UP", "DASH_HEAVY"],
+      "difficulty": 3,
+      "tier": { "JUNGLE": 6.5, "EXP": 6.5 },
+      "attrs": {
+        "durability": 6, "burst": 8, "sustainedDamage": 7, "crowdControl": 6,
+        "mobility": 7, "waveclear": 7, "engage": 8, "peel": 3, "sustain": 3,
+        "objectiveDamage": 7, "pickPotential": 8, "teamfight": 7, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "Ultimate refreshes on kills and ignores CC while dashing — chases down low-mobility carries."
+    },
+    {
+      "id": "yi-sun-shin",
+      "name": "Yi Sun-shin",
+      "roles": ["MARKSMAN", "ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["GLOBAL_PRESENCE", "SPLIT_PUSH", "ANTI_TOWER", "POKE"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 7, "sustainedDamage": 8, "crowdControl": 4,
+        "mobility": 7, "waveclear": 8, "engage": 4, "peel": 2, "sustain": 2,
+        "objectiveDamage": 9, "pickPotential": 6, "teamfight": 6, "range": 6,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Global ultimate plus the fastest objective damage in the jungle pool — wins games on the map, not in fights."
+    }
+  ]
+}

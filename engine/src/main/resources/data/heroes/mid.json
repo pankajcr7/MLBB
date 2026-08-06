@@ -1,0 +1,241 @@
+{
+  "heroes": [
+    {
+      "id": "kagura",
+      "name": "Kagura",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["HIGH_MOBILITY", "BLINK", "BURST", "POKE", "ZONE_CONTROL"],
+      "difficulty": 5,
+      "tier": { "MID": 8.5 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 6, "crowdControl": 6,
+        "mobility": 9, "waveclear": 7, "engage": 5, "peel": 5, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 8, "teamfight": 7, "range": 7,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Umbrella blinks make her nearly unkillable in good hands; punishing her needs CC that lands before she separates."
+    },
+    {
+      "id": "valentina",
+      "name": "Valentina",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "HIGH_MOBILITY", "POKE"],
+      "difficulty": 4,
+      "tier": { "MID": 8.0 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 6, "crowdControl": 5,
+        "mobility": 7, "waveclear": 6, "engage": 5, "peel": 4, "sustain": 3,
+        "objectiveDamage": 3, "pickPotential": 8, "teamfight": 8, "range": 7,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Copies an enemy ultimate — her value goes up the scarier the enemy ultimates are, so she gains from a late pick."
+    },
+    {
+      "id": "lunox",
+      "name": "Lunox",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "CC_IMMUNITY", "TRUE_DAMAGE"],
+      "difficulty": 4,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 7, "crowdControl": 3,
+        "mobility": 5, "waveclear": 7, "engage": 3, "peel": 3, "sustain": 2,
+        "objectiveDamage": 4, "pickPotential": 7, "teamfight": 7, "range": 6,
+        "curve": { "early": 5, "mid": 8, "late": 9 }
+      },
+      "notes": "Order side goes untargetable for a moment; Chaos side ignores defences, so tanky enemy comps do not slow her down."
+    },
+    {
+      "id": "pharsa",
+      "name": "Pharsa",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "LONG_RANGE_CC", "AREA_STUN", "ZONE_CONTROL", "GLOBAL_PRESENCE"],
+      "difficulty": 3,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 6, "crowdControl": 6,
+        "mobility": 5, "waveclear": 8, "engage": 3, "peel": 3, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 7, "teamfight": 8, "range": 10,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Needs the enemy held still; pairs with any hard engage roamer."
+    },
+    {
+      "id": "yve",
+      "name": "Yve",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["ZONE_CONTROL", "POKE", "AREA_STUN", "IMMOBILE"],
+      "difficulty": 4,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 8, "crowdControl": 7,
+        "mobility": 3, "waveclear": 8, "engage": 2, "peel": 5, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 5, "teamfight": 9, "range": 10,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Ultimate zone dominates a choke point but locks her in place while channelling."
+    },
+    {
+      "id": "cecilion",
+      "name": "Cecilion",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "SCALING_CARRY", "LATE_MONSTER", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 4, "burst": 8, "sustainedDamage": 9, "crowdControl": 4,
+        "mobility": 3, "waveclear": 9, "engage": 2, "peel": 3, "sustain": 2,
+        "objectiveDamage": 4, "pickPotential": 5, "teamfight": 9, "range": 9,
+        "curve": { "early": 4, "mid": 7, "late": 10 }
+      },
+      "notes": "Stacks unlimited mana into damage; weak and immobile for the first eight minutes."
+    },
+    {
+      "id": "xavier",
+      "name": "Xavier",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "GLOBAL_PRESENCE", "LONG_RANGE_CC", "ZONE_CONTROL", "IMMOBILE"],
+      "difficulty": 3,
+      "tier": { "MID": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 7, "crowdControl": 6,
+        "mobility": 2, "waveclear": 8, "engage": 2, "peel": 4, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 10,
+        "curve": { "early": 6, "mid": 8, "late": 9 }
+      },
+      "notes": "Map-wide ultimate beam; completely immobile, so any hero that reaches him kills him."
+    },
+    {
+      "id": "vale",
+      "name": "Vale",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "AREA_STUN", "ZONE_CONTROL", "POKE"],
+      "difficulty": 4,
+      "tier": { "MID": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 5, "crowdControl": 7,
+        "mobility": 5, "waveclear": 7, "engage": 4, "peel": 4, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 8, "teamfight": 8, "range": 8,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Highest area burst in the game when the enemy is already held in place."
+    },
+    {
+      "id": "eudora",
+      "name": "Eudora",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "AREA_STUN", "EARLY_BULLY", "IMMOBILE"],
+      "difficulty": 1,
+      "tier": { "MID": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 4, "crowdControl": 8,
+        "mobility": 2, "waveclear": 6, "engage": 4, "peel": 4, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 9, "teamfight": 6, "range": 6,
+        "curve": { "early": 7, "mid": 8, "late": 6 }
+      },
+      "notes": "Deletes one squishy target on a single rotation, then has nothing left for the rest of the fight."
+    },
+    {
+      "id": "lylia",
+      "name": "Lylia",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "ZONE_CONTROL", "HIGH_MOBILITY", "SPLIT_PUSH"],
+      "difficulty": 3,
+      "tier": { "MID": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 7, "waveclear": 8, "engage": 3, "peel": 3, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 7, "range": 7,
+        "curve": { "early": 5, "mid": 8, "late": 8 }
+      }
+    },
+    {
+      "id": "novaria",
+      "name": "Novaria",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "LONG_RANGE_CC", "GLOBAL_PRESENCE", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "MID": 7.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 6, "waveclear": 7, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 7, "range": 10,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Reveals the enemy from across the map — strong information advantage around objectives."
+    },
+    {
+      "id": "luo-yi",
+      "name": "Luo Yi",
+      "roles": ["MAGE"],
+      "lanes": ["MID", "ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "ZONE_CONTROL", "GLOBAL_PRESENCE", "IMMOBILE"],
+      "difficulty": 4,
+      "tier": { "MID": 7.0, "ROAM": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 7, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 3, "waveclear": 7, "engage": 7, "peel": 4, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 9, "range": 8,
+        "curve": { "early": 5, "mid": 7, "late": 8 }
+      },
+      "notes": "Ultimate teleports the whole team into a fight, and her pull sets up any area burst."
+    },
+    {
+      "id": "harith",
+      "name": "Harith",
+      "roles": ["MAGE", "ASSASSIN"],
+      "lanes": ["MID", "JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "LATE_MONSTER", "SCALING_CARRY"],
+      "difficulty": 4,
+      "tier": { "MID": 7.0, "JUNGLE": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 7, "sustainedDamage": 9, "crowdControl": 3,
+        "mobility": 9, "waveclear": 7, "engage": 4, "peel": 3, "sustain": 2,
+        "objectiveDamage": 6, "pickPotential": 6, "teamfight": 8, "range": 5,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Dashes through skillshots for free; feeds Phoveus badly."
+    },
+    {
+      "id": "zhask",
+      "name": "Zhask",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["SUMMONER", "ZONE_CONTROL", "POKE", "ANTI_TOWER", "IMMOBILE"],
+      "difficulty": 3,
+      "tier": { "MID": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 3, "waveclear": 8, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 6, "teamfight": 7, "range": 8,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Nightmare Spawn shreds towers; he cannot defend himself once someone walks at him."
+    }
+  ]
+}

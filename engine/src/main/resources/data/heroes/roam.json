@@ -1,0 +1,343 @@
+{
+  "heroes": [
+    {
+      "id": "tigreal",
+      "name": "Tigreal",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "ZONE_CONTROL"],
+      "difficulty": 2,
+      "tier": { "ROAM": 7.5 },
+      "attrs": {
+        "durability": 9, "burst": 4, "sustainedDamage": 3, "crowdControl": 9,
+        "mobility": 4, "waveclear": 3, "engage": 9, "peel": 7, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "Ultimate gathers the whole enemy team into one spot — the classic setup for area burst."
+    },
+    {
+      "id": "franco",
+      "name": "Franco",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["HOOK", "SUPPRESSION", "LONG_RANGE_CC"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 8, "burst": 5, "sustainedDamage": 4, "crowdControl": 9,
+        "mobility": 4, "waveclear": 3, "engage": 8, "peel": 6, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 10, "teamfight": 6, "range": 7,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "One hook plus suppression removes a hero from the game. Loses most of his value into Diggie or purify."
+    },
+    {
+      "id": "khufra",
+      "name": "Khufra",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["ANTI_BLINK", "KNOCK_UP", "AREA_STUN", "ZONE_CONTROL", "DASH_HEAVY"],
+      "difficulty": 3,
+      "tier": { "ROAM": 8.0 },
+      "attrs": {
+        "durability": 9, "burst": 5, "sustainedDamage": 4, "crowdControl": 9,
+        "mobility": 7, "waveclear": 4, "engage": 9, "peel": 8, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 7, "teamfight": 9, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "Ball form blocks dashes and blinks outright — the default answer to a mobility jungler."
+    },
+    {
+      "id": "atlas",
+      "name": "Atlas",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "ZONE_CONTROL", "KNOCK_UP", "LONG_RANGE_CC"],
+      "difficulty": 4,
+      "tier": { "ROAM": 7.5 },
+      "attrs": {
+        "durability": 9, "burst": 5, "sustainedDamage": 3, "crowdControl": 10,
+        "mobility": 5, "waveclear": 4, "engage": 10, "peel": 6, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 7, "teamfight": 10, "range": 5,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "The strongest multi-hero engage in the game; needs follow-up area damage drafted behind it."
+    },
+    {
+      "id": "grock",
+      "name": "Grock",
+      "roles": ["TANK"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "ZONE_CONTROL", "KNOCK_UP", "ANTI_BLINK"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0, "EXP": 6.0 },
+      "attrs": {
+        "durability": 9, "burst": 5, "sustainedDamage": 5, "crowdControl": 8,
+        "mobility": 6, "waveclear": 5, "engage": 8, "peel": 8, "sustain": 3,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 7 }
+      },
+      "notes": "His wall cuts off escape routes and blocks wall-jumpers from crossing."
+    },
+    {
+      "id": "hylos",
+      "name": "Hylos",
+      "roles": ["TANK"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["ZONE_CONTROL", "AREA_STUN", "KNOCK_UP"],
+      "difficulty": 2,
+      "tier": { "ROAM": 6.5, "EXP": 6.0 },
+      "attrs": {
+        "durability": 10, "burst": 4, "sustainedDamage": 5, "crowdControl": 8,
+        "mobility": 5, "waveclear": 5, "engage": 8, "peel": 6, "sustain": 5,
+        "objectiveDamage": 4, "pickPotential": 5, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "The largest HP pool in the game, which is exactly what percent-HP damage wants to see."
+    },
+    {
+      "id": "minotaur",
+      "name": "Minotaur",
+      "roles": ["TANK", "SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "KNOCK_UP", "HEAVY_HEAL"],
+      "difficulty": 2,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 9, "burst": 4, "sustainedDamage": 4, "crowdControl": 9,
+        "mobility": 3, "waveclear": 4, "engage": 8, "peel": 7, "sustain": 6,
+        "objectiveDamage": 3, "pickPotential": 5, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Needs rage before his ultimate lands, so he telegraphs the engage."
+    },
+    {
+      "id": "lolita",
+      "name": "Lolita",
+      "roles": ["TANK", "SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["ANTI_BASIC_ATTACK", "AREA_STUN", "KNOCK_UP"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 9, "burst": 4, "sustainedDamage": 3, "crowdControl": 8,
+        "mobility": 4, "waveclear": 4, "engage": 7, "peel": 9, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 5, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Her shield blocks ranged basic attacks entirely — a structural counter to marksman-heavy enemy comps."
+    },
+    {
+      "id": "akai",
+      "name": "Akai",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["ZONE_CONTROL", "AREA_STUN", "KNOCK_UP", "ANTI_BLINK"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 9, "burst": 4, "sustainedDamage": 4, "crowdControl": 9,
+        "mobility": 5, "waveclear": 5, "engage": 8, "peel": 7, "sustain": 3,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Ultimate pins a hero against terrain for a very long time — kills anyone without a cleanse."
+    },
+    {
+      "id": "baxia",
+      "name": "Baxia",
+      "roles": ["TANK"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["ANTI_HEAL_KIT", "HIGH_MOBILITY", "AREA_STUN"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.5, "EXP": 6.0 },
+      "attrs": {
+        "durability": 9, "burst": 5, "sustainedDamage": 6, "crowdControl": 7,
+        "mobility": 8, "waveclear": 6, "engage": 8, "peel": 5, "sustain": 6,
+        "objectiveDamage": 4, "pickPotential": 5, "teamfight": 8, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "His kit cuts enemy healing and shielding without an item slot — the tank answer to a sustain comp."
+    },
+    {
+      "id": "edith",
+      "name": "Edith",
+      "roles": ["TANK", "MARKSMAN"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["KNOCK_UP", "AREA_STUN", "POKE"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0, "EXP": 6.5 },
+      "attrs": {
+        "durability": 9, "burst": 7, "sustainedDamage": 7, "crowdControl": 8,
+        "mobility": 5, "waveclear": 6, "engage": 8, "peel": 6, "sustain": 3,
+        "objectiveDamage": 5, "pickPotential": 6, "teamfight": 9, "range": 6,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Tanks the engage, then switches to a ranged damage form for the rest of the fight."
+    },
+    {
+      "id": "chip",
+      "name": "Chip",
+      "roles": ["TANK", "SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["GLOBAL_PRESENCE", "AREA_STUN", "KNOCK_UP", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.5 },
+      "attrs": {
+        "durability": 8, "burst": 5, "sustainedDamage": 4, "crowdControl": 8,
+        "mobility": 7, "waveclear": 4, "engage": 8, "peel": 7, "sustain": 3,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 9, "range": 4,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Portals give the team map-wide rotations — turns any lane into a numbers advantage."
+    },
+    {
+      "id": "estes",
+      "name": "Estes",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["HEAVY_HEAL", "IMMOBILE"],
+      "difficulty": 2,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 5, "burst": 3, "sustainedDamage": 4, "crowdControl": 5,
+        "mobility": 2, "waveclear": 4, "engage": 2, "peel": 8, "sustain": 10,
+        "objectiveDamage": 3, "pickPotential": 3, "teamfight": 9, "range": 6,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Team-wide healing that wins long fights outright — but anti-heal items halve it and he cannot escape anything."
+    },
+    {
+      "id": "angela",
+      "name": "Angela",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["SHIELD_HEAVY", "GLOBAL_PRESENCE", "HEAVY_HEAL"],
+      "difficulty": 2,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 4, "burst": 4, "sustainedDamage": 4, "crowdControl": 6,
+        "mobility": 5, "waveclear": 4, "engage": 4, "peel": 9, "sustain": 8,
+        "objectiveDamage": 3, "pickPotential": 4, "teamfight": 9, "range": 6,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Ultimate attaches her to any ally anywhere on the map — enables a diving carry to go in alone."
+    },
+    {
+      "id": "rafaela",
+      "name": "Rafaela",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["HEAVY_HEAL", "AREA_STUN"],
+      "difficulty": 1,
+      "tier": { "ROAM": 6.0 },
+      "attrs": {
+        "durability": 5, "burst": 4, "sustainedDamage": 5, "crowdControl": 6,
+        "mobility": 6, "waveclear": 5, "engage": 4, "peel": 7, "sustain": 8,
+        "objectiveDamage": 3, "pickPotential": 4, "teamfight": 8, "range": 6,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      }
+    },
+    {
+      "id": "diggie",
+      "name": "Diggie",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["ANTI_CC_TEAM", "PURIFY_KIT", "ZONE_CONTROL", "REVIVE"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 4, "burst": 4, "sustainedDamage": 3, "crowdControl": 7,
+        "mobility": 5, "waveclear": 4, "engage": 3, "peel": 10, "sustain": 3,
+        "objectiveDamage": 3, "pickPotential": 4, "teamfight": 9, "range": 6,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Ultimate clears all CC from allies and makes them immune — a hard counter to hook and lock-down drafts."
+    },
+    {
+      "id": "mathilda",
+      "name": "Mathilda",
+      "roles": ["SUPPORT", "ASSASSIN"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "BACKLINE_ACCESS", "AREA_STUN"],
+      "difficulty": 3,
+      "tier": { "ROAM": 7.5 },
+      "attrs": {
+        "durability": 6, "burst": 6, "sustainedDamage": 5, "crowdControl": 7,
+        "mobility": 9, "waveclear": 5, "engage": 8, "peel": 8, "sustain": 3,
+        "objectiveDamage": 4, "pickPotential": 7, "teamfight": 8, "range": 4,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Carries a teammate into the fight and gives them a shield — pairs with a diving jungler."
+    },
+    {
+      "id": "kaja",
+      "name": "Kaja",
+      "roles": ["SUPPORT", "FIGHTER"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["SUPPRESSION", "BACKLINE_ACCESS", "LONG_RANGE_CC"],
+      "difficulty": 4,
+      "tier": { "ROAM": 7.0 },
+      "attrs": {
+        "durability": 7, "burst": 6, "sustainedDamage": 5, "crowdControl": 9,
+        "mobility": 7, "waveclear": 5, "engage": 8, "peel": 6, "sustain": 3,
+        "objectiveDamage": 4, "pickPotential": 10, "teamfight": 7, "range": 4,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Drags one enemy out of position and suppresses them the whole way — deletes an immobile carry."
+    },
+    {
+      "id": "selena",
+      "name": "Selena",
+      "roles": ["ASSASSIN", "MAGE"],
+      "lanes": ["ROAM", "MID"],
+      "damageType": "MAGIC",
+      "traits": ["LONG_RANGE_CC", "BURST", "POKE", "ZONE_CONTROL"],
+      "difficulty": 5,
+      "tier": { "ROAM": 7.5, "MID": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 6, "waveclear": 6, "engage": 6, "peel": 5, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 9, "teamfight": 7, "range": 8,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "A roamer who also carries: a landed arrow from fog is a free kill for the team."
+    },
+    {
+      "id": "floryn",
+      "name": "Floryn",
+      "roles": ["SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["HEAVY_HEAL", "GLOBAL_PRESENCE", "SHIELD_HEAVY"],
+      "difficulty": 1,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 3, "sustainedDamage": 4, "crowdControl": 4,
+        "mobility": 5, "waveclear": 4, "engage": 2, "peel": 8, "sustain": 10,
+        "objectiveDamage": 3, "pickPotential": 3, "teamfight": 8, "range": 6,
+        "curve": { "early": 5, "mid": 7, "late": 8 }
+      },
+      "notes": "Heals and buffs the whole team from anywhere on the map; almost no CC and no escape."
+    }
+  ]
+}

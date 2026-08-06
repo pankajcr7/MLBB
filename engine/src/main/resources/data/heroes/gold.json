@@ -1,0 +1,204 @@
+{
+  "heroes": [
+    {
+      "id": "beatrix",
+      "name": "Beatrix",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["POKE", "EXECUTE", "SCALING_CARRY", "BURST"],
+      "difficulty": 5,
+      "tier": { "GOLD": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 8, "crowdControl": 2,
+        "mobility": 4, "waveclear": 7, "engage": 2, "peel": 2, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 6, "teamfight": 7, "range": 9,
+        "curve": { "early": 7, "mid": 8, "late": 8 }
+      },
+      "notes": "Carries two of four guns; Renner snipes from outside every non-ultimate range."
+    },
+    {
+      "id": "melissa",
+      "name": "Melissa",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["ZONE_CONTROL", "SCALING_CARRY", "POKE", "ANTI_TOWER"],
+      "difficulty": 2,
+      "tier": { "GOLD": 8.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 6, "waveclear": 8, "engage": 1, "peel": 5, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 5, "teamfight": 7, "range": 8,
+        "curve": { "early": 6, "mid": 8, "late": 9 }
+      },
+      "notes": "Ultimate zone keeps melee heroes out entirely — a structural answer to dive comps."
+    },
+    {
+      "id": "ixia",
+      "name": "Ixia",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "LATE_MONSTER", "ZONE_CONTROL", "IMMOBILE"],
+      "difficulty": 2,
+      "tier": { "GOLD": 8.0 },
+      "attrs": {
+        "durability": 3, "burst": 6, "sustainedDamage": 9, "crowdControl": 2,
+        "mobility": 2, "waveclear": 8, "engage": 1, "peel": 1, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 4, "teamfight": 8, "range": 7,
+        "curve": { "early": 5, "mid": 8, "late": 9 }
+      },
+      "notes": "Enormous grouped-fight damage with no escape at all — needs a peeling roamer drafted with her."
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["HIGH_MOBILITY", "SCALING_CARRY", "LATE_MONSTER"],
+      "difficulty": 4,
+      "tier": { "GOLD": 7.5, "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 6, "sustainedDamage": 9, "crowdControl": 2,
+        "mobility": 8, "waveclear": 7, "engage": 3, "peel": 3, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 4, "teamfight": 9, "range": 6,
+        "curve": { "early": 4, "mid": 7, "late": 10 }
+      },
+      "notes": "Weakest early lane of the meta marksmen, highest teamfight ceiling once items land."
+    },
+    {
+      "id": "granger",
+      "name": "Granger",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "DASH_HEAVY", "POKE"],
+      "difficulty": 3,
+      "tier": { "GOLD": 7.5, "JUNGLE": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 2,
+        "mobility": 6, "waveclear": 8, "engage": 3, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 7, "teamfight": 6, "range": 7,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      }
+    },
+    {
+      "id": "lesley",
+      "name": "Lesley",
+      "roles": ["MARKSMAN", "ASSASSIN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["POKE", "BURST", "INVISIBILITY", "SCALING_CARRY"],
+      "difficulty": 3,
+      "tier": { "GOLD": 7.0 },
+      "attrs": {
+        "durability": 2, "burst": 8, "sustainedDamage": 7, "crowdControl": 3,
+        "mobility": 5, "waveclear": 6, "engage": 1, "peel": 3, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 7, "teamfight": 5, "range": 10,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Longest range in the game but folds instantly to anything that reaches her."
+    },
+    {
+      "id": "wanwan",
+      "name": "Wanwan",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["HIGH_MOBILITY", "DASH_HEAVY", "CC_IMMUNITY", "LATE_MONSTER"],
+      "difficulty": 5,
+      "tier": { "GOLD": 7.0 },
+      "attrs": {
+        "durability": 2, "burst": 7, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 10, "waveclear": 6, "engage": 4, "peel": 2, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 6, "teamfight": 8, "range": 5,
+        "curve": { "early": 4, "mid": 7, "late": 10 }
+      },
+      "notes": "Needs all four weakness marks to ult; her constant dashes feed Phoveus."
+    },
+    {
+      "id": "karrie",
+      "name": "Karrie",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["PERCENT_HP_DAMAGE", "DASH_HEAVY", "LATE_MONSTER"],
+      "difficulty": 3,
+      "tier": { "GOLD": 7.5 },
+      "attrs": {
+        "durability": 3, "burst": 6, "sustainedDamage": 9, "crowdControl": 2,
+        "mobility": 6, "waveclear": 7, "engage": 2, "peel": 2, "sustain": 1,
+        "objectiveDamage": 9, "pickPotential": 4, "teamfight": 8, "range": 6,
+        "curve": { "early": 5, "mid": 7, "late": 10 }
+      },
+      "notes": "Lightwheel marks deal true damage as a share of max HP — the marksman answer to double tank."
+    },
+    {
+      "id": "brody",
+      "name": "Brody",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "POKE", "SCALING_CARRY"],
+      "difficulty": 3,
+      "tier": { "GOLD": 7.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 7, "crowdControl": 4,
+        "mobility": 5, "waveclear": 6, "engage": 3, "peel": 3, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 7, "teamfight": 6, "range": 7,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      }
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["EARLY_BULLY", "POKE", "KNOCK_UP"],
+      "difficulty": 2,
+      "tier": { "GOLD": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 8, "crowdControl": 4,
+        "mobility": 4, "waveclear": 6, "engage": 3, "peel": 2, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 5, "teamfight": 6, "range": 7,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      }
+    },
+    {
+      "id": "moskov",
+      "name": "Moskov",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["POKE", "LATE_MONSTER", "KNOCK_UP", "GLOBAL_PRESENCE"],
+      "difficulty": 2,
+      "tier": { "GOLD": 6.5 },
+      "attrs": {
+        "durability": 2, "burst": 6, "sustainedDamage": 9, "crowdControl": 4,
+        "mobility": 4, "waveclear": 8, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 5, "teamfight": 7, "range": 8,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      }
+    },
+    {
+      "id": "miya",
+      "name": "Miya",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "PURIFY_KIT", "LATE_MONSTER"],
+      "difficulty": 1,
+      "tier": { "GOLD": 5.5 },
+      "attrs": {
+        "durability": 2, "burst": 6, "sustainedDamage": 9, "crowdControl": 1,
+        "mobility": 5, "waveclear": 7, "engage": 1, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 3, "teamfight": 7, "range": 7,
+        "curve": { "early": 4, "mid": 6, "late": 9 }
+      },
+      "notes": "Ultimate clears debuffs and grants invisibility — a free escape from most lock-down."
+    }
+  ]
+}

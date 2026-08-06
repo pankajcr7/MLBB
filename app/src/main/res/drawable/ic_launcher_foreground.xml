@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Crossed lanes over a shield: draft advice, not a game asset. -->
+    <path
+        android:fillColor="#FF6FA8FF"
+        android:pathData="M54,26L74,34V54C74,66 66,76 54,82C42,76 34,66 34,54V34L54,26Z" />
+    <path
+        android:fillColor="#FF0F1117"
+        android:pathData="M46,48H62V54H46Z" />
+    <path
+        android:fillColor="#FF0F1117"
+        android:pathData="M51,40H57V64H51Z" />
+</vector>
