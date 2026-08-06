@@ -9,8 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.pankaj.mlbbdraft.data.MetaRepository
 import com.pankaj.mlbbdraft.data.ProfileStore
-import com.pankaj.mlbbdraft.engine.DraftEngine
 import com.pankaj.mlbbdraft.engine.data.DatasetLoader
 import com.pankaj.mlbbdraft.ui.DraftScreen
 import com.pankaj.mlbbdraft.ui.theme.MlbbDraftTheme
@@ -20,10 +20,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Loaded once here rather than in the ViewModel: the same database instance
-        // will be shared with the Phase 1 overlay service.
-        val engine = DraftEngine(DatasetLoader.fromResources())
+        // The bundled dataset is the base layer and is loaded once here; live meta data
+        // is applied over it by the ViewModel. The same instances will be shared with
+        // the Phase 1 overlay service.
+        val baseDb = DatasetLoader.fromResources()
         val profileStore = ProfileStore(applicationContext)
+        val metaRepository = MetaRepository(applicationContext)
 
         setContent {
             MlbbDraftTheme {
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     val viewModel: DraftViewModel = viewModel {
-                        DraftViewModel(engine, profileStore)
+                        DraftViewModel(baseDb, profileStore, metaRepository)
                     }
                     DraftScreen(viewModel)
                 }

@@ -154,6 +154,23 @@
       "notes": "Deletes one squishy target on a single rotation, then has nothing left for the rest of the fight."
     },
     {
+      "id": "odette",
+      "name": "Odette",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "ZONE_CONTROL", "AREA_STUN", "IMMOBILE"],
+      "difficulty": 3,
+      "tier": { "MID": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 6,
+        "mobility": 3, "waveclear": 7, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 7, "teamfight": 9, "range": 7,
+        "curve": { "early": 5, "mid": 8, "late": 8 }
+      },
+      "notes": "Swan Song is a long channel that roots her in place — she needs a teammate to lock the enemy down first, and she dies instantly to anyone who reaches her."
+    },
+    {
       "id": "lylia",
       "name": "Lylia",
       "roles": ["MAGE"],
@@ -236,6 +253,159 @@
         "curve": { "early": 6, "mid": 8, "late": 8 }
       },
       "notes": "Nightmare Spawn shreds towers; he cannot defend himself once someone walks at him."
+    },
+    {
+      "id": "gord",
+      "name": "Gord",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "ZONE_CONTROL", "TRUE_DAMAGE", "IMMOBILE"],
+      "difficulty": 2,
+      "tier": { "MID": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 3, "waveclear": 8, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 8, "range": 9,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "His continuous magic damage converts to true damage, so magic resist helps against him less than people expect."
+    },
+    {
+      "id": "valir",
+      "name": "Valir",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "ZONE_CONTROL", "AREA_STUN", "PURIFY_KIT"],
+      "difficulty": 3,
+      "tier": { "MID": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 8, "crowdControl": 6,
+        "mobility": 4, "waveclear": 8, "engage": 2, "peel": 6, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 8, "range": 8,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Knockback plus a self-cleanse — very hard for a melee assassin to stick to him."
+    },
+    {
+      "id": "vexana",
+      "name": "Vexana",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "AREA_STUN", "SUMMONER", "IMMOBILE"],
+      "difficulty": 3,
+      "tier": { "MID": 5.5 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 2, "waveclear": 7, "engage": 4, "peel": 4, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 8, "teamfight": 8, "range": 7,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      },
+      "notes": "Her fear locks a hero in place for a full combo, and she raises the first corpse to fight for her."
+    },
+    {
+      "id": "nana",
+      "name": "Nana",
+      "roles": ["MAGE", "SUPPORT"],
+      "lanes": ["MID", "ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "POKE", "ZONE_CONTROL"],
+      "difficulty": 2,
+      "tier": { "MID": 6.0, "ROAM": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 5, "waveclear": 7, "engage": 3, "peel": 7, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 8, "range": 8,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      },
+      "notes": "Molina turns a hero into a cat mid-dash — one of the cheapest answers to a diving assassin."
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "AREA_STUN", "ZONE_CONTROL", "IMMOBILE"],
+      "difficulty": 2,
+      "tier": { "MID": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 5, "crowdControl": 8,
+        "mobility": 2, "waveclear": 7, "engage": 3, "peel": 5, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 8, "teamfight": 8, "range": 8,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "A frozen target takes her whole combo for free. Pairs with anything that groups the enemy first."
+    },
+    {
+      "id": "chang-e",
+      "name": "Chang'e",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "HIGH_MOBILITY", "SCALING_CARRY"],
+      "difficulty": 2,
+      "tier": { "MID": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 9, "crowdControl": 3,
+        "mobility": 7, "waveclear": 8, "engage": 2, "peel": 3, "sustain": 1,
+        "objectiveDamage": 4, "pickPotential": 5, "teamfight": 8, "range": 8,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Very high sustained magic damage from a safe distance, with a speed boost to hold that distance."
+    },
+    {
+      "id": "cyclops",
+      "name": "Cyclops",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "SUPPRESSION", "POKE"],
+      "difficulty": 2,
+      "tier": { "MID": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 7,
+        "mobility": 4, "waveclear": 7, "engage": 3, "peel": 4, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 8, "teamfight": 7, "range": 7,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "His ultimate locks one target in place — a reliable single-target answer to a mobile carry."
+    },
+    {
+      "id": "harley",
+      "name": "Harley",
+      "roles": ["MAGE", "ASSASSIN"],
+      "lanes": ["MID", "JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "BLINK", "HIGH_MOBILITY", "BACKLINE_ACCESS", "EXECUTE"],
+      "difficulty": 3,
+      "tier": { "MID": 6.5, "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 6, "crowdControl": 3,
+        "mobility": 8, "waveclear": 7, "engage": 5, "peel": 2, "sustain": 1,
+        "objectiveDamage": 5, "pickPotential": 9, "teamfight": 6, "range": 5,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Blinks onto a squishy target, bursts, and blinks out. His blinks also feed Phoveus."
+    },
+    {
+      "id": "kadita",
+      "name": "Kadita",
+      "roles": ["MAGE"],
+      "lanes": ["MID"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "AREA_STUN", "KNOCK_UP", "CC_IMMUNITY"],
+      "difficulty": 4,
+      "tier": { "MID": 6.5 },
+      "attrs": {
+        "durability": 4, "burst": 10, "sustainedDamage": 5, "crowdControl": 7,
+        "mobility": 6, "waveclear": 7, "engage": 6, "peel": 4, "sustain": 1,
+        "objectiveDamage": 3, "pickPotential": 8, "teamfight": 8, "range": 6,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Untargetable while riding her wave, so she can dive straight through a fight into the backline."
     }
   ]
 }

@@ -199,6 +199,108 @@
         "curve": { "early": 4, "mid": 6, "late": 9 }
       },
       "notes": "Ultimate clears debuffs and grants invisibility — a free escape from most lock-down."
+    },
+    {
+      "id": "layla",
+      "name": "Layla",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["IMMOBILE", "SCALING_CARRY", "POKE", "LATE_MONSTER"],
+      "difficulty": 1,
+      "tier": { "GOLD": 5.0 },
+      "attrs": {
+        "durability": 2, "burst": 6, "sustainedDamage": 8, "crowdControl": 1,
+        "mobility": 1, "waveclear": 6, "engage": 1, "peel": 1, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 3, "teamfight": 6, "range": 10,
+        "curve": { "early": 4, "mid": 6, "late": 8 }
+      },
+      "notes": "Enormous range and literally no escape skill — she is only ever as safe as her roamer."
+    },
+    {
+      "id": "clint",
+      "name": "Clint",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["POKE", "EARLY_BULLY", "BURST"],
+      "difficulty": 3,
+      "tier": { "GOLD": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 8, "sustainedDamage": 7, "crowdControl": 4,
+        "mobility": 5, "waveclear": 7, "engage": 3, "peel": 3, "sustain": 1,
+        "objectiveDamage": 7, "pickPotential": 6, "teamfight": 6, "range": 8,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "Wins the early lane outright, then falls off — force fights before their carry scales."
+    },
+    {
+      "id": "hanabi",
+      "name": "Hanabi",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "LATE_MONSTER", "CC_IMMUNITY"],
+      "difficulty": 2,
+      "tier": { "GOLD": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 6, "sustainedDamage": 9, "crowdControl": 3,
+        "mobility": 4, "waveclear": 8, "engage": 1, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 3, "teamfight": 8, "range": 7,
+        "curve": { "early": 4, "mid": 6, "late": 9 }
+      },
+      "notes": "While her shield holds she is immune to crowd control, which is why she survives dives that kill other marksmen."
+    },
+    {
+      "id": "irithel",
+      "name": "Irithel",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "LATE_MONSTER", "POKE"],
+      "difficulty": 3,
+      "tier": { "GOLD": 5.5 },
+      "attrs": {
+        "durability": 2, "burst": 6, "sustainedDamage": 9, "crowdControl": 2,
+        "mobility": 5, "waveclear": 7, "engage": 1, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 3, "teamfight": 7, "range": 7,
+        "curve": { "early": 4, "mid": 6, "late": 9 }
+      },
+      "notes": "Attacks while moving during her ultimate, so she kites melee heroes better than her stats suggest."
+    },
+    {
+      "id": "kimmy",
+      "name": "Kimmy",
+      "roles": ["MARKSMAN", "MAGE"],
+      "lanes": ["GOLD", "EXP"],
+      "damageType": "MIXED",
+      "traits": ["POKE", "SCALING_CARRY", "ZONE_CONTROL"],
+      "difficulty": 4,
+      "tier": { "GOLD": 6.0, "EXP": 5.5 },
+      "attrs": {
+        "durability": 3, "burst": 7, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 6, "waveclear": 8, "engage": 2, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 5, "teamfight": 7, "range": 8,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Shoots while moving and scales with both attack and magic power, so neither resist alone answers her."
+    },
+    {
+      "id": "natan",
+      "name": "Natan",
+      "roles": ["MARKSMAN"],
+      "lanes": ["GOLD"],
+      "damageType": "MAGIC",
+      "traits": ["SCALING_CARRY", "LATE_MONSTER", "SUMMONER", "POKE"],
+      "difficulty": 4,
+      "tier": { "GOLD": 6.5 },
+      "attrs": {
+        "durability": 2, "burst": 7, "sustainedDamage": 9, "crowdControl": 3,
+        "mobility": 5, "waveclear": 7, "engage": 2, "peel": 2, "sustain": 1,
+        "objectiveDamage": 8, "pickPotential": 4, "teamfight": 8, "range": 8,
+        "curve": { "early": 4, "mid": 7, "late": 9 }
+      },
+      "notes": "A magic-damage marksman — enemies who stack physical defence against your gold lane waste their gold."
     }
   ]
 }

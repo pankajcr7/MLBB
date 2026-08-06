@@ -48,6 +48,7 @@ data class DatasetManifest(
     val patch: String,
     val heroFiles: List<String>,
     val matchupFiles: List<String> = emptyList(),
+    val itemFiles: List<String> = emptyList(),
 )
 
 @Serializable

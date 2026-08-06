@@ -251,6 +251,307 @@
         "curve": { "early": 6, "mid": 8, "late": 8 }
       },
       "notes": "Wins long trades and disengages from bad ones; anti-heal is the main counterplay."
+    },
+    {
+      "id": "aldous",
+      "name": "Aldous",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "GLOBAL_PRESENCE", "BURST", "EXECUTE", "LATE_MONSTER"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.5 },
+      "attrs": {
+        "durability": 7, "burst": 10, "sustainedDamage": 6, "crowdControl": 5,
+        "mobility": 5, "waveclear": 6, "engage": 8, "peel": 2, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 6, "range": 2,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Stacks unlimited damage and his ultimate crosses the map. If he farms stacks unpunished he one-shots your carry from off screen."
+    },
+    {
+      "id": "alpha",
+      "name": "Alpha",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["SUMMONER", "HEAVY_HEAL", "DASH_HEAVY"],
+      "difficulty": 2,
+      "tier": { "EXP": 5.5 },
+      "attrs": {
+        "durability": 7, "burst": 7, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 6, "waveclear": 7, "engage": 7, "peel": 3, "sustain": 6,
+        "objectiveDamage": 6, "pickPotential": 6, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      }
+    },
+    {
+      "id": "argus",
+      "name": "Argus",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["CC_IMMUNITY", "EXECUTE", "DASH_HEAVY", "LATE_MONSTER"],
+      "difficulty": 2,
+      "tier": { "EXP": 6.0 },
+      "attrs": {
+        "durability": 7, "burst": 8, "sustainedDamage": 8, "crowdControl": 4,
+        "mobility": 6, "waveclear": 6, "engage": 7, "peel": 2, "sustain": 4,
+        "objectiveDamage": 7, "pickPotential": 8, "teamfight": 6, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "His ultimate makes him unkillable for several seconds. Do not fight him during it — walk away and come back."
+    },
+    {
+      "id": "badang",
+      "name": "Badang",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "ZONE_CONTROL", "ANTI_BLINK"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.0 },
+      "attrs": {
+        "durability": 7, "burst": 8, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 5, "waveclear": 6, "engage": 8, "peel": 5, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 8, "teamfight": 8, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "His ultimate pins a hero against terrain — including the wall he creates himself, so there is always a wall."
+    },
+    {
+      "id": "balmond",
+      "name": "Balmond",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["HEAVY_HEAL", "EXECUTE", "PERCENT_HP_DAMAGE"],
+      "difficulty": 1,
+      "tier": { "EXP": 5.5 },
+      "attrs": {
+        "durability": 8, "burst": 7, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 4, "waveclear": 7, "engage": 7, "peel": 3, "sustain": 7,
+        "objectiveDamage": 6, "pickPotential": 7, "teamfight": 7, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "His ultimate executes based on the target's HP, so it goes through tanks as well as carries."
+    },
+    {
+      "id": "freya",
+      "name": "Freya",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["KNOCK_UP", "DASH_HEAVY", "BURST"],
+      "difficulty": 3,
+      "tier": { "EXP": 5.5 },
+      "attrs": {
+        "durability": 7, "burst": 8, "sustainedDamage": 7, "crowdControl": 6,
+        "mobility": 6, "waveclear": 6, "engage": 8, "peel": 3, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 8, "teamfight": 6, "range": 2,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      }
+    },
+    {
+      "id": "hilda",
+      "name": "Hilda",
+      "roles": ["FIGHTER", "TANK"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["EARLY_BULLY", "BURST", "ANTI_TOWER", "HEAVY_HEAL"],
+      "difficulty": 2,
+      "tier": { "EXP": 5.5 },
+      "attrs": {
+        "durability": 8, "burst": 8, "sustainedDamage": 6, "crowdControl": 5,
+        "mobility": 6, "waveclear": 6, "engage": 8, "peel": 3, "sustain": 6,
+        "objectiveDamage": 7, "pickPotential": 8, "teamfight": 6, "range": 2,
+        "curve": { "early": 8, "mid": 7, "late": 5 }
+      },
+      "notes": "Regenerates in the bush and hits very hard early. If she gets ahead in the side lane she never lets go."
+    },
+    {
+      "id": "jawhead",
+      "name": "Jawhead",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP", "ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["SUPPRESSION", "BURST", "KNOCK_UP", "BACKLINE_ACCESS"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.0, "ROAM": 6.5 },
+      "attrs": {
+        "durability": 7, "burst": 8, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 6, "waveclear": 5, "engage": 8, "peel": 7, "sustain": 2,
+        "objectiveDamage": 5, "pickPotential": 9, "teamfight": 7, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "His ultimate throws an enemy — or an ally — across the screen. It both starts fights and rescues teammates."
+    },
+    {
+      "id": "khaleed",
+      "name": "Khaleed",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["HEAVY_HEAL", "KNOCK_UP", "AREA_STUN", "DASH_HEAVY"],
+      "difficulty": 2,
+      "tier": { "EXP": 6.5 },
+      "attrs": {
+        "durability": 8, "burst": 7, "sustainedDamage": 8, "crowdControl": 7,
+        "mobility": 7, "waveclear": 7, "engage": 8, "peel": 4, "sustain": 7,
+        "objectiveDamage": 6, "pickPotential": 7, "teamfight": 8, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      }
+    },
+    {
+      "id": "lapu-lapu",
+      "name": "Lapu-Lapu",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "BURST", "CC_IMMUNITY"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.0 },
+      "attrs": {
+        "durability": 8, "burst": 8, "sustainedDamage": 7, "crowdControl": 7,
+        "mobility": 5, "waveclear": 7, "engage": 8, "peel": 4, "sustain": 4,
+        "objectiveDamage": 6, "pickPotential": 7, "teamfight": 8, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      }
+    },
+    {
+      "id": "leomord",
+      "name": "Leomord",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["KNOCK_UP", "DASH_HEAVY", "EXECUTE", "BURST"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.0, "JUNGLE": 5.5 },
+      "attrs": {
+        "durability": 7, "burst": 8, "sustainedDamage": 8, "crowdControl": 6,
+        "mobility": 7, "waveclear": 7, "engage": 8, "peel": 3, "sustain": 3,
+        "objectiveDamage": 7, "pickPotential": 8, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "On his horse he gains reach and chase — the mounted form is when he actually threatens you."
+    },
+    {
+      "id": "minsitthar",
+      "name": "Minsitthar",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP", "ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["ANTI_BLINK", "AREA_STUN", "ZONE_CONTROL", "KNOCK_UP"],
+      "difficulty": 3,
+      "tier": { "EXP": 5.5, "ROAM": 6.0 },
+      "attrs": {
+        "durability": 8, "burst": 7, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 5, "waveclear": 6, "engage": 8, "peel": 6, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 7, "teamfight": 8, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "His ultimate zone blocks every dash and blink inside it — a hard answer to mobility comps that most players never draft."
+    },
+    {
+      "id": "roger",
+      "name": "Roger",
+      "roles": ["FIGHTER", "MARKSMAN"],
+      "lanes": ["EXP", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["DASH_HEAVY", "BURST", "EXECUTE", "HIGH_MOBILITY"],
+      "difficulty": 4,
+      "tier": { "EXP": 6.0, "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 6, "burst": 9, "sustainedDamage": 8, "crowdControl": 4,
+        "mobility": 8, "waveclear": 7, "engage": 7, "peel": 2, "sustain": 4,
+        "objectiveDamage": 7, "pickPotential": 9, "teamfight": 6, "range": 5,
+        "curve": { "early": 7, "mid": 8, "late": 7 }
+      },
+      "notes": "Switches between a melee wolf and a ranged human, and executes low-HP targets from range in either form."
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "roles": ["FIGHTER", "TANK"],
+      "lanes": ["EXP", "ROAM"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "HEAVY_HEAL", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.5, "ROAM": 6.5 },
+      "attrs": {
+        "durability": 8, "burst": 6, "sustainedDamage": 7, "crowdControl": 8,
+        "mobility": 6, "waveclear": 7, "engage": 8, "peel": 7, "sustain": 7,
+        "objectiveDamage": 5, "pickPotential": 7, "teamfight": 9, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 7 }
+      },
+      "notes": "Pulls several enemies together and heals off every hit — a bruiser who doubles as a second frontline."
+    },
+    {
+      "id": "sun",
+      "name": "Sun",
+      "roles": ["FIGHTER"],
+      "lanes": ["EXP", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["SUMMONER", "SPLIT_PUSH", "ANTI_TOWER", "EARLY_BULLY"],
+      "difficulty": 2,
+      "tier": { "EXP": 5.5, "JUNGLE": 5.5 },
+      "attrs": {
+        "durability": 7, "burst": 6, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 6, "waveclear": 8, "engage": 6, "peel": 2, "sustain": 4,
+        "objectiveDamage": 8, "pickPotential": 5, "teamfight": 6, "range": 2,
+        "curve": { "early": 7, "mid": 7, "late": 6 }
+      },
+      "notes": "His clones take towers while you are fighting elsewhere. Track him or lose the map while winning fights."
+    },
+    {
+      "id": "zilong",
+      "name": "Zilong",
+      "roles": ["FIGHTER", "ASSASSIN"],
+      "lanes": ["EXP", "JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["DASH_HEAVY", "SPLIT_PUSH", "ANTI_TOWER", "BACKLINE_ACCESS"],
+      "difficulty": 1,
+      "tier": { "EXP": 5.5, "JUNGLE": 5.5 },
+      "attrs": {
+        "durability": 6, "burst": 8, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 8, "waveclear": 7, "engage": 7, "peel": 2, "sustain": 3,
+        "objectiveDamage": 8, "pickPotential": 8, "teamfight": 6, "range": 2,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      },
+      "notes": "His spear flips a hero behind him — he can drag your carry out of position and then chase them down."
+    },
+    {
+      "id": "bane",
+      "name": "Bane",
+      "roles": ["MAGE", "FIGHTER"],
+      "lanes": ["EXP"],
+      "damageType": "MAGIC",
+      "traits": ["POKE", "SUMMONER", "ZONE_CONTROL"],
+      "difficulty": 2,
+      "tier": { "EXP": 5.5 },
+      "attrs": {
+        "durability": 7, "burst": 7, "sustainedDamage": 8, "crowdControl": 5,
+        "mobility": 4, "waveclear": 8, "engage": 6, "peel": 3, "sustain": 4,
+        "objectiveDamage": 7, "pickPotential": 6, "teamfight": 7, "range": 6,
+        "curve": { "early": 7, "mid": 7, "late": 7 }
+      }
+    },
+    {
+      "id": "alice",
+      "name": "Alice",
+      "roles": ["MAGE", "TANK"],
+      "lanes": ["EXP", "MID"],
+      "damageType": "MAGIC",
+      "traits": ["HEAVY_HEAL", "DASH_HEAVY", "SCALING_CARRY", "LATE_MONSTER"],
+      "difficulty": 3,
+      "tier": { "EXP": 6.0, "MID": 5.5 },
+      "attrs": {
+        "durability": 8, "burst": 7, "sustainedDamage": 9, "crowdControl": 5,
+        "mobility": 6, "waveclear": 8, "engage": 7, "peel": 3, "sustain": 8,
+        "objectiveDamage": 6, "pickPotential": 6, "teamfight": 8, "range": 4,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Drains HP to sustain herself in a fight and only gets stronger the longer it lasts. Anti-heal is the counterplay."
     }
   ]
 }

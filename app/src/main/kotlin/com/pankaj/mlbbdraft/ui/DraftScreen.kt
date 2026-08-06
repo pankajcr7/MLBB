@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.SwapVert
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -47,13 +48,16 @@ fun DraftScreen(viewModel: DraftViewModel) {
                     Column {
                         Text("MLBB Draft Helper", style = MaterialTheme.typography.titleMedium)
                         Text(
-                            text = viewModel.patch,
+                            text = if (viewModel.syncing) "Syncing meta…" else viewModel.metaStatus,
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 },
                 actions = {
+                    IconButton(onClick = viewModel::syncNow, enabled = !viewModel.syncing) {
+                        Icon(Icons.Default.Sync, contentDescription = "Sync live meta data")
+                    }
                     IconButton(onClick = viewModel::swapFirstPick) {
                         Icon(Icons.Default.SwapVert, contentDescription = "Swap first pick")
                     }
@@ -85,6 +89,8 @@ fun DraftScreen(viewModel: DraftViewModel) {
                 onSlot = viewModel::openPicker,
                 onClear = viewModel::clearSlot,
             )
+
+            WinBar(viewModel.winProbability)
 
             LaneRow(viewModel.laneFilter, onLane = viewModel::selectLane)
 
@@ -125,12 +131,25 @@ fun DraftScreen(viewModel: DraftViewModel) {
                         }
                     }
 
+                    AnalysisTab.BUILD -> {
+                        item {
+                            BuildPanel(
+                                builds = viewModel.builds,
+                                selected = viewModel.buildHero,
+                                onSelect = viewModel::selectBuildHero,
+                            )
+                        }
+                        // Before you have picked anything, team-wide advice is still useful.
+                        if (viewModel.builds.isEmpty()) {
+                            item { ItemsPanel(viewModel.itemAdvice) }
+                        }
+                    }
+
                     AnalysisTab.COMP -> {
+                        item { WinProbabilityCard(viewModel.winProbability) }
                         item { CompPanel(viewModel.allyReport) }
                         item { CompPanel(viewModel.enemyReport) }
                     }
-
-                    AnalysisTab.ITEMS -> item { ItemsPanel(viewModel.itemAdvice) }
 
                     AnalysisTab.THREATS -> item { ThreatsPanel(viewModel.threatReport) }
                 }
@@ -153,6 +172,11 @@ fun DraftScreen(viewModel: DraftViewModel) {
         ProfileSheet(
             profile = draft.profile,
             heroes = viewModel.allHeroes,
+            metaStatus = viewModel.metaStatus,
+            feedUrl = viewModel.feedUrl,
+            syncing = viewModel.syncing,
+            onFeedUrl = viewModel::setFeedUrl,
+            onSyncNow = viewModel::syncNow,
             onComfort = viewModel::setComfort,
             onToggleRestrict = viewModel::toggleRestrictToOwned,
             onDismiss = viewModel::closeProfile,

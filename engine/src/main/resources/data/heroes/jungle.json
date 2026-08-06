@@ -234,6 +234,125 @@
         "curve": { "early": 6, "mid": 7, "late": 8 }
       },
       "notes": "Global ultimate plus the fastest objective damage in the jungle pool — wins games on the map, not in fights."
+    },
+    {
+      "id": "saber",
+      "name": "Saber",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["BURST", "SUPPRESSION", "BACKLINE_ACCESS", "ARMOR_SHRED"],
+      "difficulty": 2,
+      "tier": { "JUNGLE": 6.5 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 7,
+        "mobility": 7, "waveclear": 7, "engage": 6, "peel": 2, "sustain": 1,
+        "objectiveDamage": 6, "pickPotential": 10, "teamfight": 6, "range": 3,
+        "curve": { "early": 7, "mid": 8, "late": 6 }
+      },
+      "notes": "His ultimate lifts one hero out of the fight and usually kills them — it lands on mobile carries too, which is why he answers heroes nothing else catches."
+    },
+    {
+      "id": "natalia",
+      "name": "Natalia",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["INVISIBILITY", "BURST", "BACKLINE_ACCESS", "HIGH_MOBILITY"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 9, "sustainedDamage": 7, "crowdControl": 4,
+        "mobility": 8, "waveclear": 6, "engage": 6, "peel": 1, "sustain": 1,
+        "objectiveDamage": 5, "pickPotential": 10, "teamfight": 5, "range": 2,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Invisible out of combat and silences on her opener. Keep vision up or she picks someone off every rotation."
+    },
+    {
+      "id": "helcurt",
+      "name": "Helcurt",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "PHYSICAL",
+      "traits": ["INVISIBILITY", "BURST", "BACKLINE_ACCESS", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 3, "burst": 10, "sustainedDamage": 6, "crowdControl": 5,
+        "mobility": 8, "waveclear": 6, "engage": 6, "peel": 1, "sustain": 1,
+        "objectiveDamage": 5, "pickPotential": 10, "teamfight": 6, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "His ultimate blacks out the enemy's vision — it wins fights even when he gets no kills."
+    },
+    {
+      "id": "hanzo",
+      "name": "Hanzo",
+      "roles": ["ASSASSIN"],
+      "lanes": ["JUNGLE"],
+      "damageType": "MAGIC",
+      "traits": ["BURST", "BACKLINE_ACCESS", "EXECUTE", "SPLIT_PUSH"],
+      "difficulty": 4,
+      "tier": { "JUNGLE": 6.0 },
+      "attrs": {
+        "durability": 4, "burst": 9, "sustainedDamage": 7, "crowdControl": 3,
+        "mobility": 6, "waveclear": 7, "engage": 5, "peel": 1, "sustain": 3,
+        "objectiveDamage": 6, "pickPotential": 9, "teamfight": 5, "range": 4,
+        "curve": { "early": 5, "mid": 7, "late": 8 }
+      },
+      "notes": "In his ultimate his real body sits safely elsewhere, so he dives at no risk — kill the body, not the shadow."
+    },
+    {
+      "id": "alucard",
+      "name": "Alucard",
+      "roles": ["FIGHTER", "ASSASSIN"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["HEAVY_HEAL", "DASH_HEAVY", "BURST", "EXECUTE"],
+      "difficulty": 2,
+      "tier": { "JUNGLE": 6.0, "EXP": 5.5 },
+      "attrs": {
+        "durability": 6, "burst": 8, "sustainedDamage": 8, "crowdControl": 3,
+        "mobility": 7, "waveclear": 7, "engage": 7, "peel": 2, "sustain": 7,
+        "objectiveDamage": 7, "pickPotential": 7, "teamfight": 6, "range": 3,
+        "curve": { "early": 7, "mid": 7, "late": 7 }
+      },
+      "notes": "Lifesteal is his whole kit — anti-heal removes his sustain and his damage output at the same time."
+    },
+    {
+      "id": "aulus",
+      "name": "Aulus",
+      "roles": ["FIGHTER"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["SCALING_CARRY", "DASH_HEAVY", "ANTI_TOWER", "SPLIT_PUSH"],
+      "difficulty": 2,
+      "tier": { "JUNGLE": 6.5, "EXP": 6.0 },
+      "attrs": {
+        "durability": 6, "burst": 7, "sustainedDamage": 9, "crowdControl": 4,
+        "mobility": 7, "waveclear": 7, "engage": 7, "peel": 2, "sustain": 4,
+        "objectiveDamage": 8, "pickPotential": 6, "teamfight": 7, "range": 2,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "Stacks attack speed permanently through his ultimate — the longer the game runs, the faster he kills."
+    },
+    {
+      "id": "benedetta",
+      "name": "Benedetta",
+      "roles": ["ASSASSIN", "FIGHTER"],
+      "lanes": ["JUNGLE", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["DASH_HEAVY", "HIGH_MOBILITY", "BURST", "CC_IMMUNITY", "BACKLINE_ACCESS"],
+      "difficulty": 5,
+      "tier": { "JUNGLE": 7.0, "EXP": 6.5 },
+      "attrs": {
+        "durability": 5, "burst": 8, "sustainedDamage": 7, "crowdControl": 5,
+        "mobility": 9, "waveclear": 6, "engage": 7, "peel": 3, "sustain": 2,
+        "objectiveDamage": 6, "pickPotential": 8, "teamfight": 7, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 8 }
+      },
+      "notes": "Her dash cancels incoming damage, so slow skillshots never land on her — and every dash feeds Phoveus."
     }
   ]
 }

@@ -9,12 +9,16 @@ import com.pankaj.mlbbdraft.engine.model.PlayerProfile
 import com.pankaj.mlbbdraft.engine.model.ScorePart
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.model.Suggestion
+import com.pankaj.mlbbdraft.engine.report.BuildAdvisor
 import com.pankaj.mlbbdraft.engine.report.CompReport
 import com.pankaj.mlbbdraft.engine.report.CompReportBuilder
+import com.pankaj.mlbbdraft.engine.report.HeroBuild
 import com.pankaj.mlbbdraft.engine.report.ItemAdvice
 import com.pankaj.mlbbdraft.engine.report.ItemAdvisor
 import com.pankaj.mlbbdraft.engine.report.ThreatAnalyzer
 import com.pankaj.mlbbdraft.engine.report.ThreatReport
+import com.pankaj.mlbbdraft.engine.report.WinProbability
+import com.pankaj.mlbbdraft.engine.report.WinProbabilityModel
 import com.pankaj.mlbbdraft.engine.scoring.CompNeedAnalyzer
 import com.pankaj.mlbbdraft.engine.scoring.MatchupScorer
 import com.pankaj.mlbbdraft.engine.scoring.ReasonBuilder
@@ -32,6 +36,8 @@ class DraftEngine(
     val weights: Weights = Weights.DEFAULT,
 ) {
     private val scorer = MatchupScorer(db, weights)
+    private val buildAdvisor = BuildAdvisor(db)
+    private val winModel = WinProbabilityModel(scorer)
 
     /** Full explainable score for one hero. Use this for a "why?" detail screen. */
     fun evaluate(hero: Hero, state: DraftState, lane: Lane? = state.myLane): Suggestion {
@@ -121,6 +127,33 @@ class DraftEngine(
         enemies = db.heroes(state.heroIds(Side.ENEMY)),
         allies = db.heroes(state.heroIds(Side.ALLY)),
     )
+
+    /** A full counter-build for one hero you are playing, against the enemy draft. */
+    fun buildFor(hero: Hero, state: DraftState, lane: Lane? = laneOf(hero, state)): HeroBuild =
+        buildAdvisor.build(
+            hero = hero,
+            lane = lane,
+            enemies = db.heroes(state.heroIds(Side.ENEMY)),
+            allies = db.heroes(state.heroIds(Side.ALLY)),
+        )
+
+    /** Builds for every hero currently on your side of the board. */
+    fun buildsForMyTeam(state: DraftState): List<HeroBuild> = state.picks(Side.ALLY)
+        .mapNotNull { pick -> db.hero(pick.heroId)?.let { it to pick.lane } }
+        .map { (hero, lane) -> buildFor(hero, state, lane) }
+
+    /**
+     * Who the draft favours. Explicitly a draft estimate — see [WinProbability].
+     */
+    fun winProbability(state: DraftState): WinProbability = winModel.evaluate(
+        allies = db.heroes(state.heroIds(Side.ALLY)),
+        enemies = db.heroes(state.heroIds(Side.ENEMY)),
+        profile = state.profile,
+    )
+
+    private fun laneOf(hero: Hero, state: DraftState): Lane? =
+        state.picks(Side.ALLY).firstOrNull { it.heroId == hero.id }?.lane
+            ?: hero.lanes.firstOrNull()
 
     fun threatReport(state: DraftState): ThreatReport = ThreatAnalyzer.analyze(
         enemies = db.heroes(state.heroIds(Side.ENEMY)),

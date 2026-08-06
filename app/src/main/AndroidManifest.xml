@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
+      The only permission the app needs: fetching the live meta feed. Everything else
+      works with the network off, and a failed fetch is never fatal.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
       Phase 1 (overlay + screen reading) will add:
         <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
         <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />

@@ -1,0 +1,47 @@
+name: Refresh meta data
+
+# Publishes data/meta.json from a live stats source. The app fetches that file's raw
+# URL, so a source outage breaks this job — which you can fix whenever — instead of
+# breaking the app mid-draft.
+on:
+  schedule:
+    # 04:10 UTC daily. Ranked stats move slowly; more often just burns CI minutes.
+    - cron: "10 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meta-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build meta.json
+        id: build
+        run: |
+          mkdir -p data
+          python tools/build_meta.py \
+            --config tools/meta_sources.json \
+            --out data/meta.json
+
+      - name: Commit if the numbers moved
+        run: |
+          if git diff --quiet -- data/meta.json; then
+            echo "No change today."
+            exit 0
+          fi
+          git config user.name "meta-bot"
+          git config user.email "meta-bot@users.noreply.github.com"
+          git add data/meta.json
+          git commit -m "chore(meta): refresh hero statistics"
+          git push

@@ -20,6 +20,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -46,6 +47,11 @@ import com.pankaj.mlbbdraft.ui.theme.Good
 fun ProfileSheet(
     profile: PlayerProfile,
     heroes: List<Hero>,
+    metaStatus: String,
+    feedUrl: String,
+    syncing: Boolean,
+    onFeedUrl: (String) -> Unit,
+    onSyncNow: () -> Unit,
     onComfort: (String, Int) -> Unit,
     onToggleRestrict: () -> Unit,
     onDismiss: () -> Unit,
@@ -53,6 +59,7 @@ fun ProfileSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var query by remember { mutableStateOf("") }
     var ratedOnly by remember { mutableStateOf(false) }
+    var urlDraft by remember(feedUrl) { mutableStateOf(feedUrl) }
 
     val shown = remember(query, ratedOnly, heroes, profile) {
         heroes
@@ -68,6 +75,38 @@ fun ProfileSheet(
             modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            Text("Live meta data", style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = metaStatus,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            OutlinedTextField(
+                value = urlDraft,
+                onValueChange = { urlDraft = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("Meta feed URL") },
+                supportingText = {
+                    Text(
+                        "A JSON file with win/pick/ban rates. Tiers update from it; " +
+                            "the app works fully offline without it.",
+                        fontSize = 11.sp,
+                    )
+                },
+                singleLine = true,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                TextButton(
+                    onClick = {
+                        onFeedUrl(urlDraft)
+                        onSyncNow()
+                    },
+                    enabled = !syncing,
+                ) { Text(if (syncing) "Syncing…" else "Save and sync now") }
+            }
+
+            HorizontalDivider(color = MaterialTheme.colorScheme.outline)
+
             Text("Your heroes", style = MaterialTheme.typography.titleMedium)
             Text(
                 text = "Tap the dots to rate how well you play a hero. Rated heroes count as owned.",

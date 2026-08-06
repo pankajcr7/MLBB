@@ -338,6 +338,142 @@
         "curve": { "early": 5, "mid": 7, "late": 8 }
       },
       "notes": "Heals and buffs the whole team from anywhere on the map; almost no CC and no escape."
+    },
+    {
+      "id": "belerick",
+      "name": "Belerick",
+      "roles": ["TANK"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["ZONE_CONTROL", "AREA_STUN", "HEAVY_HEAL"],
+      "difficulty": 2,
+      "tier": { "ROAM": 6.0, "EXP": 5.5 },
+      "attrs": {
+        "durability": 10, "burst": 3, "sustainedDamage": 5, "crowdControl": 7,
+        "mobility": 3, "waveclear": 5, "engage": 6, "peel": 7, "sustain": 7,
+        "objectiveDamage": 3, "pickPotential": 4, "teamfight": 8, "range": 3,
+        "curve": { "early": 5, "mid": 7, "late": 8 }
+      },
+      "notes": "Reflects damage back at whoever hits him and taunts them into staying — he punishes basic-attack carries for existing."
+    },
+    {
+      "id": "carmilla",
+      "name": "Carmilla",
+      "roles": ["TANK", "SUPPORT"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "ZONE_CONTROL"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 8, "burst": 5, "sustainedDamage": 5, "crowdControl": 8,
+        "mobility": 5, "waveclear": 5, "engage": 7, "peel": 7, "sustain": 4,
+        "objectiveDamage": 3, "pickPotential": 6, "teamfight": 9, "range": 4,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Her ultimate links enemies so they share damage and crowd control — it turns one stun into five."
+    },
+    {
+      "id": "faramis",
+      "name": "Faramis",
+      "roles": ["SUPPORT", "MAGE"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["REVIVE", "ZONE_CONTROL", "AREA_STUN", "SUMMONER"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 5, "burst": 6, "sustainedDamage": 6, "crowdControl": 7,
+        "mobility": 5, "waveclear": 6, "engage": 6, "peel": 8, "sustain": 5,
+        "objectiveDamage": 3, "pickPotential": 5, "teamfight": 9, "range": 6,
+        "curve": { "early": 5, "mid": 7, "late": 9 }
+      },
+      "notes": "His ultimate lets the whole team keep fighting through death once. Never assume a teamfight against Faramis is won."
+    },
+    {
+      "id": "gatotkaca",
+      "name": "Gatotkaca",
+      "roles": ["TANK", "FIGHTER"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["AREA_STUN", "KNOCK_UP", "ZONE_CONTROL"],
+      "difficulty": 2,
+      "tier": { "ROAM": 6.5, "EXP": 5.5 },
+      "attrs": {
+        "durability": 9, "burst": 6, "sustainedDamage": 5, "crowdControl": 8,
+        "mobility": 5, "waveclear": 5, "engage": 9, "peel": 6, "sustain": 4,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Gets tankier the lower his HP, and his ultimate is a large area knock-up — a cheap, reliable group engage."
+    },
+    {
+      "id": "johnson",
+      "name": "Johnson",
+      "roles": ["TANK"],
+      "lanes": ["ROAM"],
+      "damageType": "MAGIC",
+      "traits": ["GLOBAL_PRESENCE", "AREA_STUN", "BURST", "KNOCK_UP"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.5 },
+      "attrs": {
+        "durability": 9, "burst": 7, "sustainedDamage": 4, "crowdControl": 8,
+        "mobility": 8, "waveclear": 5, "engage": 9, "peel": 5, "sustain": 2,
+        "objectiveDamage": 3, "pickPotential": 9, "teamfight": 8, "range": 3,
+        "curve": { "early": 6, "mid": 8, "late": 7 }
+      },
+      "notes": "Drives a teammate across the map and crashes into the backline. The whole hero is one surprise engage — respect his ultimate timer."
+    },
+    {
+      "id": "popol-and-kupa",
+      "name": "Popol and Kupa",
+      "roles": ["MARKSMAN", "SUPPORT"],
+      "lanes": ["ROAM", "GOLD"],
+      "damageType": "PHYSICAL",
+      "traits": ["SUMMONER", "AREA_STUN", "ZONE_CONTROL", "POKE"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.0, "GOLD": 5.5 },
+      "attrs": {
+        "durability": 4, "burst": 6, "sustainedDamage": 7, "crowdControl": 7,
+        "mobility": 5, "waveclear": 7, "engage": 5, "peel": 6, "sustain": 2,
+        "objectiveDamage": 6, "pickPotential": 6, "teamfight": 8, "range": 7,
+        "curve": { "early": 6, "mid": 7, "late": 7 }
+      },
+      "notes": "Kupa scouts and holds enemies in the trap; killing the wolf is often the right play before engaging."
+    },
+    {
+      "id": "barats",
+      "name": "Barats",
+      "roles": ["TANK", "FIGHTER"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "PHYSICAL",
+      "traits": ["AREA_STUN", "KNOCK_UP", "ZONE_CONTROL", "HEAVY_HEAL"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.5, "EXP": 6.5 },
+      "attrs": {
+        "durability": 9, "burst": 6, "sustainedDamage": 7, "crowdControl": 7,
+        "mobility": 4, "waveclear": 7, "engage": 8, "peel": 6, "sustain": 7,
+        "objectiveDamage": 6, "pickPotential": 6, "teamfight": 9, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Grows larger as he eats minions, and his ultimate drags one hero along with him wherever he goes."
+    },
+    {
+      "id": "gloo",
+      "name": "Gloo",
+      "roles": ["TANK"],
+      "lanes": ["ROAM", "EXP"],
+      "damageType": "MAGIC",
+      "traits": ["ZONE_CONTROL", "AREA_STUN", "HEAVY_HEAL"],
+      "difficulty": 3,
+      "tier": { "ROAM": 6.5, "EXP": 6.0 },
+      "attrs": {
+        "durability": 9, "burst": 5, "sustainedDamage": 6, "crowdControl": 8,
+        "mobility": 6, "waveclear": 6, "engage": 8, "peel": 6, "sustain": 7,
+        "objectiveDamage": 4, "pickPotential": 6, "teamfight": 8, "range": 3,
+        "curve": { "early": 6, "mid": 7, "late": 8 }
+      },
+      "notes": "Sticks to a hero and rides them through walls — an inescapable tail on your carry, and he splits into blobs when killed."
     }
   ]
 }

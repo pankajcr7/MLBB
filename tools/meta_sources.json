@@ -1,0 +1,34 @@
+{
+  "name": "CONFIGURE ME",
+  "url": "https://example.invalid/api/hero-rank?days=7&rank=mythic",
+  "records_path": "data.records",
+  "fields": {
+    "name": "data.main_hero.data.name",
+    "winRate": "data.main_hero_win_rate",
+    "pickRate": "data.main_hero_appearance_rate",
+    "banRate": "data.main_hero_ban_rate"
+  },
+  "_note": [
+    "This mapping is a PLACEHOLDER and the url is deliberately invalid.",
+    "It is shaped after the community MLBB hero-rank APIs, but I could not reach any",
+    "live stats host from the machine this was written on, so nothing here is verified.",
+    "",
+    "To configure it:",
+    "  1. Open the source's JSON in a browser or with curl.",
+    "  2. Set records_path to the dotted path of the array of heroes ('' if top level).",
+    "  3. Set each field to the dotted path WITHIN one record.",
+    "  4. Test offline first:",
+    "       curl -s '<url>' > /tmp/raw.json",
+    "       python tools/build_meta.py --config tools/meta_sources.json \\",
+    "         --input /tmp/raw.json --out data/meta.json",
+    "     It refuses to write unless at least 20 heroes map cleanly.",
+    "",
+    "Candidate sources, in rough order of preference:",
+    "  - www.mobilelegends.com/rank  (official, daily; find the XHR the page makes)",
+    "  - github.com/ridwaanhall/api-mobilelegends  (open source; SELF-HOST it and this",
+    "    problem never recurs)",
+    "  - mlbbhub.com/statistics, mlbb.io/en/hero-statistics  (third-party trackers)",
+    "",
+    "Rates may be 0-1 or 0-100; the app normalises either."
+  ]
+}

@@ -10,5 +10,8 @@
   "matchupFiles": [
     "matchups/counters.json",
     "matchups/synergies.json"
+  ],
+  "itemFiles": [
+    "items.json"
   ]
 }

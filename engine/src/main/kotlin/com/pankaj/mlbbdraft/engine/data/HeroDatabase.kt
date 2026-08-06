@@ -1,6 +1,7 @@
 package com.pankaj.mlbbdraft.engine.data
 
 import com.pankaj.mlbbdraft.engine.model.Hero
+import com.pankaj.mlbbdraft.engine.model.Item
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.MatchupEdge
 import com.pankaj.mlbbdraft.engine.model.Role
@@ -16,7 +17,16 @@ class HeroDatabase(
     heroes: List<Hero>,
     val counters: List<MatchupEdge> = emptyList(),
     val synergies: List<SynergyEdge> = emptyList(),
+    val items: List<Item> = emptyList(),
 ) {
+    private val itemsById: Map<String, Item> = items.associateBy { it.id }
+
+    fun item(id: String): Item? = itemsById[id]
+
+    fun requireItem(id: String): Item = itemsById[id] ?: error("Unknown item id '$id'")
+
+    fun items(ids: List<String>): List<Item> = ids.mapNotNull { itemsById[it] }
+
     val heroes: List<Hero> = heroes.sortedBy { it.name }
 
     private val byId: Map<String, Hero> = heroes.associateBy { it.id }
@@ -99,5 +109,11 @@ class HeroDatabase(
             if (edge.b !in byId) add("Synergy edge references unknown hero '${edge.b}'")
             if (edge.a == edge.b) add("Synergy edge '${edge.a}' points at itself")
         }
+
+        items.groupBy { it.id }
+            .filterValues { it.size > 1 }
+            .keys
+            .forEach { add("Duplicate item id '$it'") }
+        items.filter { it.summary.isBlank() }.forEach { add("Item '${it.id}' has no summary") }
     }
 }

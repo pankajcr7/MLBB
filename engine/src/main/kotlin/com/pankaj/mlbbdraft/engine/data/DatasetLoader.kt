@@ -2,6 +2,7 @@ package com.pankaj.mlbbdraft.engine.data
 
 import com.pankaj.mlbbdraft.engine.model.DatasetManifest
 import com.pankaj.mlbbdraft.engine.model.HeroFile
+import com.pankaj.mlbbdraft.engine.model.ItemFile
 import com.pankaj.mlbbdraft.engine.model.MatchupFile
 import kotlinx.serialization.json.Json
 
@@ -33,12 +34,16 @@ object DatasetLoader {
         val matchups = manifest.matchupFiles.map { path ->
             json.decodeFromString<MatchupFile>(read(classLoader, resolve(path)))
         }
+        val items = manifest.itemFiles.flatMap { path ->
+            json.decodeFromString<ItemFile>(read(classLoader, resolve(path))).items
+        }
 
         return HeroDatabase(
             patch = manifest.patch,
             heroes = heroes,
             counters = matchups.flatMap { it.counters },
             synergies = matchups.flatMap { it.synergies },
+            items = items,
         )
     }
 
