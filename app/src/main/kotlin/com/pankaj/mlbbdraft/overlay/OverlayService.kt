@@ -21,9 +21,19 @@ import androidx.compose.runtime.setValue
 import com.pankaj.mlbbdraft.MainActivity
 import com.pankaj.mlbbdraft.R
 import com.pankaj.mlbbdraft.draftSession
+import com.pankaj.mlbbdraft.engine.vision.DraftScreenReader
+import com.pankaj.mlbbdraft.engine.vision.DraftTracker
 import com.pankaj.mlbbdraft.ui.theme.MlbbDraftTheme
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 /**
  * The floating draft helper. Draws over MLBB (or any app) so you never have to
@@ -52,6 +62,11 @@ class OverlayService : Service() {
     private var bubbleX = 0
     private var bubbleY = 240
 
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val tracker = DraftTracker()
+    private var screenReader: ScreenReader? = null
+    private var captureJob: Job? = null
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -61,12 +76,80 @@ class OverlayService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent?.action == ACTION_STOP) {
-            stopSelf()
-            return START_NOT_STICKY
+        when (intent?.action) {
+            ACTION_STOP -> {
+                stopSelf()
+                return START_NOT_STICKY
+            }
+
+            ACTION_START_CAPTURE -> {
+                if (view == null) showOverlay()
+                val resultCode = intent.getIntExtra(EXTRA_RESULT_CODE, 0)
+                @Suppress("DEPRECATION")
+                val data = intent.getParcelableExtra<Intent>(EXTRA_RESULT_DATA)
+                if (data != null) startCapture(resultCode, data)
+                return START_STICKY
+            }
+
+            ACTION_STOP_CAPTURE -> {
+                stopCapture()
+                return START_STICKY
+            }
         }
         if (view == null) showOverlay()
         return START_STICKY
+    }
+
+    // --- automatic draft reading ---
+
+    private fun startCapture(resultCode: Int, data: Intent) {
+        val session = draftSession
+        val reader = ScreenReader(this)
+        if (!reader.start(resultCode, data)) {
+            session.detectionStatus = "Screen capture was refused."
+            return
+        }
+
+        screenReader = reader
+        tracker.reset()
+        session.autoDetecting = true
+        session.detectionStatus = "Reading the screen…"
+
+        captureJob = scope.launch {
+            val engineDb = session.heroDatabase
+            val draftReader = DraftScreenReader(engineDb)
+            while (isActive && reader.isRunning) {
+                val lines = reader.readFrame()
+                if (lines != null) {
+                    val result = draftReader.read(lines, reader.frameWidth)
+                    val confirmed = tracker.submit(result)
+                    if (confirmed.isNotEmpty()) {
+                        session.applyDetected(tracker.confirmed)
+                    }
+                    session.detectionStatus = when {
+                        tracker.confirmed.isNotEmpty() ->
+                            "Detected ${tracker.confirmed.size} heroes"
+
+                        result.isEmpty ->
+                            "No hero names on screen yet — open the draft"
+
+                        else -> "Confirming…"
+                    }
+                }
+                // ~1.2s: a draft screen changes every few seconds, so faster costs battery
+                // and buys nothing.
+                delay(CAPTURE_INTERVAL_MS)
+            }
+        }
+    }
+
+    private fun stopCapture() {
+        captureJob?.cancel()
+        captureJob = null
+        screenReader?.stop()
+        screenReader = null
+        draftSession.autoDetecting = false
+        draftSession.detectionStatus = ""
     }
 
     private fun showOverlay() {
@@ -103,6 +186,7 @@ class OverlayService : Service() {
                     onToggle = ::toggle,
                     onClose = { stopSelf() },
                     onOpenApp = ::openApp,
+                    onStopAutoDetect = ::stopCapture,
                     dragModifier = { it },
                 )
             }
@@ -225,6 +309,8 @@ class OverlayService : Service() {
     }
 
     override fun onDestroy() {
+        stopCapture()
+        scope.cancel()
         draftSession.overlayRunning = false
         view?.let { runCatching { windowManager.removeView(it) } }
         host?.onDestroyed()
@@ -237,7 +323,12 @@ class OverlayService : Service() {
         private const val CHANNEL_ID = "draft_overlay"
         private const val NOTIFICATION_ID = 42
         private const val TAP_SLOP = 12f
+        private const val CAPTURE_INTERVAL_MS = 1_200L
         const val ACTION_STOP = "com.pankaj.mlbbdraft.STOP_OVERLAY"
+        const val ACTION_START_CAPTURE = "com.pankaj.mlbbdraft.START_CAPTURE"
+        const val ACTION_STOP_CAPTURE = "com.pankaj.mlbbdraft.STOP_CAPTURE"
+        const val EXTRA_RESULT_CODE = "result_code"
+        const val EXTRA_RESULT_DATA = "result_data"
 
         fun start(context: Context) {
             context.startForegroundService(Intent(context, OverlayService::class.java))
@@ -246,6 +337,16 @@ class OverlayService : Service() {
         fun stop(context: Context) {
             context.startService(
                 Intent(context, OverlayService::class.java).setAction(ACTION_STOP),
+            )
+        }
+
+        /** Hands the MediaProjection consent result to the service so it can capture. */
+        fun startCapture(context: Context, resultCode: Int, data: Intent) {
+            context.startForegroundService(
+                Intent(context, OverlayService::class.java)
+                    .setAction(ACTION_START_CAPTURE)
+                    .putExtra(EXTRA_RESULT_CODE, resultCode)
+                    .putExtra(EXTRA_RESULT_DATA, data),
             )
         }
     }

@@ -15,7 +15,10 @@ import androidx.compose.material.icons.filled.CloseFullscreen
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PictureInPictureAlt
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.ScreenSearchDesktop
 import androidx.compose.material.icons.filled.SwapVert
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -44,6 +47,7 @@ fun DraftScreen(
     session: DraftSession,
     onStartOverlay: () -> Unit = {},
     onStopOverlay: () -> Unit = {},
+    onStartAutoDetect: () -> Unit = {},
 ) {
     val draft = session.draft
 
@@ -61,6 +65,26 @@ fun DraftScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = session::toggleSpeakSuggestions) {
+                        Icon(
+                            imageVector = if (session.speakSuggestions) {
+                                Icons.AutoMirrored.Filled.VolumeUp
+                            } else {
+                                Icons.AutoMirrored.Filled.VolumeOff
+                            },
+                            contentDescription = if (session.speakSuggestions) {
+                                "Stop reading the top pick aloud"
+                            } else {
+                                "Read the top pick aloud"
+                            },
+                        )
+                    }
+                    IconButton(onClick = onStartAutoDetect, enabled = !session.autoDetecting) {
+                        Icon(
+                            Icons.Default.ScreenSearchDesktop,
+                            contentDescription = "Read the draft off my screen automatically",
+                        )
+                    }
                     IconButton(
                         onClick = if (session.overlayRunning) onStopOverlay else onStartOverlay,
                     ) {
@@ -179,11 +203,16 @@ fun DraftScreen(
 
                     AnalysisTab.COMP -> {
                         item { WinProbabilityCard(session.winProbability) }
+                        item { ArchetypePanel(session.enemyArchetype, Side.ENEMY) }
+                        item { ArchetypePanel(session.allyArchetype, Side.ALLY) }
                         item { CompPanel(session.allyReport) }
                         item { CompPanel(session.enemyReport) }
                     }
 
-                    AnalysisTab.THREATS -> item { ThreatsPanel(session.threatReport) }
+                    AnalysisTab.THREATS -> {
+                        item { ArchetypePanel(session.enemyArchetype, Side.ENEMY) }
+                        item { ThreatsPanel(session.threatReport) }
+                    }
                 }
             }
         }

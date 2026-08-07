@@ -1,5 +1,6 @@
 package com.pankaj.mlbbdraft
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -14,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.pankaj.mlbbdraft.overlay.OverlayService
+import com.pankaj.mlbbdraft.overlay.ScreenReader
 import com.pankaj.mlbbdraft.ui.DraftScreen
 import com.pankaj.mlbbdraft.ui.theme.MlbbDraftTheme
 
@@ -21,6 +23,22 @@ class MainActivity : ComponentActivity() {
 
     private val notificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { /* optional */ }
+
+    /**
+     * Screen-capture consent must come from an Activity, and Android requires it fresh
+     * every session — there is no way to remember it. The result is handed straight to the
+     * service, which owns the capture loop.
+     */
+    private val screenCapture =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val data = result.data
+            if (result.resultCode == Activity.RESULT_OK && data != null) {
+                OverlayService.startCapture(this, result.resultCode, data)
+                moveTaskToBack(true)
+            } else {
+                draftSession.detectionStatus = "Screen capture was declined."
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +54,7 @@ class MainActivity : ComponentActivity() {
                         session = draftSession,
                         onStartOverlay = ::startOverlay,
                         onStopOverlay = { OverlayService.stop(this) },
+                        onStartAutoDetect = ::startAutoDetect,
                     )
                 }
             }
@@ -47,7 +66,7 @@ class MainActivity : ComponentActivity() {
      * sends the user there and starts the overlay on the next attempt, rather than
      * failing silently.
      */
-    private fun startOverlay() {
+    private fun startOverlay(): Boolean {
         if (!Settings.canDrawOverlays(this)) {
             startActivity(
                 Intent(
@@ -55,13 +74,18 @@ class MainActivity : ComponentActivity() {
                     Uri.parse("package:$packageName"),
                 ),
             )
-            return
+            return false
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
         OverlayService.start(this)
-        // Get out of the way so the bubble is over the game, not over us.
-        moveTaskToBack(true)
+        return true
+    }
+
+    /** Overlay first (it hosts the capture loop), then ask for screen-capture consent. */
+    private fun startAutoDetect() {
+        if (!startOverlay()) return
+        screenCapture.launch(ScreenReader.captureIntent(this))
     }
 }

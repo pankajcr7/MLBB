@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.report.CompReport
+import com.pankaj.mlbbdraft.engine.report.ArchetypeVerdict
 import com.pankaj.mlbbdraft.engine.report.ItemAdvice
 import com.pankaj.mlbbdraft.engine.report.PickAssessment
 import com.pankaj.mlbbdraft.engine.report.PickVerdict
@@ -253,6 +254,55 @@ private fun PriorityDot(priority: Int) {
             .padding(horizontal = 5.dp, vertical = 1.dp),
     ) {
         Text(text = "P$priority", fontSize = 10.sp, color = color)
+    }
+}
+
+/**
+ * One label for what a draft is trying to do, plus the answer to it.
+ *
+ * This is the fastest-to-read panel in the app on purpose. Five meters take longer to
+ * absorb than a pick timer allows; "Dive comp — anti-dash CC beats this" does not.
+ */
+@Composable
+fun ArchetypePanel(verdict: ArchetypeVerdict, side: Side) {
+    val accent = if (side == Side.ALLY) AllyBlue else EnemyRed
+    val who = if (side == Side.ALLY) "YOUR PLAN" else "THEIR PLAN"
+
+    PanelCard(title = who, accent = accent) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(accent.copy(alpha = 0.22f))
+                    .padding(horizontal = 8.dp, vertical = 3.dp),
+            ) {
+                Text(
+                    text = verdict.label,
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = accent,
+                )
+            }
+            if (verdict.isDistinct) {
+                Text(
+                    text = "  ${(verdict.confidence * 100).toInt()}% match",
+                    fontSize = 10.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+
+        if (verdict.summary.isNotBlank()) {
+            Text(text = verdict.summary, style = MaterialTheme.typography.bodySmall)
+        }
+
+        if (verdict.counterplay.isNotBlank()) {
+            Text(
+                text = "→ ${verdict.counterplay}",
+                style = MaterialTheme.typography.bodySmall,
+                color = Good,
+            )
+        }
     }
 }
 

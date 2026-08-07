@@ -105,3 +105,14 @@ data class Item(
 data class ItemFile(
     val items: List<Item>,
 )
+
+/**
+ * Hero-specific core builds, keyed by hero id.
+ *
+ * Boots and counter items are excluded on purpose: boots depend on the enemy draft and
+ * counter items are inserted by the advisor, so this is only the spine a hero wants.
+ */
+@Serializable
+data class BuildFile(
+    val builds: Map<String, List<String>> = emptyMap(),
+)

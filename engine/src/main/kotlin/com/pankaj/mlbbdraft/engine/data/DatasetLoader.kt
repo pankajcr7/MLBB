@@ -1,6 +1,7 @@
 package com.pankaj.mlbbdraft.engine.data
 
 import com.pankaj.mlbbdraft.engine.model.DatasetManifest
+import com.pankaj.mlbbdraft.engine.model.BuildFile
 import com.pankaj.mlbbdraft.engine.model.HeroFile
 import com.pankaj.mlbbdraft.engine.model.ItemFile
 import com.pankaj.mlbbdraft.engine.model.MatchupFile
@@ -37,6 +38,9 @@ object DatasetLoader {
         val items = manifest.itemFiles.flatMap { path ->
             json.decodeFromString<ItemFile>(read(classLoader, resolve(path))).items
         }
+        val coreBuilds = manifest.buildFiles.fold(emptyMap<String, List<String>>()) { acc, path ->
+            acc + json.decodeFromString<BuildFile>(read(classLoader, resolve(path))).builds
+        }
 
         return HeroDatabase(
             patch = manifest.patch,
@@ -44,6 +48,7 @@ object DatasetLoader {
             counters = matchups.flatMap { it.counters },
             synergies = matchups.flatMap { it.synergies },
             items = items,
+            coreBuilds = coreBuilds,
         )
     }
 

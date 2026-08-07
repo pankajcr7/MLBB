@@ -35,6 +35,13 @@ class ProfileStore(context: Context) {
         )
     }
 
+    /** Whether the top pick is read aloud. Off by default — speech has to be opted into. */
+    var speakSuggestions: Boolean
+        get() = prefs.getBoolean(KEY_SPEAK, false)
+        set(value) {
+            prefs.edit().putBoolean(KEY_SPEAK, value).apply()
+        }
+
     fun save(profile: PlayerProfile) {
         prefs.edit()
             .putString(
@@ -51,5 +58,6 @@ class ProfileStore(context: Context) {
         const val PREFS = "draft_profile"
         const val KEY_COMFORT = "comfort"
         const val KEY_RESTRICT = "restrict_to_owned"
+        const val KEY_SPEAK = "speak_suggestions"
     }
 }

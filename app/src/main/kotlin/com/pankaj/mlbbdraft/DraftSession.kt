@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.pankaj.mlbbdraft.data.MetaRepository
 import com.pankaj.mlbbdraft.data.ProfileStore
+import com.pankaj.mlbbdraft.data.SuggestionSpeaker
 import com.pankaj.mlbbdraft.data.SyncOutcome
 import com.pankaj.mlbbdraft.engine.DraftEngine
 import com.pankaj.mlbbdraft.engine.data.HeroDatabase
@@ -48,6 +49,9 @@ class DraftSession(
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
+    /** Created lazily by whichever surface starts first; both share it. */
+    private var speaker: SuggestionSpeaker? = null
+
     /** Swapped when a meta sync lands; every derived value below then recomputes. */
     private var engine by mutableStateOf(DraftEngine(baseDb))
 
@@ -82,6 +86,15 @@ class DraftSession(
     /** True while the floating overlay is showing, so the app can reflect it. */
     var overlayRunning by mutableStateOf(false)
 
+    /** True while the screen is being read for hero names. */
+    var autoDetecting by mutableStateOf(false)
+
+    /** Human-readable result of the last screen read, shown in the overlay. */
+    var detectionStatus by mutableStateOf("")
+
+    /** Reader for the bundled dataset, used by the screen-reading service. */
+    val heroDatabase: HeroDatabase get() = engine.db
+
     val patch: String get() = engine.db.patch
     val allHeroes: List<Hero> get() = engine.db.heroes
     val feedUrl: String get() = metaRepository.feedUrl
@@ -98,6 +111,13 @@ class DraftSession(
     /** Verdicts on your locked picks; [pickWarnings] is just the ones with problems. */
     val pickAssessments by derivedStateOf { engine.assessPicks(draft, Side.ALLY) }
     val pickWarnings by derivedStateOf { engine.pickWarnings(draft, Side.ALLY) }
+
+    /** What each draft is trying to do, in one label. */
+    val enemyArchetype by derivedStateOf { engine.archetype(draft, Side.ENEMY) }
+    val allyArchetype by derivedStateOf { engine.archetype(draft, Side.ALLY) }
+
+    var speakSuggestions by mutableStateOf(profileStore.speakSuggestions)
+        private set
 
     /** Which team the overlay's quick-add drops heroes into. */
     var quickAddSide by mutableStateOf(Side.ENEMY)
@@ -149,6 +169,35 @@ class DraftSession(
 
     fun reset() {
         draft = draft.cleared()
+        speaker?.forget()
+    }
+
+    fun toggleSpeakSuggestions() {
+        speakSuggestions = !speakSuggestions
+        profileStore.speakSuggestions = speakSuggestions
+        if (!speakSuggestions) speaker?.stop()
+    }
+
+    /**
+     * Reads the current top pick aloud, if speech is on. Called when the board changes
+     * rather than on every recomposition; [SuggestionSpeaker] de-duplicates the rest.
+     */
+    fun announceTopPick() {
+        if (!speakSuggestions) return
+        val speaker = speaker ?: return
+        if (draft.remainingPicks(Side.ALLY) == 0) return
+
+        val top = suggestions.firstOrNull() ?: return
+        val countered = top.reasons.firstOrNull()?.takeIf { it.length < 90 }
+        val line = buildString {
+            append("Pick ${top.hero.name}")
+            countered?.let { append(". $it") }
+        }
+        speaker.announce(key = "pick:${top.hero.id}:${draft.usedHeroIds.size}", text = line)
+    }
+
+    fun attachSpeaker(value: SuggestionSpeaker) {
+        speaker = value
     }
 
     fun openPicker(target: SlotTarget) {
@@ -169,11 +218,24 @@ class DraftSession(
         fill(target, null)
     }
 
-    /** Drops a hero into the first empty pick slot on [side] — the overlay's one-tap add. */
+    /**
+     * Drops a hero into the first empty pick slot on [side] — the overlay's one-tap add and
+     * the entry point for auto-detection. Already-drafted heroes are ignored so a repeated
+     * screen read cannot duplicate a pick.
+     */
     fun quickAdd(side: Side, heroId: String) {
+        if (heroId in draft.usedHeroIds) return
         val slot = draft.pickSlots(side).indexOfFirst { it == null }
         if (slot < 0) return
         fill(SlotTarget(side, StepKind.PICK, slot), heroId)
+    }
+
+    /**
+     * Commits heroes the screen reader has confirmed. Detection only ever *adds* — it never
+     * clears a slot, so a frame where a name was covered cannot undo a pick you saw.
+     */
+    fun applyDetected(detected: Map<String, Side>) {
+        detected.forEach { (heroId, side) -> quickAdd(side, heroId) }
     }
 
     fun undoLast(side: Side) {
@@ -229,6 +291,8 @@ class DraftSession(
                 heroId?.let { Pick(it, laneFor(it, target.side)) },
             )
         }
+        // Single choke point for every board change, so speech fires exactly once per edit.
+        announceTopPick()
     }
 
     private fun applyCache() {

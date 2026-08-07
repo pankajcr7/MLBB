@@ -56,10 +56,15 @@ fun OverlayContent(
     onToggle: () -> Unit,
     onClose: () -> Unit,
     onOpenApp: () -> Unit,
+    onStopAutoDetect: () -> Unit = {},
     dragModifier: (Modifier) -> Modifier,
 ) {
     if (!expanded) {
-        Bubble(win = session.winProbability.allyPercent, onToggle = onToggle)
+        Bubble(
+            win = session.winProbability.allyPercent,
+            reading = session.autoDetecting,
+            onToggle = onToggle,
+        )
         return
     }
 
@@ -74,6 +79,8 @@ fun OverlayContent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Header(session, onToggle = onToggle, onClose = onClose, onOpenApp = onOpenApp)
+        AutoDetectBar(session, onStopAutoDetect)
+        EnemyPlan(session)
         Warnings(session)
         TeamRow(session, Side.ENEMY)
         TeamRow(session, Side.ALLY)
@@ -151,10 +158,68 @@ private fun SideToggle(session: DraftSession) {
     }
 }
 
+/** One line on what the enemy draft wants, and the answer to it. */
+@Composable
+private fun EnemyPlan(session: DraftSession) {
+    val verdict = session.enemyArchetype
+    if (!verdict.isDistinct) return
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(6.dp))
+            .background(EnemyRed.copy(alpha = 0.13f))
+            .padding(horizontal = 8.dp, vertical = 5.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        Text(
+            text = "THEY ARE A ${verdict.label.uppercase()}",
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold,
+            color = EnemyRed,
+        )
+        Text(
+            text = verdict.counterplay,
+            fontSize = 10.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
+
+/** Status of the screen reader, so it is obvious whether detection is actually working. */
+@Composable
+private fun AutoDetectBar(session: DraftSession, onStop: () -> Unit) {
+    if (!session.autoDetecting && session.detectionStatus.isBlank()) return
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(6.dp))
+            .background(Good.copy(alpha = 0.14f))
+            .padding(horizontal = 8.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = if (session.autoDetecting) "AUTO-READING SCREEN" else "AUTO-READ OFF",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = Good,
+        )
+        Text(
+            text = "  ${session.detectionStatus}",
+            fontSize = 10.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f),
+        )
+        if (session.autoDetecting) TinyButton("stop", onClick = onStop)
+    }
+}
+
 /** Collapsed state: small, draggable, shows the one number worth glancing at. */
 @Composable
-private fun Bubble(win: Int, onToggle: () -> Unit) {
+private fun Bubble(win: Int, reading: Boolean, onToggle: () -> Unit) {
     val tint = when {
+        reading -> Good
         win >= 55 -> Good
         win > 45 -> AllyBlue
         else -> Bad
@@ -170,7 +235,11 @@ private fun Bubble(win: Int, onToggle: () -> Unit) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text("$win%", color = tint, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-            Text("draft", fontSize = 8.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(
+                text = if (reading) "reading" else "draft",
+                fontSize = 8.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

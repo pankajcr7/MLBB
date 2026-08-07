@@ -2,6 +2,7 @@ package com.pankaj.mlbbdraft.engine.data
 
 import com.pankaj.mlbbdraft.engine.model.Hero
 import com.pankaj.mlbbdraft.engine.model.Item
+import com.pankaj.mlbbdraft.engine.model.ItemCategory
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.MatchupEdge
 import com.pankaj.mlbbdraft.engine.model.Role
@@ -18,10 +19,15 @@ class HeroDatabase(
     val counters: List<MatchupEdge> = emptyList(),
     val synergies: List<SynergyEdge> = emptyList(),
     val items: List<Item> = emptyList(),
+    /** heroId -> ordered core item ids. Absent heroes fall back to an archetype default. */
+    val coreBuilds: Map<String, List<String>> = emptyMap(),
 ) {
     private val itemsById: Map<String, Item> = items.associateBy { it.id }
 
     fun item(id: String): Item? = itemsById[id]
+
+    /** The hand-authored core for this hero, or empty if it uses the archetype default. */
+    fun coreBuild(heroId: String): List<Item> = coreBuilds[heroId].orEmpty().mapNotNull { itemsById[it] }
 
     fun requireItem(id: String): Item = itemsById[id] ?: error("Unknown item id '$id'")
 
@@ -115,5 +121,29 @@ class HeroDatabase(
             .keys
             .forEach { add("Duplicate item id '$it'") }
         items.filter { it.summary.isBlank() }.forEach { add("Item '${it.id}' has no summary") }
+
+        // Core builds are the most error-prone part of the dataset: it is very easy to
+        // write an item that does not exist, or one the hero cannot buy.
+        coreBuilds.forEach { (heroId, ids) ->
+            val hero = byId[heroId]
+            if (hero == null) {
+                add("Core build references unknown hero '$heroId'")
+                return@forEach
+            }
+            ids.filterNot { it in itemsById }.forEach {
+                add("Core build for '$heroId' references unknown item '$it'")
+            }
+            ids.groupBy { it }.filterValues { it.size > 1 }.keys.forEach {
+                add("Core build for '$heroId' lists '$it' twice")
+            }
+            ids.mapNotNull { itemsById[it] }.forEach { item ->
+                if (!item.buildableBy(hero)) {
+                    add("Core build for '$heroId' includes '${item.id}', which ${hero.name} cannot use")
+                }
+                if (item.category == ItemCategory.MOVEMENT || item.category == ItemCategory.SPELL) {
+                    add("Core build for '$heroId' includes '${item.id}' — boots and spells are chosen separately")
+                }
+            }
+        }
     }
 }

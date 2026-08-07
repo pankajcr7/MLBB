@@ -9,6 +9,8 @@ import com.pankaj.mlbbdraft.engine.model.PlayerProfile
 import com.pankaj.mlbbdraft.engine.model.ScorePart
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.model.Suggestion
+import com.pankaj.mlbbdraft.engine.report.ArchetypeAnalyzer
+import com.pankaj.mlbbdraft.engine.report.ArchetypeVerdict
 import com.pankaj.mlbbdraft.engine.report.BuildAdvisor
 import com.pankaj.mlbbdraft.engine.report.CompReport
 import com.pankaj.mlbbdraft.engine.report.CompReportBuilder
@@ -124,6 +126,10 @@ class DraftEngine(
 
     fun compReport(state: DraftState, side: Side): CompReport =
         CompReportBuilder.build(side, db.heroes(state.heroIds(side)))
+
+    /** What a side's draft is trying to do, and how to answer it. */
+    fun archetype(state: DraftState, side: Side): ArchetypeVerdict =
+        ArchetypeAnalyzer.classify(db.heroes(state.heroIds(side)))
 
     fun itemAdvice(state: DraftState): List<ItemAdvice> = ItemAdvisor.advise(
         enemies = db.heroes(state.heroIds(Side.ENEMY)),

@@ -43,6 +43,10 @@ data class HeroBuild(
      * Purchase order: boots, two core, then the answers to their draft, then the rest
      * of the core. Counter items go in early — an anti-heal bought at 15 minutes is an
      * anti-heal bought too late.
+     *
+     * Always six slots when the catalog can supply them. The trailing core doubles as
+     * padding, so a draft with no counter items yet still shows a complete build instead
+     * of four items and a gap.
      */
     val order: List<BuildItem>
         get() = buildList {
@@ -50,9 +54,17 @@ data class HeroBuild(
             addAll(core.take(2))
             addAll(situational)
             addAll(core.drop(2))
-        }.distinctBy { it.item.id }.take(6)
+        }.distinctBy { it.item.id }.take(SLOTS)
+
+    /** True when all six slots are filled. */
+    val isComplete: Boolean get() = order.size == SLOTS
 
     val totalCost: Int get() = order.sumOf { it.item.cost }
+
+    companion object {
+        /** Boots plus five items. */
+        const val SLOTS = 6
+    }
 }
 
 /**
@@ -72,10 +84,18 @@ class BuildAdvisor(private val db: HeroDatabase) {
         val boots = bootsFor(hero, enemies)
         boots?.let { chosenIds += it.item.id }
 
-        val core = coreIds(hero)
-            .mapNotNull { db.item(it) }
+        // Hero-specific core first, then the archetype default as padding. Appending the
+        // archetype matters: an authored core of four items plus no counter items would
+        // otherwise leave the build a slot short of six.
+        val authored = db.coreBuild(hero.id)
+        val candidates = (authored + coreIds(hero).mapNotNull { db.item(it) })
+            .distinctBy { it.id }
+
+        // Not truncated here. [HeroBuild.order] interleaves and trims to six, so keeping
+        // every candidate is what guarantees a full build however many counter items the
+        // enemy draft called for.
+        val core = candidates
             .filter { it.buildableBy(hero) && it.id !in chosenIds }
-            .take(if (situational.size >= 2) 3 else 4)
             .map { BuildItem(it, coreReason(hero, it), BuildSlotKind.CORE) }
 
         return HeroBuild(
@@ -99,8 +119,10 @@ class BuildAdvisor(private val db: HeroDatabase) {
                 "demon-hunter-sword", "golden-staff", "corrosion-scythe", "windtalker", "blade-of-despair",
             )
 
+            // Corrosion Scythe rather than Endless Battle: a crit carry with only Windtalker
+            // for attack speed does not actually kill anything.
             Role.MARKSMAN in roles && !magic -> listOf(
-                "berserkers-fury", "windtalker", "endless-battle", "blade-of-despair", "rose-gold-meteor",
+                "berserkers-fury", "windtalker", "corrosion-scythe", "blade-of-despair", "rose-gold-meteor",
             )
 
             Role.ASSASSIN in roles && magic -> listOf(
@@ -161,22 +183,44 @@ class BuildAdvisor(private val db: HeroDatabase) {
         }
         val ccTotal = enemies.sumOf { it.attrs.crowdControl }
 
-        val (id, reason) = when {
-            lockdown.isNotEmpty() || ccTotal >= 32 -> "tough-boots" to
-                "Crowd-control reduction against ${lockdown.joinToString(", ") { it.name }.ifEmpty { "their high-CC draft" }}."
+        val casterish = hero.damageType == DamageType.MAGIC ||
+            Role.MAGE in hero.roles ||
+            Role.ASSASSIN in hero.roles
 
-            Role.MARKSMAN in hero.roles && hero.damageType != DamageType.MAGIC ->
-                "swift-boots" to "Attack speed: they have little hard CC, so you can afford damage boots."
-
-            hero.damageType == DamageType.MAGIC || Role.MAGE in hero.roles || Role.ASSASSIN in hero.roles ->
-                "magic-shoes" to "Cooldown reduction — more rotations is more damage for ${hero.name}."
-
-            Role.TANK in hero.roles || Role.SUPPORT in hero.roles ->
-                "rapid-boots" to "Raw movement speed so you can actually be where the fight is."
-
-            else -> "warrior-boots" to "Physical defence for the lane you are about to stand in."
+        // Ordered preferences. Several boots are role-restricted, so the first one this
+        // hero can actually buy wins — a magic-damage tank must not be sent to Demon Shoes.
+        val preferences = buildList {
+            if (lockdown.isNotEmpty() || ccTotal >= 32) {
+                add(
+                    "tough-boots" to
+                        "Crowd-control reduction against ${lockdown.joinToString(", ") { it.name }.ifEmpty { "their high-CC draft" }}.",
+                )
+            }
+            if (Role.MARKSMAN in hero.roles && hero.damageType != DamageType.MAGIC) {
+                add("swift-boots" to "Attack speed: they have little hard CC, so you can afford damage boots.")
+            }
+            if (casterish) {
+                // An outright burst threat wants penetration; that converts straight into
+                // kills and matters more than the mana a weak early game implies.
+                if (hero.attrs.burst >= 9) {
+                    add("arcane-boots" to "Flat magic penetration — more of ${hero.name}'s burst actually lands.")
+                }
+                if (hero.attrs.curve.early <= 5) {
+                    add("demon-shoes" to "Mana regeneration — ${hero.name} cannot hold a rotation early without it.")
+                }
+                add("magic-shoes" to "Cooldown reduction — more rotations is more damage for ${hero.name}.")
+            }
+            if (Role.TANK in hero.roles || Role.SUPPORT in hero.roles) {
+                add("rapid-boots" to "Raw movement speed so you can actually be where the fight is.")
+            }
+            add("warrior-boots" to "Physical defence for the lane you are about to stand in.")
         }
-        return db.item(id)?.let { BuildItem(it, reason, BuildSlotKind.BOOTS) }
+
+        return preferences.firstNotNullOfOrNull { (id, reason) ->
+            db.item(id)?.takeIf { it.buildableBy(hero) }?.let {
+                BuildItem(it, reason, BuildSlotKind.BOOTS)
+            }
+        }
     }
 
     // --- situational, driven entirely by the enemy draft ---

@@ -3,6 +3,7 @@ package com.pankaj.mlbbdraft
 import android.app.Application
 import com.pankaj.mlbbdraft.data.MetaRepository
 import com.pankaj.mlbbdraft.data.ProfileStore
+import com.pankaj.mlbbdraft.data.SuggestionSpeaker
 import com.pankaj.mlbbdraft.engine.data.DatasetLoader
 
 /**
@@ -15,7 +16,7 @@ class DraftApp : Application() {
             baseDb = DatasetLoader.fromResources(),
             profileStore = ProfileStore(this),
             metaRepository = MetaRepository(this),
-        )
+        ).also { it.attachSpeaker(SuggestionSpeaker(this)) }
     }
 }
 
