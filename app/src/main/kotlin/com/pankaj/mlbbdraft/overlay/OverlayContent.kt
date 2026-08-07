@@ -14,9 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,6 +38,8 @@ import androidx.compose.ui.unit.sp
 import com.pankaj.mlbbdraft.DraftSession
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.Side
+import com.pankaj.mlbbdraft.ui.AnalysisTabRow
+import com.pankaj.mlbbdraft.ui.analysisContent
 import com.pankaj.mlbbdraft.ui.theme.AllyBlue
 import com.pankaj.mlbbdraft.ui.theme.Bad
 import com.pankaj.mlbbdraft.ui.theme.EnemyRed
@@ -70,24 +73,28 @@ fun OverlayContent(
 
     // Expanded takes the whole screen: entering ten heroes through a 300dp window under a
     // draft timer does not work, and minimising gives the game back completely anyway.
-    Column(
+    //
+    // A LazyColumn rather than a scrolling Column because it hosts the shared analysis
+    // panels — the overlay shows the same builds, comp report and threats as the full app,
+    // since this is where the app is actually used.
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background.copy(alpha = 0.97f))
-            .padding(horizontal = 12.dp, vertical = 10.dp)
-            .verticalScroll(rememberScrollState()),
+            .padding(horizontal = 10.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(bottom = 32.dp),
     ) {
-        Header(session, onToggle = onToggle, onClose = onClose, onOpenApp = onOpenApp)
-        AutoDetectBar(session, onStopAutoDetect)
-        EnemyPlan(session)
-        Warnings(session)
-        TeamRow(session, Side.ENEMY)
-        TeamRow(session, Side.ALLY)
-        SideToggle(session)
-        QuickAdd(session)
-        LaneRow(session)
-        Suggestions(session)
+        item { Header(session, onToggle = onToggle, onClose = onClose, onOpenApp = onOpenApp) }
+        item { AutoDetectBar(session, onStopAutoDetect) }
+        item { EnemyPlan(session) }
+        item { TeamRow(session, Side.ENEMY) }
+        item { TeamRow(session, Side.ALLY) }
+        item { SideToggle(session) }
+        item { QuickAdd(session) }
+        item { LaneRow(session) }
+        item { AnalysisTabRow(session) }
+        analysisContent(session)
     }
 }
 

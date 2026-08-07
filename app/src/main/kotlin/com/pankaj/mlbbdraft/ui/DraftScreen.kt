@@ -145,75 +145,14 @@ fun DraftScreen(
 
             LaneRow(session.laneFilter, onLane = session::selectLane)
 
-            TabRow(selectedTabIndex = session.tab.ordinal) {
-                AnalysisTab.entries.forEach { tab ->
-                    Tab(
-                        selected = session.tab == tab,
-                        onClick = { session.selectTab(tab) },
-                        text = { Text(tab.label, fontSize = 12.sp) },
-                    )
-                }
-            }
+            AnalysisTabRow(session)
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 24.dp),
             ) {
-                when (session.tab) {
-                    AnalysisTab.PICKS -> {
-                        // Problems with picks already locked in come before advice on the
-                        // next pick — you can still ban, itemise or cover for them.
-                        if (session.pickWarnings.isNotEmpty()) {
-                            item { PickWarningsPanel(session.pickWarnings) }
-                        }
-                        item { LaneHint(session.laneFilter) }
-                        itemsIndexed(session.suggestions) { index, suggestion ->
-                            SuggestionCard(rank = index + 1, suggestion = suggestion)
-                        }
-                    }
-
-                    AnalysisTab.BANS -> {
-                        item {
-                            Text(
-                                text = "Ban what beats the heroes you actually play — " +
-                                    "rate your heroes so this list knows what to protect.",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                        itemsIndexed(session.banSuggestions) { index, suggestion ->
-                            SuggestionCard(rank = index + 1, suggestion = suggestion)
-                        }
-                    }
-
-                    AnalysisTab.BUILD -> {
-                        item {
-                            BuildPanel(
-                                builds = session.builds,
-                                selected = session.buildHero,
-                                onSelect = session::selectBuildHero,
-                            )
-                        }
-                        // Before you have picked anything, team-wide advice is still useful.
-                        if (session.builds.isEmpty()) {
-                            item { ItemsPanel(session.itemAdvice) }
-                        }
-                    }
-
-                    AnalysisTab.COMP -> {
-                        item { WinProbabilityCard(session.winProbability) }
-                        item { ArchetypePanel(session.enemyArchetype, Side.ENEMY) }
-                        item { ArchetypePanel(session.allyArchetype, Side.ALLY) }
-                        item { CompPanel(session.allyReport) }
-                        item { CompPanel(session.enemyReport) }
-                    }
-
-                    AnalysisTab.THREATS -> {
-                        item { ArchetypePanel(session.enemyArchetype, Side.ENEMY) }
-                        item { ThreatsPanel(session.threatReport) }
-                    }
-                }
+                analysisContent(session)
             }
         }
     }
@@ -297,12 +236,3 @@ private fun LaneRow(selected: Lane?, onLane: (Lane?) -> Unit) {
     }
 }
 
-@Composable
-private fun LaneHint(lane: Lane?) {
-    Text(
-        text = lane?.let { "Best picks for ${it.label}" }
-            ?: "Best picks across every open lane — choose a lane above to narrow it down.",
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-}
