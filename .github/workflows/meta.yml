@@ -1,19 +1,20 @@
-name: Refresh meta data
+name: Refresh verified MLBB data
 
-# Publishes data/meta.json from a live stats source. The app fetches that file's raw
-# URL, so a source outage breaks this job — which you can fix whenever — instead of
-# breaking the app mid-draft.
+# The mobile app fetches only data/meta.json from this repository. The scheduled job reads the
+# named public source as data, validates a narrow allow-list, and commits the result only when the
+# whole snapshot passes its integrity gates. A source outage therefore leaves the last known-good
+# feed in place instead of changing app advice mid-draft.
 on:
   schedule:
-    # 04:10 UTC daily. Ranked stats move slowly; more often just burns CI minutes.
-    - cron: "10 4 * * *"
+    # Offset from the hour because GitHub may delay workflows launched at :00.
+    - cron: "17 4 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: meta-refresh
+  group: verified-mlbb-data-refresh
   cancel-in-progress: false
 
 jobs:
@@ -21,27 +22,63 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
-      - name: Build meta.json
-        id: build
+      - name: Optionally refresh live hero tiers
         run: |
-          mkdir -p data
-          python tools/build_meta.py \
-            --config tools/meta_sources.json \
+          # The source configuration is intentionally disabled until a valid, reviewable stats
+          # endpoint is set. Keep the last verified tier data rather than failing catalogue updates.
+          if grep -q '"name": "CONFIGURE ME"' tools/meta_sources.json; then
+            echo "Live statistics source is not configured; retaining published tier data."
+          else
+            python tools/build_meta.py \
+              --config tools/meta_sources.json \
+              --out data/meta.json
+          fi
+
+      - name: Fetch and transform the controlled catalogue source
+        run: |
+          set -euo pipefail
+          upstream_dir="$(mktemp -d)"
+          git clone --depth 1 https://github.com/Ceplin03/database-mlbb.Mobile-Legends-Bang-Bang.git "$upstream_dir"
+          upstream_commit="$(git -C "$upstream_dir" rev-parse HEAD)"
+          node tools/build_catalogue_overlay.mjs \
+            --base data/meta.json \
+            --heroes "$upstream_dir/hero.json" \
+            --equipment "$upstream_dir/equipment.json" \
+            --upstream-commit "$upstream_commit" \
             --out data/meta.json
 
-      - name: Commit if the numbers moved
+      - name: Verify published feed shape
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const feed = JSON.parse(fs.readFileSync('data/meta.json', 'utf8'));
+          const catalogue = feed.catalogue || {};
+          if (!Array.isArray(feed.heroes) || feed.heroes.length < 20) throw new Error('live feed has fewer than 20 hero records');
+          if (!Array.isArray(catalogue.heroes) || catalogue.heroes.length < 100) throw new Error('catalogue has fewer than 100 hero records');
+          if (!Array.isArray(catalogue.equipment) || catalogue.equipment.length < 45) throw new Error('catalogue has fewer than 45 equipment records');
+          const forbidden = JSON.stringify(catalogue).match(/logo-equipment|images-hero/i);
+          if (forbidden) throw new Error('catalogue contains a forbidden artwork field');
+          console.log(`validated ${feed.heroes.length} live heroes, ${catalogue.heroes.length} catalogue heroes, ${catalogue.equipment.length} equipment`);
+          NODE
+
+      - name: Commit if verified data changed
         run: |
           if git diff --quiet -- data/meta.json; then
-            echo "No change today."
+            echo "No verified data change today."
             exit 0
           fi
-          git config user.name "meta-bot"
-          git config user.email "meta-bot@users.noreply.github.com"
+          git config user.name "mlbb-data-bot"
+          git config user.email "mlbb-data-bot@users.noreply.github.com"
           git add data/meta.json
-          git commit -m "chore(meta): refresh hero statistics"
+          git commit -m "chore(data): refresh verified MLBB catalogue"
           git push
