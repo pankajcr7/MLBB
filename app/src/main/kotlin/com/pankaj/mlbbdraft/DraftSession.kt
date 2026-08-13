@@ -458,6 +458,8 @@ class DraftSession(
         engine = DraftEngine(db)
         metaStatus = when {
             report == null -> "Bundled data only"
+            metaRepository.cachedOverlay() == null ->
+                "Bundled verified catalogue · ${report.catalogueHeroesMatched} heroes, ${report.catalogueItemsMatched} equipment"
             report.isUsable -> "Live: ${report.patch} · ${relativeAge()}"
             else -> "Bundled data (cached feed unusable)"
         }

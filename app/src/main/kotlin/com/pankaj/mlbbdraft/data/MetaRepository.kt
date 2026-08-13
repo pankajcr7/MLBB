@@ -28,7 +28,7 @@ sealed interface SyncOutcome {
  * network, ever. A sync can only improve the tiers it already has — every failure path
  * falls back to the last good cache, and then to the bundled seed.
  */
-class MetaRepository(context: Context) {
+class MetaRepository(private val context: Context) {
     private val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
     private val cacheFile = File(context.filesDir, "meta.json")
     private val fetcher = MetaFetcher()
@@ -53,11 +53,34 @@ class MetaRepository(context: Context) {
         return runCatching { MetaApplier.parse(cacheFile.readText()) }.getOrNull()
     }
 
-    /** Bundled dataset with the cached overlay applied, if there is a usable one. */
-    fun applyCached(base: HeroDatabase): Pair<HeroDatabase, MetaApplyReport?> {
-        val overlay = cachedOverlay() ?: return base to null
+    /**
+     * Validated snapshot packaged with the APK. It is intentionally parsed through the
+     * same fail-closed applier as a network payload, so source aliases and prices may
+     * improve the offline catalogue but cannot overwrite authored advisory semantics.
+     */
+    fun bundledOverlay(): MetaOverlay? = runCatching {
+        context.assets.open(BUNDLED_CATALOGUE_ASSET).bufferedReader().use { reader ->
+            MetaApplier.parse(reader.readText())
+        }
+    }.getOrNull()
+
+    /** Applies the compatibility-mapped source snapshot that ships with this APK. */
+    fun applyBundled(base: HeroDatabase): Pair<HeroDatabase, MetaApplyReport?> {
+        val overlay = bundledOverlay() ?: return base to null
         val (db, report) = MetaApplier.apply(base, overlay)
         return if (report.isUsable) db to report else base to report
+    }
+
+    /**
+     * Offline-first order: authored dataset, then the APK-packaged catalogue snapshot,
+     * then the most recent validated controlled feed. A bad cache cannot discard the
+     * verified catalogue bundled with the installed release.
+     */
+    fun applyCached(base: HeroDatabase): Pair<HeroDatabase, MetaApplyReport?> {
+        val (bundledDb, bundledReport) = applyBundled(base)
+        val overlay = cachedOverlay() ?: return bundledDb to bundledReport
+        val (db, report) = MetaApplier.apply(bundledDb, overlay)
+        return if (report.isUsable) db to report else bundledDb to (bundledReport ?: report)
     }
 
     suspend fun sync(
@@ -133,6 +156,9 @@ class MetaRepository(context: Context) {
 
         /** Ranked stats move slowly; twice a day is plenty and costs one 304 response. */
         val DEFAULT_MAX_AGE_MILLIS = 12L * 60 * 60 * 1000
+
+        /** App asset generated from the controlled allow-listed upstream snapshot. */
+        private const val BUNDLED_CATALOGUE_ASSET = "meta/verified-catalogue.json"
 
         private const val PREFS = "meta_sync"
         private const val KEY_URL = "feed_url"

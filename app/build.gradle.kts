@@ -22,8 +22,8 @@ android {
         // 26 is the floor for TYPE_APPLICATION_OVERLAY, which Phase 1 needs.
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.1.5-auto-catalogue-refresh"
+        versionCode = 7
+        versionName = "0.1.6-embedded-catalogue"
     }
 
     signingConfigs {

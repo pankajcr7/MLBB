@@ -1,0 +1,2371 @@
+{
+  "patch": "bootstrap-no-live-source",
+  "updatedAt": "2026-08-06T11:59:45Z",
+  "source": "tools/bootstrap_meta.py (bundled tiers, not live statistics) | catalogue: Ceplin03/database-mlbb.Mobile-Legends-Bang-Bang@29f98d037a70",
+  "heroes": [
+    {
+      "name": "Yu Zhong",
+      "lane": "EXP",
+      "tier": 8
+    },
+    {
+      "name": "Paquito",
+      "lane": "EXP",
+      "tier": 8
+    },
+    {
+      "name": "Paquito",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Arlott",
+      "lane": "EXP",
+      "tier": 8
+    },
+    {
+      "name": "Arlott",
+      "lane": "JUNGLE",
+      "tier": 7
+    },
+    {
+      "name": "Dyrroth",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Terizla",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Guinevere",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Silvanna",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Esmeralda",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Uranus",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Phoveus",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Masha",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "X.Borg",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Thamuz",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Chou",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Chou",
+      "lane": "ROAM",
+      "tier": 8
+    },
+    {
+      "name": "Cici",
+      "lane": "EXP",
+      "tier": 7.5
+    },
+    {
+      "name": "Aldous",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Alpha",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Argus",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Badang",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Balmond",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Freya",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Hilda",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Jawhead",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Jawhead",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Khaleed",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Lapu-Lapu",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Leomord",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Leomord",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Minsitthar",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Minsitthar",
+      "lane": "ROAM",
+      "tier": 6
+    },
+    {
+      "name": "Roger",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Roger",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Ruby",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Ruby",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Sun",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Sun",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Zilong",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Zilong",
+      "lane": "JUNGLE",
+      "tier": 5.5
+    },
+    {
+      "name": "Bane",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Alice",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Alice",
+      "lane": "MID",
+      "tier": 5.5
+    },
+    {
+      "name": "Lukas",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Lukas",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Sora",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Beatrix",
+      "lane": "GOLD",
+      "tier": 8
+    },
+    {
+      "name": "Melissa",
+      "lane": "GOLD",
+      "tier": 8.5
+    },
+    {
+      "name": "Ixia",
+      "lane": "GOLD",
+      "tier": 8
+    },
+    {
+      "name": "Claude",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Claude",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Granger",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Granger",
+      "lane": "JUNGLE",
+      "tier": 7
+    },
+    {
+      "name": "Lesley",
+      "lane": "GOLD",
+      "tier": 7
+    },
+    {
+      "name": "Wanwan",
+      "lane": "GOLD",
+      "tier": 7
+    },
+    {
+      "name": "Karrie",
+      "lane": "GOLD",
+      "tier": 7.5
+    },
+    {
+      "name": "Brody",
+      "lane": "GOLD",
+      "tier": 7
+    },
+    {
+      "name": "Bruno",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Moskov",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Miya",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Layla",
+      "lane": "GOLD",
+      "tier": 5
+    },
+    {
+      "name": "Clint",
+      "lane": "GOLD",
+      "tier": 6
+    },
+    {
+      "name": "Hanabi",
+      "lane": "GOLD",
+      "tier": 6
+    },
+    {
+      "name": "Irithel",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Kimmy",
+      "lane": "GOLD",
+      "tier": 6
+    },
+    {
+      "name": "Kimmy",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Natan",
+      "lane": "GOLD",
+      "tier": 6.5
+    },
+    {
+      "name": "Obsidia",
+      "lane": "GOLD",
+      "tier": 7
+    },
+    {
+      "name": "Ling",
+      "lane": "JUNGLE",
+      "tier": 8
+    },
+    {
+      "name": "Fanny",
+      "lane": "JUNGLE",
+      "tier": 7
+    },
+    {
+      "name": "Lancelot",
+      "lane": "JUNGLE",
+      "tier": 8
+    },
+    {
+      "name": "Gusion",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Gusion",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Hayabusa",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Julian",
+      "lane": "JUNGLE",
+      "tier": 8
+    },
+    {
+      "name": "Julian",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Yin",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Yin",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Joy",
+      "lane": "JUNGLE",
+      "tier": 8
+    },
+    {
+      "name": "Aamon",
+      "lane": "JUNGLE",
+      "tier": 7
+    },
+    {
+      "name": "Nolan",
+      "lane": "JUNGLE",
+      "tier": 8
+    },
+    {
+      "name": "Karina",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Fredrinn",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Fredrinn",
+      "lane": "EXP",
+      "tier": 7
+    },
+    {
+      "name": "Martis",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Martis",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Yi Sun-shin",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Saber",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Natalia",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Helcurt",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Hanzo",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Alucard",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Alucard",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Aulus",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Aulus",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Benedetta",
+      "lane": "JUNGLE",
+      "tier": 7
+    },
+    {
+      "name": "Benedetta",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Suyou",
+      "lane": "JUNGLE",
+      "tier": 7.5
+    },
+    {
+      "name": "Kagura",
+      "lane": "MID",
+      "tier": 8.5
+    },
+    {
+      "name": "Valentina",
+      "lane": "MID",
+      "tier": 8
+    },
+    {
+      "name": "Lunox",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Pharsa",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Yve",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Cecilion",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Xavier",
+      "lane": "MID",
+      "tier": 8
+    },
+    {
+      "name": "Vale",
+      "lane": "MID",
+      "tier": 7
+    },
+    {
+      "name": "Eudora",
+      "lane": "MID",
+      "tier": 6
+    },
+    {
+      "name": "Odette",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Lylia",
+      "lane": "MID",
+      "tier": 7
+    },
+    {
+      "name": "Novaria",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Luo Yi",
+      "lane": "MID",
+      "tier": 7
+    },
+    {
+      "name": "Luo Yi",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Harith",
+      "lane": "MID",
+      "tier": 7
+    },
+    {
+      "name": "Harith",
+      "lane": "JUNGLE",
+      "tier": 6.5
+    },
+    {
+      "name": "Zhask",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Gord",
+      "lane": "MID",
+      "tier": 6
+    },
+    {
+      "name": "Valir",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Vexana",
+      "lane": "MID",
+      "tier": 5.5
+    },
+    {
+      "name": "Nana",
+      "lane": "MID",
+      "tier": 6
+    },
+    {
+      "name": "Nana",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Aurora",
+      "lane": "MID",
+      "tier": 6
+    },
+    {
+      "name": "Chang'e",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Cyclops",
+      "lane": "MID",
+      "tier": 6
+    },
+    {
+      "name": "Harley",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Harley",
+      "lane": "JUNGLE",
+      "tier": 6
+    },
+    {
+      "name": "Kadita",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Zhuxin",
+      "lane": "MID",
+      "tier": 8
+    },
+    {
+      "name": "Zetian",
+      "lane": "MID",
+      "tier": 7.5
+    },
+    {
+      "name": "Tigreal",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Franco",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Khufra",
+      "lane": "ROAM",
+      "tier": 8
+    },
+    {
+      "name": "Atlas",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Grock",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Grock",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Hylos",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Hylos",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Minotaur",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Lolita",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Akai",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Baxia",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Baxia",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Edith",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Edith",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Chip",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Estes",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Angela",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Rafaela",
+      "lane": "ROAM",
+      "tier": 6
+    },
+    {
+      "name": "Diggie",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Mathilda",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Kaja",
+      "lane": "ROAM",
+      "tier": 7
+    },
+    {
+      "name": "Selena",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Selena",
+      "lane": "MID",
+      "tier": 6.5
+    },
+    {
+      "name": "Floryn",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Belerick",
+      "lane": "ROAM",
+      "tier": 6
+    },
+    {
+      "name": "Belerick",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Carmilla",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Faramis",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gatotkaca",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gatotkaca",
+      "lane": "EXP",
+      "tier": 5.5
+    },
+    {
+      "name": "Johnson",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Popol and Kupa",
+      "lane": "ROAM",
+      "tier": 6
+    },
+    {
+      "name": "Popol and Kupa",
+      "lane": "GOLD",
+      "tier": 5.5
+    },
+    {
+      "name": "Barats",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Barats",
+      "lane": "EXP",
+      "tier": 6.5
+    },
+    {
+      "name": "Gloo",
+      "lane": "ROAM",
+      "tier": 6.5
+    },
+    {
+      "name": "Gloo",
+      "lane": "EXP",
+      "tier": 6
+    },
+    {
+      "name": "Marcel",
+      "lane": "ROAM",
+      "tier": 7.5
+    },
+    {
+      "name": "Kalea",
+      "lane": "ROAM",
+      "tier": 7
+    }
+  ],
+  "catalogue": {
+    "upstreamCommit": "29f98d037a70a0ce03908562c5be9cab333eedff",
+    "heroes": [
+      {
+        "sourceId": "1",
+        "name": "Aamon",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "2",
+        "name": "Akai",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "3",
+        "name": "Aldous",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "4",
+        "name": "Alice",
+        "roles": [
+          "tank",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "5",
+        "name": "Alpha",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "6",
+        "name": "Alucard",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "7",
+        "name": "Angela",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "8",
+        "name": "Argus",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "9",
+        "name": "Arlott",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "10",
+        "name": "Atlas",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "11",
+        "name": "Aulus",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "12",
+        "name": "Aurora",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "13",
+        "name": "Badang",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "14",
+        "name": "Balmond",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "15",
+        "name": "Bane",
+        "roles": [
+          "fighter",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "16",
+        "name": "Barats",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "17",
+        "name": "Baxia",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "18",
+        "name": "Beatrix",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "19",
+        "name": "Belerick",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "20",
+        "name": "Benedetta",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "21",
+        "name": "Brody",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "22",
+        "name": "Bruno",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "23",
+        "name": "Carmilla",
+        "roles": [
+          "tank",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "24",
+        "name": "Cecilion",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "25",
+        "name": "Chang'e",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "26",
+        "name": "Chip",
+        "roles": [
+          "tank",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "27",
+        "name": "Chou",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "28",
+        "name": "Cici",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "29",
+        "name": "Claude",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "30",
+        "name": "Clint",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "31",
+        "name": "Cyclops",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "32",
+        "name": "Diggie",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "33",
+        "name": "Dyrroth",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "34",
+        "name": "Edith",
+        "roles": [
+          "tank",
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "35",
+        "name": "Esmeralda",
+        "roles": [
+          "tank",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "36",
+        "name": "Estes",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "37",
+        "name": "Eudora",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "38",
+        "name": "Fanny",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "39",
+        "name": "Faramis",
+        "roles": [
+          "mage",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "40",
+        "name": "Floryn",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "41",
+        "name": "Franco",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "42",
+        "name": "Fredrinn",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "43",
+        "name": "Freya",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "44",
+        "name": "Gatotkaca",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "45",
+        "name": "Gloo",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "46",
+        "name": "Gord",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "47",
+        "name": "Granger",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "48",
+        "name": "Grock",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "49",
+        "name": "Guinevere",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "50",
+        "name": "Gusion",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "51",
+        "name": "Hanabi",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "52",
+        "name": "Hanzo",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "53",
+        "name": "Harith",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "54",
+        "name": "Harley",
+        "roles": [
+          "assassin",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "55",
+        "name": "Hayabusa",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "56",
+        "name": "Helcurt",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "57",
+        "name": "Hilda",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "58",
+        "name": "Hirara",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "59",
+        "name": "Hylos",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "60",
+        "name": "Irithel",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "61",
+        "name": "Ixia",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "62",
+        "name": "Jawhead",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "63",
+        "name": "Johnson",
+        "roles": [
+          "tank",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "64",
+        "name": "Joy",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "65",
+        "name": "Julian",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "66",
+        "name": "Kadita",
+        "roles": [
+          "assassin",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "67",
+        "name": "Kagura",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "68",
+        "name": "Kaja",
+        "roles": [
+          "fighter",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "69",
+        "name": "Kalea",
+        "roles": [
+          "fighter",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "70",
+        "name": "Karina",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "71",
+        "name": "Karrie",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "72",
+        "name": "Khaleed",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "73",
+        "name": "Khufra",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "74",
+        "name": "Kimmy",
+        "roles": [
+          "mage",
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "75",
+        "name": "Lancelot",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "76",
+        "name": "Lapu-Lapu",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "77",
+        "name": "Layla",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "78",
+        "name": "Leomord",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "79",
+        "name": "Lesley",
+        "roles": [
+          "assassin",
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "80",
+        "name": "Ling",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "81",
+        "name": "Lolita",
+        "roles": [
+          "tank",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "82",
+        "name": "Lukas",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "83",
+        "name": "Lunox",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "84",
+        "name": "Luo Yi",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "85",
+        "name": "Lylia",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "86",
+        "name": "Marcel",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "87",
+        "name": "Martis",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "88",
+        "name": "Masha",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "89",
+        "name": "Mathilda",
+        "roles": [
+          "assassin",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "90",
+        "name": "Melissa",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "91",
+        "name": "Minotaur",
+        "roles": [
+          "tank",
+          "support"
+        ]
+      },
+      {
+        "sourceId": "92",
+        "name": "Minsitthar",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "93",
+        "name": "Miya",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "94",
+        "name": "Moskov",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "95",
+        "name": "Nana",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "96",
+        "name": "Natalia",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "97",
+        "name": "Natan",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "98",
+        "name": "Nolan",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "99",
+        "name": "Novaria",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "100",
+        "name": "Obsidia",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "101",
+        "name": "Odette",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "102",
+        "name": "Paquito",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "103",
+        "name": "Pharsa",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "104",
+        "name": "Phoveus",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "105",
+        "name": "Popol and Kupa",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "106",
+        "name": "Rafaela",
+        "roles": [
+          "support"
+        ]
+      },
+      {
+        "sourceId": "107",
+        "name": "Roger",
+        "roles": [
+          "fighter",
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "108",
+        "name": "Ruby",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "109",
+        "name": "Saber",
+        "roles": [
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "110",
+        "name": "Selena",
+        "roles": [
+          "assassin",
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "111",
+        "name": "Silvanna",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "112",
+        "name": "Sora",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "113",
+        "name": "Sun",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "114",
+        "name": "Suyou",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "115",
+        "name": "Terizla",
+        "roles": [
+          "tank",
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "116",
+        "name": "Thamuz",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "117",
+        "name": "Tigreal",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "118",
+        "name": "Uranus",
+        "roles": [
+          "tank"
+        ]
+      },
+      {
+        "sourceId": "119",
+        "name": "Vale",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "120",
+        "name": "Valentina",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "121",
+        "name": "Valir",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "122",
+        "name": "Vexana",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "123",
+        "name": "Wanwan",
+        "roles": [
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "124",
+        "name": "X.Borg",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "125",
+        "name": "Xavier",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "126",
+        "name": "Yi Sun-shin",
+        "roles": [
+          "assassin",
+          "marksman"
+        ]
+      },
+      {
+        "sourceId": "127",
+        "name": "Yin",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      },
+      {
+        "sourceId": "128",
+        "name": "Yu Zhong",
+        "roles": [
+          "fighter"
+        ]
+      },
+      {
+        "sourceId": "129",
+        "name": "Yve",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "130",
+        "name": "Zetian",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "131",
+        "name": "Zhask",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "132",
+        "name": "Zhuxin",
+        "roles": [
+          "mage"
+        ]
+      },
+      {
+        "sourceId": "133",
+        "name": "Zilong",
+        "roles": [
+          "fighter",
+          "assassin"
+        ]
+      }
+    ],
+    "equipment": [
+      {
+        "sourceId": "1",
+        "name": "Berserker's Fury",
+        "priceGold": 2390
+      },
+      {
+        "sourceId": "2",
+        "name": "Blade of Despair",
+        "priceGold": 3010
+      },
+      {
+        "sourceId": "3",
+        "name": "Blade of the Heptaseas",
+        "priceGold": 1950
+      },
+      {
+        "sourceId": "4",
+        "name": "Corrosion Scythe",
+        "priceGold": 2050
+      },
+      {
+        "sourceId": "5",
+        "name": "Demon Hunter Sword",
+        "priceGold": 2180
+      },
+      {
+        "sourceId": "6",
+        "name": "Endless Battle",
+        "priceGold": 2330
+      },
+      {
+        "sourceId": "7",
+        "name": "Fleeting Time",
+        "priceGold": 2050
+      },
+      {
+        "sourceId": "8",
+        "name": "Golden Staff",
+        "priceGold": 2000
+      },
+      {
+        "sourceId": "9",
+        "name": "Great Dragon Spear",
+        "priceGold": 2140
+      },
+      {
+        "sourceId": "10",
+        "name": "Haas's Claws",
+        "priceGold": 2020
+      },
+      {
+        "sourceId": "11",
+        "name": "Hunter Strike",
+        "priceGold": 2010
+      },
+      {
+        "sourceId": "12",
+        "name": "Malefic Gun",
+        "priceGold": 2120
+      },
+      {
+        "sourceId": "13",
+        "name": "Malefic Roar",
+        "priceGold": 2060
+      },
+      {
+        "sourceId": "14",
+        "name": "Rose Gold Meteor",
+        "priceGold": 1820
+      },
+      {
+        "sourceId": "15",
+        "name": "Sea Halberd",
+        "priceGold": 2050
+      },
+      {
+        "sourceId": "16",
+        "name": "Sky Piercer",
+        "priceGold": 1500
+      },
+      {
+        "sourceId": "17",
+        "name": "War Axe",
+        "priceGold": 2100
+      },
+      {
+        "sourceId": "18",
+        "name": "Wind of Nature",
+        "priceGold": 1910
+      },
+      {
+        "sourceId": "19",
+        "name": "Windtalker",
+        "priceGold": 1880
+      },
+      {
+        "sourceId": "20",
+        "name": "Winter Crown",
+        "priceGold": 1910
+      },
+      {
+        "sourceId": "21",
+        "name": "Fury Hammer",
+        "priceGold": 830
+      },
+      {
+        "sourceId": "22",
+        "name": "Legion Sword",
+        "priceGold": 910
+      },
+      {
+        "sourceId": "23",
+        "name": "Magic Blade",
+        "priceGold": 1050
+      },
+      {
+        "sourceId": "24",
+        "name": "Ogre Tomahawk",
+        "priceGold": 650
+      },
+      {
+        "sourceId": "25",
+        "name": "Regular Spear",
+        "priceGold": 600
+      },
+      {
+        "sourceId": "26",
+        "name": "Rogue Meteor",
+        "priceGold": 900
+      },
+      {
+        "sourceId": "27",
+        "name": "Swift Crossbow",
+        "priceGold": 1000
+      },
+      {
+        "sourceId": "28",
+        "name": "Dagger",
+        "priceGold": 250
+      },
+      {
+        "sourceId": "29",
+        "name": "Expert Gloves",
+        "priceGold": 500
+      },
+      {
+        "sourceId": "30",
+        "name": "Iron Hunting Bow",
+        "priceGold": 450
+      },
+      {
+        "sourceId": "31",
+        "name": "Javelin",
+        "priceGold": 320
+      },
+      {
+        "sourceId": "32",
+        "name": "Knife",
+        "priceGold": 280
+      },
+      {
+        "sourceId": "33",
+        "name": "Vampire Mallet",
+        "priceGold": 400
+      },
+      {
+        "sourceId": "34",
+        "name": "Power Potion",
+        "priceGold": 1500
+      },
+      {
+        "sourceId": "35",
+        "name": "Blood Wings",
+        "priceGold": 2100
+      },
+      {
+        "sourceId": "36",
+        "name": "Clock of Destiny",
+        "priceGold": 2030
+      },
+      {
+        "sourceId": "37",
+        "name": "Concentrated Energy",
+        "priceGold": 2020
+      },
+      {
+        "sourceId": "38",
+        "name": "Divine Glaive",
+        "priceGold": 1970
+      },
+      {
+        "sourceId": "39",
+        "name": "Enchanted Talisman",
+        "priceGold": 1870
+      },
+      {
+        "sourceId": "40",
+        "name": "Feather of Heaven",
+        "priceGold": 2030
+      },
+      {
+        "sourceId": "41",
+        "name": "Flask of the Oasis",
+        "priceGold": 1850
+      },
+      {
+        "sourceId": "42",
+        "name": "Fleeting Time",
+        "priceGold": 2050
+      },
+      {
+        "sourceId": "43",
+        "name": "Genius Wand",
+        "priceGold": 2000
+      },
+      {
+        "sourceId": "44",
+        "name": "Glowing Wand",
+        "priceGold": 2150
+      },
+      {
+        "sourceId": "45",
+        "name": "Holy Crystal",
+        "priceGold": 3000
+      },
+      {
+        "sourceId": "46",
+        "name": "Ice Queen Wand",
+        "priceGold": 2040
+      },
+      {
+        "sourceId": "47",
+        "name": "Lightning Truncheon",
+        "priceGold": 2250
+      },
+      {
+        "sourceId": "48",
+        "name": "Sky Piercer",
+        "priceGold": 1500
+      },
+      {
+        "sourceId": "49",
+        "name": "Starlium Scythe",
+        "priceGold": 2220
+      },
+      {
+        "sourceId": "50",
+        "name": "Winter Crown",
+        "priceGold": 1910
+      },
+      {
+        "sourceId": "51",
+        "name": "Wishing Lantern",
+        "priceGold": 2250
+      },
+      {
+        "sourceId": "52",
+        "name": "Azure Blade",
+        "priceGold": 600
+      },
+      {
+        "sourceId": "53",
+        "name": "Elegant Gem",
+        "priceGold": 700
+      },
+      {
+        "sourceId": "54",
+        "name": "Exotic Veil",
+        "priceGold": 600
+      },
+      {
+        "sourceId": "55",
+        "name": "Mystic Container",
+        "priceGold": 500
+      },
+      {
+        "sourceId": "56",
+        "name": "Tome of Evil",
+        "priceGold": 950
+      },
+      {
+        "sourceId": "57",
+        "name": "Book of Sages",
+        "priceGold": 450
+      },
+      {
+        "sourceId": "58",
+        "name": "Expert Gloves",
+        "priceGold": 500
+      },
+      {
+        "sourceId": "59",
+        "name": "Magic Necklace",
+        "priceGold": 120
+      },
+      {
+        "sourceId": "60",
+        "name": "Magic Wand",
+        "priceGold": 820
+      },
+      {
+        "sourceId": "61",
+        "name": "Mystery Codex",
+        "priceGold": 300
+      },
+      {
+        "sourceId": "62",
+        "name": "Power Crystal",
+        "priceGold": 220
+      },
+      {
+        "sourceId": "63",
+        "name": "Flower of Hope",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "64",
+        "name": "Lantern of Hope",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "65",
+        "name": "Magic Potion",
+        "priceGold": 1500
+      },
+      {
+        "sourceId": "66",
+        "name": "Antique Cuirass",
+        "priceGold": 2170
+      },
+      {
+        "sourceId": "67",
+        "name": "Athena's Shield",
+        "priceGold": 2150
+      },
+      {
+        "sourceId": "68",
+        "name": "Blade Armor",
+        "priceGold": 1910
+      },
+      {
+        "sourceId": "69",
+        "name": "Brute Force Breastplate",
+        "priceGold": 1870
+      },
+      {
+        "sourceId": "70",
+        "name": "Chastise Pauldron",
+        "priceGold": 2100
+      },
+      {
+        "sourceId": "71",
+        "name": "Cursed Helmet",
+        "priceGold": 1910
+      },
+      {
+        "sourceId": "72",
+        "name": "Dominance Ice",
+        "priceGold": 2010
+      },
+      {
+        "sourceId": "73",
+        "name": "Fleeting Time",
+        "priceGold": 2050
+      },
+      {
+        "sourceId": "74",
+        "name": "Guardian Helmet",
+        "priceGold": 2200
+      },
+      {
+        "sourceId": "75",
+        "name": "Immortality",
+        "priceGold": 2120
+      },
+      {
+        "sourceId": "76",
+        "name": "Oracle",
+        "priceGold": 1860
+      },
+      {
+        "sourceId": "77",
+        "name": "Queen's Wings",
+        "priceGold": 2250
+      },
+      {
+        "sourceId": "78",
+        "name": "Radiant Armor",
+        "priceGold": 1880
+      },
+      {
+        "sourceId": "79",
+        "name": "Thunder Belt",
+        "priceGold": 1820
+      },
+      {
+        "sourceId": "80",
+        "name": "Ares Belt",
+        "priceGold": 900
+      },
+      {
+        "sourceId": "81",
+        "name": "Black Ice Shield",
+        "priceGold": 880
+      },
+      {
+        "sourceId": "82",
+        "name": "Dreadnaught Armor",
+        "priceGold": 730
+      },
+      {
+        "sourceId": "83",
+        "name": "Molten Essence",
+        "priceGold": 800
+      },
+      {
+        "sourceId": "84",
+        "name": "Silence Robe",
+        "priceGold": 1020
+      },
+      {
+        "sourceId": "85",
+        "name": "Steel Legplates",
+        "priceGold": 630
+      },
+      {
+        "sourceId": "86",
+        "name": "Healing Necklace",
+        "priceGold": 140
+      },
+      {
+        "sourceId": "87",
+        "name": "Hero's Ring",
+        "priceGold": 450
+      },
+      {
+        "sourceId": "88",
+        "name": "Leather Jerkin",
+        "priceGold": 220
+      },
+      {
+        "sourceId": "89",
+        "name": "Magic Resist Cloak",
+        "priceGold": 220
+      },
+      {
+        "sourceId": "90",
+        "name": "Vitality Crystal",
+        "priceGold": 300
+      },
+      {
+        "sourceId": "91",
+        "name": "Rock Potion",
+        "priceGold": 1500
+      },
+      {
+        "sourceId": "92",
+        "name": "Arcane Boots",
+        "priceGold": 690
+      },
+      {
+        "sourceId": "93",
+        "name": "Demon Boots",
+        "priceGold": 720
+      },
+      {
+        "sourceId": "94",
+        "name": "Magic Boots",
+        "priceGold": 710
+      },
+      {
+        "sourceId": "95",
+        "name": "Rapid Boots",
+        "priceGold": 750
+      },
+      {
+        "sourceId": "96",
+        "name": "Swift Boots",
+        "priceGold": 710
+      },
+      {
+        "sourceId": "97",
+        "name": "Tough Boots",
+        "priceGold": 700
+      },
+      {
+        "sourceId": "98",
+        "name": "Warrior Boots",
+        "priceGold": 720
+      },
+      {
+        "sourceId": "99",
+        "name": "Boots",
+        "priceGold": 250
+      },
+      {
+        "sourceId": "100",
+        "name": "Allow Throw",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "101",
+        "name": "Broken Heart",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "102",
+        "name": "Throw Forbidden",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "103",
+        "name": "Bloody Retribution",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "104",
+        "name": "Flame Retribution",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "105",
+        "name": "Ice Retribution",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "106",
+        "name": "Conceal",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "107",
+        "name": "Dire Hit",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "108",
+        "name": "Encourage",
+        "priceGold": 0
+      },
+      {
+        "sourceId": "109",
+        "name": "Favor",
+        "priceGold": 0
+      }
+    ]
+  }
+}
