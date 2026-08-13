@@ -1,0 +1,816 @@
+{
+  "source": "Screenshot_20260811_200608_com.mobiin.gp.jpg",
+  "cropSize": 71,
+  "references": [
+    {
+      "itemId": "warrior-boots",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        1
+      ],
+      "variant": "native",
+      "file": "warrior-boots__r1c1__native.png"
+    },
+    {
+      "itemId": "warrior-boots",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        1
+      ],
+      "variant": "lowres",
+      "file": "warrior-boots__r1c1__lowres.png"
+    },
+    {
+      "itemId": "warrior-boots",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        1
+      ],
+      "variant": "dimmed",
+      "file": "warrior-boots__r1c1__dimmed.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        2
+      ],
+      "variant": "native",
+      "file": "war-axe__r1c2__native.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        2
+      ],
+      "variant": "lowres",
+      "file": "war-axe__r1c2__lowres.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        2
+      ],
+      "variant": "dimmed",
+      "file": "war-axe__r1c2__dimmed.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        3
+      ],
+      "variant": "native",
+      "file": "blade-of-the-heptaseas__r1c3__native.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        3
+      ],
+      "variant": "lowres",
+      "file": "blade-of-the-heptaseas__r1c3__lowres.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        3
+      ],
+      "variant": "dimmed",
+      "file": "blade-of-the-heptaseas__r1c3__dimmed.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        4
+      ],
+      "variant": "native",
+      "file": "queens-wings__r1c4__native.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        4
+      ],
+      "variant": "lowres",
+      "file": "queens-wings__r1c4__lowres.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        4
+      ],
+      "variant": "dimmed",
+      "file": "queens-wings__r1c4__dimmed.png"
+    },
+    {
+      "itemId": "sea-halberd",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        5
+      ],
+      "variant": "native",
+      "file": "sea-halberd__r1c5__native.png"
+    },
+    {
+      "itemId": "sea-halberd",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        5
+      ],
+      "variant": "lowres",
+      "file": "sea-halberd__r1c5__lowres.png"
+    },
+    {
+      "itemId": "sea-halberd",
+      "hero": "Ruby",
+      "slot": [
+        1,
+        5
+      ],
+      "variant": "dimmed",
+      "file": "sea-halberd__r1c5__dimmed.png"
+    },
+    {
+      "itemId": "warrior-boots",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        1
+      ],
+      "variant": "native",
+      "file": "warrior-boots__r2c1__native.png"
+    },
+    {
+      "itemId": "warrior-boots",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        1
+      ],
+      "variant": "lowres",
+      "file": "warrior-boots__r2c1__lowres.png"
+    },
+    {
+      "itemId": "warrior-boots",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        1
+      ],
+      "variant": "dimmed",
+      "file": "warrior-boots__r2c1__dimmed.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        2
+      ],
+      "variant": "native",
+      "file": "hunter-strike__r2c2__native.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        2
+      ],
+      "variant": "lowres",
+      "file": "hunter-strike__r2c2__lowres.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        2
+      ],
+      "variant": "dimmed",
+      "file": "hunter-strike__r2c2__dimmed.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        3
+      ],
+      "variant": "native",
+      "file": "lightning-truncheon__r2c3__native.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        3
+      ],
+      "variant": "lowres",
+      "file": "lightning-truncheon__r2c3__lowres.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        3
+      ],
+      "variant": "dimmed",
+      "file": "lightning-truncheon__r2c3__dimmed.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        4
+      ],
+      "variant": "native",
+      "file": "war-axe__r2c4__native.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        4
+      ],
+      "variant": "lowres",
+      "file": "war-axe__r2c4__lowres.png"
+    },
+    {
+      "itemId": "war-axe",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        4
+      ],
+      "variant": "dimmed",
+      "file": "war-axe__r2c4__dimmed.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        5
+      ],
+      "variant": "native",
+      "file": "queens-wings__r2c5__native.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        5
+      ],
+      "variant": "lowres",
+      "file": "queens-wings__r2c5__lowres.png"
+    },
+    {
+      "itemId": "queens-wings",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        5
+      ],
+      "variant": "dimmed",
+      "file": "queens-wings__r2c5__dimmed.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        6
+      ],
+      "variant": "native",
+      "file": "malefic-roar__r2c6__native.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        6
+      ],
+      "variant": "lowres",
+      "file": "malefic-roar__r2c6__lowres.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Suyou",
+      "slot": [
+        2,
+        6
+      ],
+      "variant": "dimmed",
+      "file": "malefic-roar__r2c6__dimmed.png"
+    },
+    {
+      "itemId": "great-dragon-spear",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        1
+      ],
+      "variant": "native",
+      "file": "great-dragon-spear__r3c1__native.png"
+    },
+    {
+      "itemId": "great-dragon-spear",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        1
+      ],
+      "variant": "lowres",
+      "file": "great-dragon-spear__r3c1__lowres.png"
+    },
+    {
+      "itemId": "great-dragon-spear",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        1
+      ],
+      "variant": "dimmed",
+      "file": "great-dragon-spear__r3c1__dimmed.png"
+    },
+    {
+      "itemId": "guardian-helmet",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        2
+      ],
+      "variant": "native",
+      "file": "guardian-helmet__r3c2__native.png"
+    },
+    {
+      "itemId": "guardian-helmet",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        2
+      ],
+      "variant": "lowres",
+      "file": "guardian-helmet__r3c2__lowres.png"
+    },
+    {
+      "itemId": "guardian-helmet",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        2
+      ],
+      "variant": "dimmed",
+      "file": "guardian-helmet__r3c2__dimmed.png"
+    },
+    {
+      "itemId": "demon-shoes",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        3
+      ],
+      "variant": "native",
+      "file": "demon-shoes__r3c3__native.png"
+    },
+    {
+      "itemId": "demon-shoes",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        3
+      ],
+      "variant": "lowres",
+      "file": "demon-shoes__r3c3__lowres.png"
+    },
+    {
+      "itemId": "demon-shoes",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        3
+      ],
+      "variant": "dimmed",
+      "file": "demon-shoes__r3c3__dimmed.png"
+    },
+    {
+      "itemId": "athenas-shield",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        4
+      ],
+      "variant": "native",
+      "file": "athenas-shield__r3c4__native.png"
+    },
+    {
+      "itemId": "athenas-shield",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        4
+      ],
+      "variant": "lowres",
+      "file": "athenas-shield__r3c4__lowres.png"
+    },
+    {
+      "itemId": "athenas-shield",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        4
+      ],
+      "variant": "dimmed",
+      "file": "athenas-shield__r3c4__dimmed.png"
+    },
+    {
+      "itemId": "brute-force-breastplate",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        5
+      ],
+      "variant": "native",
+      "file": "brute-force-breastplate__r3c5__native.png"
+    },
+    {
+      "itemId": "brute-force-breastplate",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        5
+      ],
+      "variant": "lowres",
+      "file": "brute-force-breastplate__r3c5__lowres.png"
+    },
+    {
+      "itemId": "brute-force-breastplate",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        5
+      ],
+      "variant": "dimmed",
+      "file": "brute-force-breastplate__r3c5__dimmed.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        6
+      ],
+      "variant": "native",
+      "file": "holy-crystal__r3c6__native.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        6
+      ],
+      "variant": "lowres",
+      "file": "holy-crystal__r3c6__lowres.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Atlas",
+      "slot": [
+        3,
+        6
+      ],
+      "variant": "dimmed",
+      "file": "holy-crystal__r3c6__dimmed.png"
+    },
+    {
+      "itemId": "magic-shoes",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        1
+      ],
+      "variant": "native",
+      "file": "magic-shoes__r4c1__native.png"
+    },
+    {
+      "itemId": "magic-shoes",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        1
+      ],
+      "variant": "lowres",
+      "file": "magic-shoes__r4c1__lowres.png"
+    },
+    {
+      "itemId": "magic-shoes",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        1
+      ],
+      "variant": "dimmed",
+      "file": "magic-shoes__r4c1__dimmed.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        2
+      ],
+      "variant": "native",
+      "file": "lightning-truncheon__r4c2__native.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        2
+      ],
+      "variant": "lowres",
+      "file": "lightning-truncheon__r4c2__lowres.png"
+    },
+    {
+      "itemId": "lightning-truncheon",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        2
+      ],
+      "variant": "dimmed",
+      "file": "lightning-truncheon__r4c2__dimmed.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        3
+      ],
+      "variant": "native",
+      "file": "blade-of-the-heptaseas__r4c3__native.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        3
+      ],
+      "variant": "lowres",
+      "file": "blade-of-the-heptaseas__r4c3__lowres.png"
+    },
+    {
+      "itemId": "blade-of-the-heptaseas",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        3
+      ],
+      "variant": "dimmed",
+      "file": "blade-of-the-heptaseas__r4c3__dimmed.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        4
+      ],
+      "variant": "native",
+      "file": "holy-crystal__r4c4__native.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        4
+      ],
+      "variant": "lowres",
+      "file": "holy-crystal__r4c4__lowres.png"
+    },
+    {
+      "itemId": "holy-crystal",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        4
+      ],
+      "variant": "dimmed",
+      "file": "holy-crystal__r4c4__dimmed.png"
+    },
+    {
+      "itemId": "clock-of-destiny",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        5
+      ],
+      "variant": "native",
+      "file": "clock-of-destiny__r4c5__native.png"
+    },
+    {
+      "itemId": "clock-of-destiny",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        5
+      ],
+      "variant": "lowres",
+      "file": "clock-of-destiny__r4c5__lowres.png"
+    },
+    {
+      "itemId": "clock-of-destiny",
+      "hero": "Kagura",
+      "slot": [
+        4,
+        5
+      ],
+      "variant": "dimmed",
+      "file": "clock-of-destiny__r4c5__dimmed.png"
+    },
+    {
+      "itemId": "corrosion-scythe",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        1
+      ],
+      "variant": "native",
+      "file": "corrosion-scythe__r5c1__native.png"
+    },
+    {
+      "itemId": "corrosion-scythe",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        1
+      ],
+      "variant": "lowres",
+      "file": "corrosion-scythe__r5c1__lowres.png"
+    },
+    {
+      "itemId": "corrosion-scythe",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        1
+      ],
+      "variant": "dimmed",
+      "file": "corrosion-scythe__r5c1__dimmed.png"
+    },
+    {
+      "itemId": "tough-boots",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        2
+      ],
+      "variant": "native",
+      "file": "tough-boots__r5c2__native.png"
+    },
+    {
+      "itemId": "tough-boots",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        2
+      ],
+      "variant": "lowres",
+      "file": "tough-boots__r5c2__lowres.png"
+    },
+    {
+      "itemId": "tough-boots",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        2
+      ],
+      "variant": "dimmed",
+      "file": "tough-boots__r5c2__dimmed.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        3
+      ],
+      "variant": "native",
+      "file": "malefic-roar__r5c3__native.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        3
+      ],
+      "variant": "lowres",
+      "file": "malefic-roar__r5c3__lowres.png"
+    },
+    {
+      "itemId": "malefic-roar",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        3
+      ],
+      "variant": "dimmed",
+      "file": "malefic-roar__r5c3__dimmed.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        4
+      ],
+      "variant": "native",
+      "file": "hunter-strike__r5c4__native.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        4
+      ],
+      "variant": "lowres",
+      "file": "hunter-strike__r5c4__lowres.png"
+    },
+    {
+      "itemId": "hunter-strike",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        4
+      ],
+      "variant": "dimmed",
+      "file": "hunter-strike__r5c4__dimmed.png"
+    },
+    {
+      "itemId": "windtalker",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        6
+      ],
+      "variant": "native",
+      "file": "windtalker__r5c6__native.png"
+    },
+    {
+      "itemId": "windtalker",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        6
+      ],
+      "variant": "lowres",
+      "file": "windtalker__r5c6__lowres.png"
+    },
+    {
+      "itemId": "windtalker",
+      "hero": "Moskov",
+      "slot": [
+        5,
+        6
+      ],
+      "variant": "dimmed",
+      "file": "windtalker__r5c6__dimmed.png"
+    }
+  ]
+}

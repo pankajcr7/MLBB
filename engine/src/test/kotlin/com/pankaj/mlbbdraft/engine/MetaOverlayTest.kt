@@ -1,11 +1,15 @@
 package com.pankaj.mlbbdraft.engine
 
 import com.pankaj.mlbbdraft.engine.data.DatasetLoader
+import com.pankaj.mlbbdraft.engine.meta.CatalogueHero
+import com.pankaj.mlbbdraft.engine.meta.CatalogueItem
+import com.pankaj.mlbbdraft.engine.meta.CatalogueOverlay
 import com.pankaj.mlbbdraft.engine.meta.HeroNameResolver
 import com.pankaj.mlbbdraft.engine.meta.MetaApplier
 import com.pankaj.mlbbdraft.engine.meta.MetaApplyReport
 import com.pankaj.mlbbdraft.engine.meta.MetaHero
 import com.pankaj.mlbbdraft.engine.meta.MetaOverlay
+import com.pankaj.mlbbdraft.engine.model.ItemCategory
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.MatchupEdge
 import org.junit.Assert.assertEquals
@@ -200,8 +204,69 @@ class MetaOverlayTest {
     }
 
     @Test
+    fun `complete catalogue refresh adds aliases and prices but preserves item semantics`() {
+        val sourceEquipment = base.items
+            .filter { it.category != ItemCategory.SPELL }
+            .mapIndexed { index, item ->
+                CatalogueItem(
+                    sourceId = "item-${index + 1}",
+                    name = when (item.id) {
+                        "magic-shoes" -> "Magic Boots"
+                        "demon-shoes" -> "Demon Boots"
+                        else -> item.name
+                    },
+                    priceGold = if (item.id == "magic-shoes") 777 else item.cost,
+                )
+            }
+        val overlay = MetaOverlay(
+            patch = "catalogue-test",
+            updatedAt = "2026-08-13T00:00:00Z",
+            source = "test",
+            catalogue = CatalogueOverlay(
+                upstreamCommit = "abc1234",
+                heroes = base.heroes.mapIndexed { index, hero ->
+                    CatalogueHero("hero-${index + 1}", hero.name)
+                },
+                equipment = sourceEquipment,
+            ),
+        )
+
+        val (updated, report) = MetaApplier.apply(base, overlay)
+
+        assertTrue("Catalogue should clear the complete-snapshot floor: $report", report.isUsable)
+        assertEquals(base.heroes.size, report.catalogueHeroesMatched)
+        assertEquals(sourceEquipment.size, report.catalogueItemsMatched)
+        assertTrue("Magic Boots should be a verified alias", "Magic Boots" in updated.item("magic-shoes")!!.aliases)
+        assertEquals(777, updated.item("magic-shoes")!!.cost)
+        assertEquals(ItemCategory.MOVEMENT, updated.item("magic-shoes")!!.category)
+        assertEquals(ItemCategory.SPELL, updated.item("flicker")!!.category)
+        assertEquals("No source hero may become a new playable hero", base.size, updated.size)
+    }
+
+    @Test
+    fun `partial catalogue snapshot is rejected without touching the bundled data`() {
+        val partial = MetaOverlay(
+            patch = "partial-catalogue",
+            updatedAt = "2026-08-13T00:00:00Z",
+            catalogue = CatalogueOverlay(
+                upstreamCommit = "abc1234",
+                heroes = base.heroes.take(10).mapIndexed { index, hero -> CatalogueHero("h$index", hero.name) },
+                equipment = base.items.filter { it.category != ItemCategory.SPELL }.take(10)
+                    .mapIndexed { index, item -> CatalogueItem("i$index", item.name, item.cost) },
+            ),
+        )
+        val (updated, report) = MetaApplier.apply(base, partial)
+
+        assertSame(base, updated)
+        assertTrue(!report.isUsable)
+        assertTrue(report.warnings.any { it.contains("safety floor") })
+    }
+
+    @Test
     fun `the sanity floor is documented where it is enforced`() {
         assertEquals(20, MetaApplyReport.MIN_MATCHED)
+        assertEquals(100, MetaApplyReport.MIN_CATALOGUE_HEROES)
+        assertEquals(45, MetaApplyReport.MIN_CATALOGUE_ITEMS)
     }
 
     /**
@@ -219,10 +284,18 @@ class MetaOverlayTest {
             "Published feed matched only ${report.heroesMatched} heroes: ${report.unknownNames}",
             report.isUsable,
         )
+        val unknownLiveMetaNames = report.unknownNames.filterNot {
+            it.startsWith("hero:") || it.startsWith("equipment:")
+        }
         assertEquals(
-            "Published feed names every hero it knows: ${report.unknownNames}",
+            "Live tier records must resolve cleanly: ${report.unknownNames}",
             emptyList<String>(),
-            report.unknownNames,
+            unknownLiveMetaNames,
+        )
+        assertTrue(
+            "Published catalogue must be complete enough to apply: $report",
+            report.catalogueHeroesMatched >= MetaApplyReport.MIN_CATALOGUE_HEROES &&
+                report.catalogueItemsMatched >= MetaApplyReport.MIN_CATALOGUE_ITEMS,
         )
         assertEquals("No hero may be lost", base.size, updated.size)
         assertTrue("Feed needs a patch label", overlay.patch.isNotBlank())

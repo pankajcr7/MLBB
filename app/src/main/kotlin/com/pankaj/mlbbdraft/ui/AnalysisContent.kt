@@ -1,67 +1,113 @@
 package com.pankaj.mlbbdraft.ui
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pankaj.mlbbdraft.AnalysisTab
 import com.pankaj.mlbbdraft.DraftSession
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.Side
+import com.pankaj.mlbbdraft.engine.model.StepKind
 
 /**
- * The analysis surface, shared by the main screen and the floating overlay.
- *
- * Shared rather than reimplemented on purpose: the overlay is where the app is actually
- * used, so it must show *everything* — builds with real item icons, comp health, threats,
- * win probability — not a cut-down version that drifts behind the full app.
- *
- * Exposed as a `LazyListScope` extension so each surface owns its own scrolling container.
+ * The analysis surface, shared by the main screen and the floating overlay. The most useful
+ * advice comes first, and the best recommendation can be acted on without reopening a picker.
  */
-fun LazyListScope.analysisContent(session: DraftSession) {
+fun LazyListScope.analysisContent(
+    session: DraftSession,
+    onRequestEnemyBuildScan: (() -> Unit)? = null,
+    onUploadBuildScreenshot: (() -> Unit)? = null,
+) {
     when (session.tab) {
         AnalysisTab.PICKS -> {
-            // Problems with picks already locked in come before advice on the next pick —
-            // you can still ban, itemise or cover for them.
             if (session.pickWarnings.isNotEmpty()) {
                 item { PickWarningsPanel(session.pickWarnings) }
             }
             item { LaneHint(session.laneFilter) }
             itemsIndexed(session.suggestions) { index, suggestion ->
-                SuggestionCard(rank = index + 1, suggestion = suggestion)
+                SuggestionCard(
+                    rank = index + 1,
+                    suggestion = suggestion,
+                    quickActionLabel = if (index == 0 && session.canLockSuggestedPick) {
+                        "LOCK AS MY NEXT PICK"
+                    } else {
+                        null
+                    },
+                    onQuickAction = if (index == 0 && session.canLockSuggestedPick) {
+                        { session.lockSuggestedPick(suggestion.hero.id) }
+                    } else {
+                        null
+                    },
+                )
             }
         }
 
         AnalysisTab.BANS -> {
             item {
                 Text(
-                    text = "Ban what beats the heroes you actually play — rate your heroes " +
-                        "so this list knows what to protect.",
+                    text = "Protect your plan by removing the heroes that punish your most-played picks.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
+            val canLockBan = session.activeTarget?.kind == StepKind.BAN
             itemsIndexed(session.banSuggestions) { index, suggestion ->
-                SuggestionCard(rank = index + 1, suggestion = suggestion)
+                SuggestionCard(
+                    rank = index + 1,
+                    suggestion = suggestion,
+                    quickActionLabel = if (index == 0 && canLockBan) "LOCK ACTIVE BAN" else null,
+                    onQuickAction = if (index == 0 && canLockBan) {
+                        { session.lockSuggestedBan(suggestion.hero.id) }
+                    } else {
+                        null
+                    },
+                )
             }
         }
 
         AnalysisTab.BUILD -> {
+            item {
+                EnemyBuildSignalsPanel(
+                    signals = session.draft.enemyBuildSignals,
+                    confirmedEnemyItems = session.confirmedEnemyItems,
+                    scanning = session.enemyBuildScanRequested,
+                    importing = session.screenshotImporting,
+                    status = session.detectionStatus,
+                    onScan = {
+                        session.requestEnemyBuildScan()
+                        onRequestEnemyBuildScan?.invoke()
+                    },
+                    onUpload = {
+                        if (!session.screenshotImporting) onUploadBuildScreenshot?.invoke()
+                    },
+                    onToggle = session::toggleEnemyBuildSignal,
+                )
+            }
+            item {
+                ItemsPanel(
+                    advice = session.itemAdvice,
+                    catalogItems = session.heroDatabase.items,
+                )
+            }
             item {
                 BuildPanel(
                     builds = session.builds,
                     selected = session.buildHero,
                     onSelect = session::selectBuildHero,
                 )
-            }
-            // Before you have picked anything, team-wide advice is still useful.
-            if (session.builds.isEmpty()) {
-                item { ItemsPanel(session.itemAdvice) }
             }
         }
 
@@ -82,13 +128,27 @@ fun LazyListScope.analysisContent(session: DraftSession) {
 
 @Composable
 fun AnalysisTabRow(session: DraftSession, modifier: Modifier = Modifier) {
-    TabRow(selectedTabIndex = session.tab.ordinal, modifier = modifier) {
-        AnalysisTab.entries.forEach { tab ->
-            Tab(
-                selected = session.tab == tab,
-                onClick = { session.selectTab(tab) },
-                text = { Text(tab.label, fontSize = 12.sp) },
-            )
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
+        Text(
+            text = "ANALYSIS",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.4.sp,
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            AnalysisTab.entries.forEach { tab ->
+                FilterChip(
+                    selected = session.tab == tab,
+                    onClick = { session.selectTab(tab) },
+                    label = { Text(tab.label, fontSize = 11.sp) },
+                )
+            }
         }
     }
 }
@@ -97,7 +157,7 @@ fun AnalysisTabRow(session: DraftSession, modifier: Modifier = Modifier) {
 internal fun LaneHint(lane: Lane?) {
     Text(
         text = lane?.let { "Best picks for ${it.label}" }
-            ?: "Best picks across every open lane — choose a lane above to narrow it down.",
+            ?: "Top picks across every open lane — choose a lane above to narrow the list.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )

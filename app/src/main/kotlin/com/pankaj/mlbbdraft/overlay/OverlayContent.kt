@@ -59,6 +59,8 @@ fun OverlayContent(
     onToggle: () -> Unit,
     onClose: () -> Unit,
     onOpenApp: () -> Unit,
+    onRequestEnemyBuildScan: () -> Unit = {},
+    onUploadBuildScreenshot: () -> Unit = {},
     onStopAutoDetect: () -> Unit = {},
     dragModifier: (Modifier) -> Modifier,
 ) {
@@ -88,13 +90,18 @@ fun OverlayContent(
         item { Header(session, onToggle = onToggle, onClose = onClose, onOpenApp = onOpenApp) }
         item { AutoDetectBar(session, onStopAutoDetect) }
         item { EnemyPlan(session) }
+        item { Warnings(session) }
         item { TeamRow(session, Side.ENEMY) }
         item { TeamRow(session, Side.ALLY) }
         item { SideToggle(session) }
         item { QuickAdd(session) }
         item { LaneRow(session) }
         item { AnalysisTabRow(session) }
-        analysisContent(session)
+        analysisContent(
+            session = session,
+            onRequestEnemyBuildScan = onRequestEnemyBuildScan,
+            onUploadBuildScreenshot = onUploadBuildScreenshot,
+        )
     }
 }
 
@@ -259,17 +266,39 @@ private fun Header(
     onOpenApp: () -> Unit,
 ) {
     val win = session.winProbability
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    val step = session.draft.currentStep
+    val active = when {
+        step == null -> "DRAFT COMPLETE"
+        step.side == Side.ALLY && step.kind.name == "PICK" -> "YOUR PICK"
+        step.side == Side.ALLY -> "YOUR BAN"
+        step.kind.name == "PICK" -> "LOG ENEMY PICK"
+        else -> "LOG ENEMY BAN"
+    }
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = active,
+                    color = if (step?.side == Side.ENEMY) EnemyRed else AllyBlue,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Black,
+                )
+                Text(
+                    text = "Draft advantage ${win.allyPercent}%",
+                    color = if (win.allyPercent >= 50) Good else Bad,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            TinyButton("APP", onOpenApp)
+            TinyButton("—", onToggle)
+            TinyButton("✕", onClose, tint = EnemyRed)
+        }
         Text(
-            text = "You ${win.allyPercent}%",
-            color = if (win.allyPercent >= 50) Good else Bad,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f),
+            text = "Add the next hero below to refresh the counter call instantly.",
+            fontSize = 10.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        TinyButton("APP", onOpenApp)
-        TinyButton("—", onToggle)
-        TinyButton("✕", onClose, tint = EnemyRed)
     }
 }
 
@@ -358,6 +387,12 @@ private fun QuickAdd(session: DraftSession) {
     val matches = session.available(lane = null, query = query, limit = 14)
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(
+            text = if (side == Side.ALLY) "QUICK ADD · YOUR TEAM" else "QUICK ADD · ENEMY",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Black,
+            color = if (side == Side.ALLY) AllyBlue else EnemyRed,
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()

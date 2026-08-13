@@ -95,6 +95,11 @@ class OverlayService : Service() {
                 stopCapture()
                 return START_STICKY
             }
+
+            ACTION_MINIMIZE_FOR_CAPTURE -> {
+                if (expanded) toggle()
+                return START_STICKY
+            }
         }
         if (view == null) showOverlay()
         return START_STICKY
@@ -105,7 +110,7 @@ class OverlayService : Service() {
     private fun startCapture(resultCode: Int, data: Intent) {
         val session = draftSession
         val reader = ScreenReader(this)
-        if (!reader.start(resultCode, data)) {
+        if (!reader.start(resultCode, data, onStopped = ::stopCapture)) {
             session.detectionStatus = "Screen capture was refused."
             return
         }
@@ -186,7 +191,14 @@ class OverlayService : Service() {
                     onToggle = ::toggle,
                     onClose = { stopSelf() },
                     onOpenApp = ::openApp,
-                    onStopAutoDetect = ::stopCapture,
+                    onRequestEnemyBuildScan = {
+                        if (!session.autoDetecting) {
+                            session.detectionStatus = "Build scan needs screen sharing — tap Scan in the app."
+                            openApp()
+                        }
+                    },
+                    onUploadBuildScreenshot = ::openBuildScreenshotPicker,
+                    onStopAutoDetect = { ScreenCaptureService.stop(this) },
                     dragModifier = { it },
                 )
             }
@@ -240,6 +252,15 @@ class OverlayService : Service() {
     private fun openApp() {
         startActivity(
             Intent(this, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
+        )
+    }
+
+    /** An overlay cannot own an ActivityResult launcher, so the app owns the actual picker. */
+    private fun openBuildScreenshotPicker() {
+        startActivity(
+            Intent(this, MainActivity::class.java)
+                .setAction(MainActivity.ACTION_PICK_BUILD_SCREENSHOT)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
         )
     }
@@ -309,7 +330,7 @@ class OverlayService : Service() {
     }
 
     override fun onDestroy() {
-        stopCapture()
+        ScreenCaptureService.stop(this)
         scope.cancel()
         draftSession.overlayRunning = false
         view?.let { runCatching { windowManager.removeView(it) } }
@@ -327,6 +348,7 @@ class OverlayService : Service() {
         const val ACTION_STOP = "com.pankaj.mlbbdraft.STOP_OVERLAY"
         const val ACTION_START_CAPTURE = "com.pankaj.mlbbdraft.START_CAPTURE"
         const val ACTION_STOP_CAPTURE = "com.pankaj.mlbbdraft.STOP_CAPTURE"
+        const val ACTION_MINIMIZE_FOR_CAPTURE = "com.pankaj.mlbbdraft.MINIMIZE_FOR_CAPTURE"
         const val EXTRA_RESULT_CODE = "result_code"
         const val EXTRA_RESULT_DATA = "result_data"
 
@@ -335,18 +357,21 @@ class OverlayService : Service() {
         }
 
         fun stop(context: Context) {
+            ScreenCaptureService.stop(context)
             context.startService(
                 Intent(context, OverlayService::class.java).setAction(ACTION_STOP),
             )
         }
 
-        /** Hands the MediaProjection consent result to the service so it can capture. */
+        /** Hands the MediaProjection consent result to the dedicated capture service. */
         fun startCapture(context: Context, resultCode: Int, data: Intent) {
-            context.startForegroundService(
-                Intent(context, OverlayService::class.java)
-                    .setAction(ACTION_START_CAPTURE)
-                    .putExtra(EXTRA_RESULT_CODE, resultCode)
-                    .putExtra(EXTRA_RESULT_DATA, data),
+            ScreenCaptureService.startCapture(context, resultCode, data)
+        }
+
+        /** Prevent the full helper panel from covering draft labels while MediaProjection scans. */
+        fun minimizeForCapture(context: Context) {
+            context.startService(
+                Intent(context, OverlayService::class.java).setAction(ACTION_MINIMIZE_FOR_CAPTURE),
             )
         }
     }

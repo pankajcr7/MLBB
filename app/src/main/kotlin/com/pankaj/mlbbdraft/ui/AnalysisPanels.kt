@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,8 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.pankaj.mlbbdraft.engine.model.EnemyBuildSignal
+import com.pankaj.mlbbdraft.engine.model.Item
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.report.CompReport
 import com.pankaj.mlbbdraft.engine.report.ArchetypeVerdict
@@ -204,7 +212,112 @@ private fun CurveRow(report: CompReport) {
 }
 
 @Composable
-fun ItemsPanel(advice: List<ItemAdvice>) {
+fun EnemyBuildSignalsPanel(
+    signals: Set<EnemyBuildSignal>,
+    confirmedEnemyItems: List<Item>,
+    scanning: Boolean,
+    importing: Boolean,
+    status: String,
+    onScan: () -> Unit,
+    onUpload: () -> Unit,
+    onToggle: (EnemyBuildSignal) -> Unit,
+) {
+    PanelCard(title = "ENEMY BUILD SIGNALS", accent = EnemyRed) {
+        Button(
+            onClick = onScan,
+            enabled = !scanning && !importing,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(if (scanning) "SCANNING ENEMY BUILD…" else "SCAN ENEMY BUILD")
+        }
+        Button(
+            onClick = onUpload,
+            enabled = !importing,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(if (importing) "READING BUILD SCREENSHOT…" else "UPLOAD BUILD SCREENSHOT")
+        }
+        Text(
+            text = "Scan a live red Equipment screen or upload a saved one. Only readable item names change advice; icon-only rows stay manual.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        if (status.isNotBlank()) {
+            Text(
+                text = status,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        ConfirmedEnemyItemsRow(confirmedEnemyItems)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            EnemyBuildSignal.entries.forEach { signal ->
+                FilterChip(
+                    selected = signal in signals,
+                    onClick = { onToggle(signal) },
+                    label = { Text(signal.shortLabel, fontSize = 10.sp) },
+                )
+            }
+        }
+        Text(
+            text = if (signals.isEmpty()) {
+                "No build traits confirmed — advice currently uses enemy heroes only."
+            } else {
+                "Confirmed: ${signals.sortedBy { it.label }.joinToString(" · ") { it.label }}"
+            },
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun ConfirmedEnemyItemsRow(items: List<Item>) {
+    if (items.isEmpty()) return
+    Text(
+        text = "SCAN SUCCESSFUL · ${items.size} CONFIRMED ENEMY ITEM${if (items.size == 1) "" else "S"}",
+        style = MaterialTheme.typography.labelSmall,
+        color = Good,
+        fontWeight = FontWeight.Bold,
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items.forEach { item ->
+            Column(
+                modifier = Modifier.width(72.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(3.dp),
+            ) {
+                ItemIcon(itemId = item.id, itemName = item.name, size = 42.dp)
+                Text(
+                    text = item.name,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontSize = 9.sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ItemsPanel(
+    advice: List<ItemAdvice>,
+    catalogItems: List<Item>,
+) {
+    val itemByName = catalogItems.associateBy { it.name.lowercase() }
     PanelCard(title = "BUILD AGAINST THIS DRAFT") {
         if (advice.isEmpty()) {
             Text(
@@ -214,26 +327,36 @@ fun ItemsPanel(advice: List<ItemAdvice>) {
             )
             return@PanelCard
         }
-        advice.forEach { item ->
-            Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    PriorityDot(item.priority)
+        advice.forEach { adviceItem ->
+            val iconItem = itemByName[adviceItem.item.lowercase()]
+                ?: catalogItems.firstOrNull { adviceItem.item.startsWith(it.name, ignoreCase = true) }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.Top,
+            ) {
+                if (iconItem != null) {
+                    ItemIcon(itemId = iconItem.id, itemName = iconItem.name, size = 44.dp)
+                }
+                Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        PriorityDot(adviceItem.priority)
+                        Text(
+                            text = adviceItem.item,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                    }
                     Text(
-                        text = item.item,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold,
+                        text = adviceItem.reason,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Text(
+                        text = adviceItem.forWhom,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                Text(
-                    text = item.reason,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                Text(
-                    text = item.forWhom,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
             }
         }
     }

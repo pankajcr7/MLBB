@@ -88,8 +88,8 @@ fun ProfileSheet(
                 label = { Text("Meta feed URL") },
                 supportingText = {
                     Text(
-                        "A JSON file with win/pick/ban rates. Tiers update from it; " +
-                            "the app works fully offline without it.",
+                        "Verified tiers, item names, and prices refresh automatically. " +
+                            "Counter tags, spell safety, and offline data stay protected.",
                         fontSize = 11.sp,
                     )
                 },

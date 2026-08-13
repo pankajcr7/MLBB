@@ -80,6 +80,8 @@ data class Item(
     /** Slug. Must match the icon file at `assets/items/<id>.webp`. */
     val id: String,
     val name: String,
+    /** Verified alternate display names from a controlled catalogue feed; equipment identity stays [id]. */
+    val aliases: Set<String> = emptySet(),
     val category: ItemCategory,
     /** Approximate gold cost — indicative for build order, not patch-exact. */
     val cost: Int = 0,

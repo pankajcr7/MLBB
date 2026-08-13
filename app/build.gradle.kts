@@ -22,8 +22,8 @@ android {
         // 26 is the floor for TYPE_APPLICATION_OVERLAY, which Phase 1 needs.
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 6
+        versionName = "0.1.5-auto-catalogue-refresh"
     }
 
     signingConfigs {
@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.work.runtime.ktx)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -87,5 +88,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.mlkit.text.recognition)
+    // Local image embeddings compare the red Equipment item grid with bundled non-spell templates.
+    implementation("com.google.mediapipe:tasks-vision:1.0.0")
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

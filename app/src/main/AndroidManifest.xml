@@ -51,9 +51,14 @@
           window, which none of the standard foreground-service types describe.
         -->
         <service
+            android:name=".overlay.ScreenCaptureService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
+        <service
             android:name=".overlay.OverlayService"
             android:exported="false"
-            android:foregroundServiceType="mediaProjection|specialUse">
+            android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Floating draft assistant window requested by the user" />

@@ -134,6 +134,7 @@ class DraftEngine(
     fun itemAdvice(state: DraftState): List<ItemAdvice> = ItemAdvisor.advise(
         enemies = db.heroes(state.heroIds(Side.ENEMY)),
         allies = db.heroes(state.heroIds(Side.ALLY)),
+        confirmedBuildSignals = state.enemyBuildSignals,
     )
 
     /** A full counter-build for one hero you are playing, against the enemy draft. */

@@ -73,6 +73,8 @@ data class Hero(
     /** Stable kebab-case slug. Never change it — matchup edges reference it. */
     val id: String,
     val name: String,
+    /** Verified alternate display names from a controlled catalogue feed; stable [id] never changes. */
+    val aliases: Set<String> = emptySet(),
     val roles: Set<Role>,
     /** Lanes this hero is actually played in, not lanes they could theoretically fill. */
     val lanes: Set<Lane>,

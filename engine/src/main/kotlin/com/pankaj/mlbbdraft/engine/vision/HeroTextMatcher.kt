@@ -3,34 +3,67 @@ package com.pankaj.mlbbdraft.engine.vision
 import com.pankaj.mlbbdraft.engine.model.Hero
 
 /**
- * Matches a line of text recognised on screen to a hero.
+ * Matches recognised on-screen text to a hero.
  *
- * OCR output is dirty: `Yu Zhong` comes back as `YuZhong`, `Zh0ng` or `Yu Zhong.`, and
- * the draft screen is full of text that is not a hero name at all. So matching is
- * normalise-then-tolerate-typos, with a hard floor on how much error is allowed —
- * a false positive silently corrupts the draft, which is worse than missing a hero.
+ * OCR output is dirty: `Yu Zhong` may come back as `YuZhong`, `Zh0ng`, or `Yu Zhong.`.
+ * Real draft captures also display skin titles such as `S.A.B.E.R. Regulator`, where a hero
+ * name is a complete token inside a longer label. A valid name token is safe to use; a visual
+ * guess from a portrait is not, so this matcher deliberately returns null when a line contains
+ * multiple different hero names or no sufficiently specific text.
  */
 class HeroTextMatcher(heroes: List<Hero>) {
 
     private data class Entry(val id: String, val key: String)
 
-    private val entries: List<Entry> = heroes.map { Entry(it.id, normalise(it.name)) }
-    private val exact: Map<String, String> = entries.associate { it.key to it.id }
-
     /** Shorter than this and OCR noise starts matching real heroes. */
     private val minLength = 3
 
+    private val entries: List<Entry> = heroes.flatMap { hero ->
+        (setOf(hero.name) + hero.aliases)
+            .map(::normalise)
+            .filter { it.length >= minLength }
+            .map { Entry(hero.id, it) }
+    }
+    // A colliding alias is ambiguous and deliberately omitted rather than guessed.
+    private val exact: Map<String, String> = entries
+        .groupBy { it.key }
+        .mapNotNull { (key, matches) ->
+            matches.map { it.id }.distinct().singleOrNull()?.let { key to it }
+        }
+        .toMap()
+
     /**
-     * @return hero id, or null when nothing matches closely enough.
+     * @return a hero id, or null when nothing matches closely enough.
      */
     fun match(text: String): String? {
         val key = normalise(text)
         if (key.length < minLength) return null
 
         exact[key]?.let { return it }
+        exactHeroToken(text)?.let { return it }
+        return fuzzyWholeLineMatch(key)
+    }
 
-        // Some hero names contain another as a substring once punctuation is stripped,
-        // so an exact hit always wins before fuzzy matching is considered.
+    /**
+     * A skin title often begins with a hero name but its complete label cannot equal the name.
+     * Split only on whitespace so punctuated hero names such as `Chang'e` and `S.A.B.E.R.` stay
+     * intact through normalisation. Multiple different names are an ambiguous draft hint and are
+     * intentionally rejected.
+     */
+    private fun exactHeroToken(text: String): String? {
+        val matches = text
+            .split(Regex("\\s+"))
+            .asSequence()
+            .map(::normalise)
+            .filter { it.length >= minLength }
+            .mapNotNull(exact::get)
+            .distinct()
+            .toList()
+
+        return matches.singleOrNull()
+    }
+
+    private fun fuzzyWholeLineMatch(key: String): String? {
         val budget = when {
             key.length >= 8 -> 2
             key.length >= 5 -> 1

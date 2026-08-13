@@ -12,11 +12,14 @@ import com.pankaj.mlbbdraft.engine.DraftEngine
 import com.pankaj.mlbbdraft.engine.data.HeroDatabase
 import com.pankaj.mlbbdraft.engine.model.DraftMode
 import com.pankaj.mlbbdraft.engine.model.DraftState
+import com.pankaj.mlbbdraft.engine.model.EnemyBuildSignal
 import com.pankaj.mlbbdraft.engine.model.Hero
+import com.pankaj.mlbbdraft.engine.model.Item
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.Pick
 import com.pankaj.mlbbdraft.engine.model.Side
 import com.pankaj.mlbbdraft.engine.model.StepKind
+import com.pankaj.mlbbdraft.engine.vision.EquipmentScreenshotImport
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -92,6 +95,18 @@ class DraftSession(
     /** Human-readable result of the last screen read, shown in the overlay. */
     var detectionStatus by mutableStateOf("")
 
+    /** True only while the user has asked the active screen reader to inspect an enemy build. */
+    var enemyBuildScanRequested by mutableStateOf(false)
+        private set
+
+    /** True while a gallery Equipment screenshot is being decoded and read on-device. */
+    var screenshotImporting by mutableStateOf(false)
+        private set
+
+    /** Items explicitly named by red-side OCR in the current match; never inferred from icon art. */
+    var confirmedEnemyItems by mutableStateOf<List<Item>>(emptyList())
+        private set
+
     /** Reader for the bundled dataset, used by the screen-reading service. */
     val heroDatabase: HeroDatabase get() = engine.db
 
@@ -125,6 +140,14 @@ class DraftSession(
     val buildHero: Hero? by derivedStateOf {
         builds.firstOrNull { it.hero.id == buildHeroId }?.hero ?: builds.firstOrNull()?.hero
     }
+
+    /** The exact open slot dictated by draft order, used by the speed-first UI. */
+    val activeTarget: SlotTarget?
+        get() = draft.currentStep?.let { SlotTarget(it.side, it.kind, it.slot) }
+
+    /** A suggested hero can be locked directly whenever your team has room for another pick. */
+    val canLockSuggestedPick: Boolean
+        get() = draft.pickSlots(Side.ALLY).any { it == null }
 
     init {
         applyCache()
@@ -166,9 +189,115 @@ class DraftSession(
         draft = draft.withBansPerSide(count)
     }
 
+    /** Adds or removes a player-confirmed property of the enemy's current item build. */
+    fun toggleEnemyBuildSignal(signal: EnemyBuildSignal) {
+        draft = draft.withEnemyBuildSignal(signal, signal !in draft.enemyBuildSignals)
+    }
+
+    /**
+     * Requests a one-shot inspection of the next visible red-side Equipment screen. The capture
+     * service owns the actual OCR; this flag allows Build to reuse an existing screen-share
+     * session instead of creating a second MediaProjection token.
+     */
+    fun requestEnemyBuildScan() {
+        enemyBuildScanRequested = true
+        tab = AnalysisTab.BUILD
+        detectionStatus = "Build scan requested — open the red enemy Equipment screen."
+    }
+
+    /** Applies only item names recognised explicitly by OCR; unlabeled icons remain unguessed. */
+    fun applyEnemyBuildScan(itemNames: List<String>, signals: Set<EnemyBuildSignal>) {
+        enemyBuildScanRequested = false
+        recordConfirmedEnemyItems(itemNames)
+        if (signals.isNotEmpty()) {
+            draft = draft.copy(enemyBuildSignals = draft.enemyBuildSignals + signals)
+        }
+        detectionStatus = if (itemNames.isNotEmpty()) {
+            "Equipment scan successful — ${itemNames.size} enemy items confirmed: ${itemNames.joinToString()}. Counter items updated."
+        } else {
+            "Enemy Equipment is visible, but no item names were readable. Confirm traits below."
+        }
+    }
+
+    fun expireEnemyBuildScan() {
+        if (!enemyBuildScanRequested) return
+        enemyBuildScanRequested = false
+        detectionStatus = "Build scan timed out — keep the red Equipment screen open, then scan again."
+    }
+
+    /** Opens the image-selection flow; the Activity later calls [applyScreenshotImport]. */
+    fun beginScreenshotImport() {
+        if (screenshotImporting) return
+        screenshotImporting = true
+        tab = AnalysisTab.BUILD
+        detectionStatus = "Reading selected Equipment screenshot…"
+    }
+
+    fun cancelScreenshotImport() {
+        if (!screenshotImporting) return
+        screenshotImporting = false
+        detectionStatus = "No build screenshot selected."
+    }
+
+    /**
+     * Applies only OCR-confirmed item signals from a selected Equipment scoreboard. Hero labels
+     * from the red roster are added conservatively; icon artwork is never treated as an item name.
+     */
+    fun applyScreenshotImport(
+        imported: EquipmentScreenshotImport?,
+        failureReason: String? = null,
+    ) {
+        screenshotImporting = false
+        if (failureReason != null) {
+            detectionStatus = failureReason
+            return
+        }
+        val evidence = imported ?: run {
+            detectionStatus = "The screenshot could not be read. Try another MLBB Equipment screen."
+            return
+        }
+        if (!evidence.isEquipmentScreen) {
+            detectionStatus = "That image is not an MLBB Equipment screen. Choose the red-team scoreboard."
+            return
+        }
+
+        evidence.enemyHeroIds.forEach { quickAdd(Side.ENEMY, it) }
+        recordConfirmedEnemyItems(evidence.itemNames)
+        if (evidence.signals.isNotEmpty()) {
+            draft = draft.copy(enemyBuildSignals = draft.enemyBuildSignals + evidence.signals)
+        }
+
+        val heroNames = evidence.enemyHeroIds.mapNotNull { hero(it)?.name }
+        detectionStatus = when {
+            evidence.itemNames.isNotEmpty() -> buildString {
+                append("Screenshot scan successful — ${evidence.itemNames.size} enemy items confirmed: ")
+                append(evidence.itemNames.joinToString())
+                if (heroNames.isNotEmpty()) append(" · enemy heroes: ${heroNames.joinToString()}")
+                append(". Counter items updated.")
+            }
+
+            heroNames.isNotEmpty() ->
+                "Imported enemy heroes: ${heroNames.joinToString()}. ${evidence.visibleEnemyItemSlots} red-side item icons are visible, but none passed confidence. Confirm traits below."
+
+            else ->
+                "Enemy Equipment found: ${evidence.visibleEnemyItemSlots} red-side item icons are visible, but none passed confidence. Confirm traits below."
+        }
+    }
+
+    private fun recordConfirmedEnemyItems(itemNames: List<String>) {
+        val resolved = itemNames.mapNotNull { name ->
+            heroDatabase.items.firstOrNull { it.name.equals(name, ignoreCase = true) }
+        }
+        if (resolved.isNotEmpty()) {
+            confirmedEnemyItems = (confirmedEnemyItems + resolved).distinctBy { it.id }
+        }
+    }
 
     fun reset() {
         draft = draft.cleared()
+        enemyBuildScanRequested = false
+        screenshotImporting = false
+        confirmedEnemyItems = emptyList()
         speaker?.forget()
     }
 
@@ -204,6 +333,11 @@ class DraftSession(
         picker = target
     }
 
+    /** Opens the next required draft action, avoiding a board scan under the draft timer. */
+    fun openActiveAction() {
+        activeTarget?.let(::openPicker)
+    }
+
     fun closePicker() {
         picker = null
     }
@@ -228,6 +362,30 @@ class DraftSession(
         val slot = draft.pickSlots(side).indexOfFirst { it == null }
         if (slot < 0) return
         fill(SlotTarget(side, StepKind.PICK, slot), heroId)
+    }
+
+    /**
+     * Locks a recommendation into the active allied pick when it is our turn. If the board
+     * is being reconstructed manually, it falls back to the first available allied slot.
+     */
+    fun lockSuggestedPick(heroId: String) {
+        if (heroId in draft.usedHeroIds) return
+        val active = activeTarget
+        val target = when {
+            active?.kind == StepKind.PICK && active.side == Side.ALLY -> active
+            else -> draft.pickSlots(Side.ALLY)
+                .indexOfFirst { it == null }
+                .takeIf { it >= 0 }
+                ?.let { SlotTarget(Side.ALLY, StepKind.PICK, it) }
+        } ?: return
+        fill(target, heroId)
+    }
+
+    /** Locks a ban recommendation only when the draft is waiting for a ban. */
+    fun lockSuggestedBan(heroId: String) {
+        if (heroId in draft.usedHeroIds) return
+        val target = activeTarget?.takeIf { it.kind == StepKind.BAN } ?: return
+        fill(target, heroId)
     }
 
     /**

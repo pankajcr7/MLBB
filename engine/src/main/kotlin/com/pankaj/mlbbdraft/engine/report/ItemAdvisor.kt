@@ -1,5 +1,6 @@
 package com.pankaj.mlbbdraft.engine.report
 
+import com.pankaj.mlbbdraft.engine.model.EnemyBuildSignal
 import com.pankaj.mlbbdraft.engine.model.Hero
 import com.pankaj.mlbbdraft.engine.model.Role
 import com.pankaj.mlbbdraft.engine.model.Side
@@ -21,11 +22,112 @@ data class ItemAdvice(
 )
 
 object ItemAdvisor {
-    fun advise(enemies: List<Hero>, allies: List<Hero> = emptyList()): List<ItemAdvice> {
+    fun advise(
+        enemies: List<Hero>,
+        allies: List<Hero> = emptyList(),
+        confirmedBuildSignals: Set<EnemyBuildSignal> = emptySet(),
+    ): List<ItemAdvice> {
         if (enemies.isEmpty()) return emptyList()
 
         val advice = mutableListOf<ItemAdvice>()
         val split = CompReportBuilder.build(side = Side.ENEMY, heroes = enemies).damage
+
+        // Signals are intentionally explicit confirmations from the player, not a guess from
+        // tiny or unlabelled item icons. They take priority over composition-only heuristics.
+        if (EnemyBuildSignal.HEALING in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Sea Halberd",
+                reason = "Confirmed healing or lifesteal in their build — cut it before the next fight.",
+                forWhom = "Physical damage heroes",
+                priority = 5,
+            )
+            advice += ItemAdvice(
+                item = "Necklace of Durance",
+                reason = "Confirmed healing or lifesteal in their build — magic-side healing reduction.",
+                forWhom = "Mages",
+                priority = 5,
+            )
+            advice += ItemAdvice(
+                item = "Dominance Ice",
+                reason = "Confirmed healing build — reduce lifesteal from the tank / roam slot.",
+                forWhom = "Tank / roam",
+                priority = 5,
+            )
+        }
+        if (EnemyBuildSignal.SHIELDS in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Dominance Ice",
+                reason = "Confirmed shield build — weaken shield value from the frontline slot.",
+                forWhom = "Tank / roam",
+                priority = 5,
+            )
+        }
+        if (
+            EnemyBuildSignal.ATTACK_SPEED in confirmedBuildSignals ||
+            EnemyBuildSignal.CRITICAL_DAMAGE in confirmedBuildSignals
+        ) {
+            advice += ItemAdvice(
+                item = "Blade Armor",
+                reason = "Confirmed attack-speed or critical build — punish repeated basic attacks.",
+                forWhom = "Frontline",
+                priority = 5,
+            )
+            advice += ItemAdvice(
+                item = "Dominance Ice",
+                reason = "Confirmed attack-speed build — slow their damage pattern in every fight.",
+                forWhom = "Tank / roam",
+                priority = 4,
+            )
+        }
+        if (EnemyBuildSignal.PHYSICAL_PENETRATION in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Antique Cuirass",
+                reason = "Confirmed physical penetration — reduce the damage of their ability users.",
+                forWhom = "Anyone being focused",
+                priority = 5,
+            )
+        }
+        if (
+            EnemyBuildSignal.MAGIC_BURST in confirmedBuildSignals ||
+            EnemyBuildSignal.MAGIC_PENETRATION in confirmedBuildSignals
+        ) {
+            advice += ItemAdvice(
+                item = "Athena's Shield",
+                reason = "Confirmed magic burst or penetration — block the burst window before it lands.",
+                forWhom = "Frontline and targeted carries",
+                priority = 5,
+            )
+            advice += ItemAdvice(
+                item = "Radiant Armor",
+                reason = "Confirmed magic build — stack resistance during sustained spell damage.",
+                forWhom = "Everyone who takes damage",
+                priority = 4,
+            )
+        }
+        if (EnemyBuildSignal.ARMOR in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Malefic Roar",
+                reason = "Confirmed armour stack — percentage armour penetration keeps physical damage relevant.",
+                forWhom = "Physical damage heroes",
+                priority = 5,
+            )
+        }
+        if (EnemyBuildSignal.MAGIC_RESIST in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Divine Glaive",
+                reason = "Confirmed magic-resist stack — percentage magic penetration answers it.",
+                forWhom = "Mages",
+                priority = 5,
+            )
+        }
+        if (EnemyBuildSignal.HIGH_HEALTH in confirmedBuildSignals) {
+            advice += ItemAdvice(
+                item = "Demon Hunter Sword",
+                reason = "Confirmed high-health build — percent-HP damage scales with their investment.",
+                forWhom = "Marksman",
+                priority = 5,
+            )
+        }
 
         val healers = enemies.filter { it.has(Trait.HEAVY_HEAL) || it.attrs.sustain >= 8 }
         if (healers.isNotEmpty()) {

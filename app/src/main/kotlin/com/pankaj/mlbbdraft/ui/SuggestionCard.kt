@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -43,6 +44,8 @@ import kotlin.math.abs
 fun SuggestionCard(
     rank: Int,
     suggestion: Suggestion,
+    quickActionLabel: String? = null,
+    onQuickAction: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -90,6 +93,12 @@ fun SuggestionCard(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
+                }
+            }
+
+            if (quickActionLabel != null && onQuickAction != null) {
+                Button(onClick = onQuickAction, modifier = Modifier.fillMaxWidth()) {
+                    Text(quickActionLabel, fontWeight = FontWeight.Bold)
                 }
             }
 

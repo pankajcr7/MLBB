@@ -89,7 +89,9 @@ class MetaRepository(context: Context) {
                 val (_, report) = MetaApplier.apply(base, overlay)
                 if (!report.isUsable) {
                     return@withContext SyncOutcome.Failed(
-                        "Feed only matched ${report.heroesMatched} heroes — keeping the previous data.",
+                        "Feed only matched ${report.heroesMatched} live heroes and " +
+                            "${report.catalogueHeroesMatched} catalogue heroes / " +
+                            "${report.catalogueItemsMatched} equipment — keeping the previous data.",
                     )
                 }
 
@@ -113,8 +115,13 @@ class MetaRepository(context: Context) {
             .apply()
     }
 
-    private fun summarise(report: MetaApplyReport): String =
-        "${report.patch} · ${report.heroesMatched} heroes, ${report.tiersChanged} tiers updated"
+    private fun summarise(report: MetaApplyReport): String = buildString {
+        append("${report.patch} · ${report.heroesMatched} heroes, ${report.tiersChanged} tiers updated")
+        if (report.catalogueHeroesMatched > 0 || report.catalogueItemsMatched > 0) {
+            append(" · catalogue: ${report.catalogueHeroesMatched} heroes, ")
+            append("${report.catalogueItemsMatched} equipment")
+        }
+    }
 
     companion object {
         /**

@@ -45,6 +45,8 @@ data class DraftState(
     /** The lane the user is drafting for. Null = advise all lanes. */
     val myLane: Lane? = null,
     val profile: PlayerProfile = PlayerProfile(),
+    /** Explicit build traits read from a red-side Equipment screen or confirmed by the player. */
+    val enemyBuildSignals: Set<EnemyBuildSignal> = emptySet(),
 ) {
     fun bans(side: Side): List<String?> = if (side == Side.ALLY) allyBans else enemyBans
 
@@ -116,6 +118,11 @@ data class DraftState(
     /** Clears every ban and pick but keeps mode, side, lane, ban count and profile. */
     fun cleared(): DraftState =
         forMode(mode, firstPick, bansPerSide).copy(myLane = myLane, profile = profile)
+
+    fun withEnemyBuildSignal(signal: EnemyBuildSignal, enabled: Boolean): DraftState =
+        copy(
+            enemyBuildSignals = if (enabled) enemyBuildSignals + signal else enemyBuildSignals - signal,
+        )
 
     /** Changes how many bans each side gets, preserving the bans that still fit. */
     fun withBansPerSide(count: Int): DraftState {
