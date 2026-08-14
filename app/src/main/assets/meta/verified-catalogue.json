@@ -1,7 +1,7 @@
 {
-  "patch": "bootstrap-no-live-source",
-  "updatedAt": "2026-08-06T11:59:45Z",
-  "source": "tools/bootstrap_meta.py (bundled tiers, not live statistics) | catalogue: Ceplin03/database-mlbb.Mobile-Legends-Bang-Bang@29f98d037a70",
+  "patch": "2026-08-14-ranked-snapshot",
+  "updatedAt": "2026-08-14T00:00:00Z",
+  "source": "Moonton MLBB ranked hero page (retrieved 2026-08-14; page updated 2026-08-13 14:25 UTC) | catalogue: Ceplin03/database-mlbb.Mobile-Legends-Bang-Bang@29f98d037a70",
   "heroes": [
     {
       "name": "Yu Zhong",
@@ -847,6 +847,146 @@
       "name": "Kalea",
       "lane": "ROAM",
       "tier": 7
+    },
+    {
+      "name": "Marcel",
+      "winRate": 58.66,
+      "pickRate": 0.27,
+      "banRate": 31.38,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Rafaela",
+      "winRate": 57.51,
+      "pickRate": 0.91,
+      "banRate": 8.99,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Masha",
+      "winRate": 57.46,
+      "pickRate": 0.11,
+      "banRate": 0.34,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Melissa",
+      "winRate": 55.59,
+      "pickRate": 1.33,
+      "banRate": 6.5,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Gloo",
+      "winRate": 55.1,
+      "pickRate": 0.62,
+      "banRate": 50.33,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Khufra",
+      "winRate": 54.73,
+      "pickRate": 0.34,
+      "banRate": 2.45,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Lolita",
+      "winRate": 54.57,
+      "pickRate": 0.09,
+      "banRate": 0.37,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Argus",
+      "winRate": 54.57,
+      "pickRate": 0.33,
+      "banRate": 0.85,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Minotaur",
+      "winRate": 54.46,
+      "pickRate": 0.8,
+      "banRate": 2.45,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Floryn",
+      "winRate": 53.98,
+      "pickRate": 1.06,
+      "banRate": 20.2,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Hanzo",
+      "winRate": 53.94,
+      "pickRate": 0.54,
+      "banRate": 5.75,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Atlas",
+      "winRate": 53.53,
+      "pickRate": 1.08,
+      "banRate": 23.17,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Sun",
+      "winRate": 53.26,
+      "pickRate": 1.57,
+      "banRate": 42.98,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Miya",
+      "winRate": 53.21,
+      "pickRate": 3.47,
+      "banRate": 16.68,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Belerick",
+      "winRate": 53.15,
+      "pickRate": 1.56,
+      "banRate": 58.31,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Hanabi",
+      "winRate": 53.13,
+      "pickRate": 3.4,
+      "banRate": 11.12,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Diggie",
+      "winRate": 52.99,
+      "pickRate": 0.22,
+      "banRate": 5.46,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Lukas",
+      "winRate": 52.87,
+      "pickRate": 0.51,
+      "banRate": 3.59,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Ling",
+      "winRate": 52.83,
+      "pickRate": 1,
+      "banRate": 4.88,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
+    },
+    {
+      "name": "Barats",
+      "winRate": 52.8,
+      "pickRate": 0.55,
+      "banRate": 2.04,
+      "sourceSnapshot": "moonton-rank-2026-08-13"
     }
   ],
   "catalogue": {

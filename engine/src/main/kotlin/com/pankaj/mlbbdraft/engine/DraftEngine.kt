@@ -144,6 +144,7 @@ class DraftEngine(
             lane = lane,
             enemies = db.heroes(state.heroIds(Side.ENEMY)),
             allies = db.heroes(state.heroIds(Side.ALLY)),
+            confirmedBuildSignals = state.enemyBuildSignals,
         )
 
     /** Builds for every hero currently on your side of the board. */

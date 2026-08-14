@@ -2,6 +2,7 @@ package com.pankaj.mlbbdraft.engine.report
 
 import com.pankaj.mlbbdraft.engine.data.HeroDatabase
 import com.pankaj.mlbbdraft.engine.model.DamageType
+import com.pankaj.mlbbdraft.engine.model.EnemyBuildSignal
 import com.pankaj.mlbbdraft.engine.model.Hero
 import com.pankaj.mlbbdraft.engine.model.Item
 import com.pankaj.mlbbdraft.engine.model.ItemTag
@@ -76,9 +77,15 @@ data class HeroBuild(
  */
 class BuildAdvisor(private val db: HeroDatabase) {
 
-    fun build(hero: Hero, lane: Lane?, enemies: List<Hero>, allies: List<Hero> = emptyList()): HeroBuild {
+    fun build(
+        hero: Hero,
+        lane: Lane?,
+        enemies: List<Hero>,
+        allies: List<Hero> = emptyList(),
+        confirmedBuildSignals: Set<EnemyBuildSignal> = emptySet(),
+    ): HeroBuild {
         val enemyReport = CompReportBuilder.build(Side.ENEMY, enemies)
-        val situational = situationalFor(hero, enemies, enemyReport)
+        val situational = situationalFor(hero, enemies, enemyReport, confirmedBuildSignals)
         val chosenIds = situational.map { it.item.id }.toMutableSet()
 
         val boots = bootsFor(hero, enemies)
@@ -225,12 +232,18 @@ class BuildAdvisor(private val db: HeroDatabase) {
 
     // --- situational, driven entirely by the enemy draft ---
 
-    private fun situationalFor(hero: Hero, enemies: List<Hero>, enemyReport: CompReport): List<BuildItem> {
+    private fun situationalFor(
+        hero: Hero,
+        enemies: List<Hero>,
+        enemyReport: CompReport,
+        confirmedBuildSignals: Set<EnemyBuildSignal>,
+    ): List<BuildItem> {
         if (enemies.isEmpty()) return emptyList()
 
         val magic = hero.damageType == DamageType.MAGIC
         val squishy = hero.attrs.durability <= 5
         val candidates = mutableListOf<Triple<String, String, Int>>()
+        addConfirmedBuildCounters(hero, confirmedBuildSignals, candidates)
 
         val healers = enemies.filter { it.has(Trait.HEAVY_HEAL) || it.attrs.sustain >= 8 }
         if (healers.isNotEmpty()) {
@@ -317,6 +330,68 @@ class BuildAdvisor(private val db: HeroDatabase) {
             .distinctBy { (item, _) -> item.id }
             .take(3)
             .map { (item, reason) -> BuildItem(item, reason, BuildSlotKind.SITUATIONAL) }
+    }
+
+    /**
+     * A scanned item is stronger evidence than a composition stereotype. These choices
+     * deliberately remain role-legal and use stable item IDs; they never infer a build
+     * signal from ambiguous icon artwork.
+     */
+    private fun addConfirmedBuildCounters(
+        hero: Hero,
+        signals: Set<EnemyBuildSignal>,
+        candidates: MutableList<Triple<String, String, Int>>,
+    ) {
+        if (signals.isEmpty()) return
+
+        fun add(itemId: String, reason: String) {
+            candidates += Triple(itemId, "Confirmed enemy build: $reason", 5)
+        }
+
+        val magic = hero.damageType == DamageType.MAGIC
+        val tankOrSupport = Role.TANK in hero.roles || Role.SUPPORT in hero.roles
+        val squishy = hero.attrs.durability <= 5
+
+        if (EnemyBuildSignal.HEALING in signals) {
+            when {
+                magic -> add("necklace-of-durance", "healing / lifesteal needs an early magic-side anti-heal.")
+                tankOrSupport -> add("dominance-ice", "your frontline slot should cut their healing and lifesteal.")
+                else -> add("sea-halberd", "their healing will outlast physical damage without anti-heal.")
+            }
+        }
+        if (EnemyBuildSignal.SHIELDS in signals && tankOrSupport) {
+            add("dominance-ice", "this frontline answer weakens their confirmed shield investment.")
+        }
+        if (EnemyBuildSignal.ATTACK_SPEED in signals || EnemyBuildSignal.CRITICAL_DAMAGE in signals) {
+            when {
+                hero.attrs.durability >= 7 -> add("blade-armor", "it punishes their confirmed repeated basic attacks.")
+                !magic -> add("wind-of-nature", "it creates a physical-immunity window against their carry build.")
+                else -> add("winter-crown", "use invulnerability to survive the confirmed basic-attack focus window.")
+            }
+        }
+        if (EnemyBuildSignal.PHYSICAL_PENETRATION in signals) {
+            add("antique-cuirass", "reduce the ability damage behind their confirmed physical-penetration build.")
+        }
+        if (EnemyBuildSignal.MAGIC_BURST in signals || EnemyBuildSignal.MAGIC_PENETRATION in signals) {
+            when {
+                hero.attrs.durability >= 7 -> add("athenas-shield", "its shield covers the confirmed magic burst window.")
+                squishy -> add("winter-crown", "it buys time through the confirmed magic burst rotation.")
+                else -> add("radiant-armor", "it scales into their confirmed sustained magic damage.")
+            }
+        }
+        if (EnemyBuildSignal.ARMOR in signals) {
+            if (magic) add("divine-glaive", "percentage magic penetration answers their confirmed armour / defence stack.")
+            else add("malefic-roar", "percentage physical penetration answers their confirmed armour stack.")
+        }
+        if (EnemyBuildSignal.MAGIC_RESIST in signals && magic) {
+            add("divine-glaive", "percentage magic penetration answers their confirmed magic-resistance stack.")
+        }
+        if (EnemyBuildSignal.HIGH_HEALTH in signals) {
+            when {
+                Role.MARKSMAN in hero.roles -> add("demon-hunter-sword", "percent-HP damage scales with their confirmed high-health build.")
+                magic -> add("glowing-wand", "its percentage-health burn stays valuable into their confirmed high-health build.")
+            }
+        }
     }
 
     // --- spells and emblem ---

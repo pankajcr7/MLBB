@@ -3,6 +3,7 @@ package com.pankaj.mlbbdraft.engine
 import com.pankaj.mlbbdraft.engine.data.DatasetLoader
 import com.pankaj.mlbbdraft.engine.model.DraftMode
 import com.pankaj.mlbbdraft.engine.model.DraftState
+import com.pankaj.mlbbdraft.engine.model.EnemyBuildSignal
 import com.pankaj.mlbbdraft.engine.model.Lane
 import com.pankaj.mlbbdraft.engine.model.Pick
 import com.pankaj.mlbbdraft.engine.model.PlayerProfile
@@ -150,6 +151,30 @@ class DraftEngineTest {
         assertTrue(
             "Anti-heal should be top priority here",
             advice.first().priority >= 5,
+        )
+    }
+
+    @Test
+    fun `confirmed scanned build changes the recommended hero counter build`() {
+        val state = DraftState.forMode(DraftMode.RANKED)
+            .withPick(Side.ENEMY, 0, Pick("estes", Lane.ROAM))
+            .withPick(Side.ENEMY, 1, Pick("hylos", Lane.EXP))
+            .copy(
+                enemyBuildSignals = setOf(
+                    EnemyBuildSignal.HEALING,
+                    EnemyBuildSignal.ARMOR,
+                ),
+            )
+
+        val build = engine.buildFor(db.require("melissa"), state, Lane.GOLD)
+        val situational = build.situational
+
+        assertTrue("Expected Sea Halberd from confirmed healing, got $situational", situational.any { it.item.id == "sea-halberd" })
+        assertTrue("Expected Malefic Roar from confirmed armor, got $situational", situational.any { it.item.id == "malefic-roar" })
+        assertTrue(
+            "Scanned-build answers must show why they were prioritised: $situational",
+            situational.filter { it.item.id in setOf("sea-halberd", "malefic-roar") }
+                .all { it.reason.startsWith("Confirmed enemy build:") },
         )
     }
 
